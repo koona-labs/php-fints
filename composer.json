@@ -1,0 +1,28 @@
+{
+    "name": "abiturma/php-fints",
+    "description": "An adapter to use home banking with php",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Abiturma\\PhpFints\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aaron Kunert",
+            "email": "aaron.kunert@abiturma.de"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.1",
+        "php-curl-class/php-curl-class": "^8.5",
+        "genkgo/camt": "^0.5.0",
+        "psr/log": "^1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    }
+}

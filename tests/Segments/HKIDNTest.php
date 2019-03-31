@@ -1,0 +1,70 @@
+<?php
+
+namespace Tests\Segments;
+
+use Abiturma\PhpFints\Credentials\ConfigCredentials;
+use Abiturma\PhpFints\Credentials\HoldsCredentials;
+use Abiturma\PhpFints\Segments\HKIDN;
+use Tests\TestCase;
+
+
+class HKIDNTest extends TestCase
+{
+
+    /** @test */
+    public function a_segment_head_is_built()
+    {
+        $this->assertStringStartsWith('HKIDN:1:2+',(new HKIDN())->toString()); 
+    }
+    
+    /** @test */
+    public function it_has_sensible_defaults()
+    {
+        $this->assertEquals("HKIDN:1:2+280:0+username+0+1'",(new HKIDN())->toString());
+    }
+    
+    /** @test */
+    public function it_injects_a_username()
+    {
+        $username = 'myTestUsername'; 
+        $this->assertStringContainsString($username, (new HKIDN())->setUsername($username)->toString()); 
+    }
+    
+    /** @test */
+    public function it_injects_a_bankcode()
+    {
+        $bankCode = 123456789;
+        $this->assertStringContainsString($bankCode, (new HKIDN())->setBankCode($bankCode)->toString());
+    }
+
+    /** @test */
+    public function it_injects_a_system_id()
+    {
+        $systemId = 123321;
+        $this->assertStringContainsString($systemId, (new HKIDN())->setSystemId($systemId)->toString());
+    }
+    
+    
+    
+    /** @test */
+    public function it_can_be_build_from_credentials()
+    {
+        $username = 'myTestUsername'; 
+        $bankCode = 123321; 
+        $credentials = $this->createMock(HoldsCredentials::class); 
+        $credentials->method('username')->willReturn($username); 
+        $credentials->method('bankCode')->willReturn($bankCode);
+        
+        $hkidn = (new HKIDN())->fromCredentials($credentials);  
+        
+        $this->assertStringContainsString("280:$bankCode+$username",$hkidn->toString());
+
+    }
+    
+    
+    
+    
+    
+
+}
+
