@@ -4,7 +4,8 @@ namespace Abiturma\PhpFints;
 
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
-use Abiturma\PhpFints\Models\HasAccountStatement;
+use Abiturma\PhpFints\Models\Account;
+use Abiturma\PhpFints\Models\IdentifiesBankAccount;
 use DateInterval;
 use DateTime;
 use Psr\Log\LoggerInterface;
@@ -77,50 +78,50 @@ class BaseFints
     }
 
     /**
-     * @param HasAccountStatement $account
+     * @param IdentifiesBankAccount $account
      * @param DateTime|null $from
      * @param DateTime|null $to
      * @return array
      * @throws \Exception
      */
-    public function getSwiftStatementOfAccount(HasAccountStatement $account, DateTime $from = null, DateTime $to = null)
+    public function getSwiftStatementOfAccount(IdentifiesBankAccount $account, DateTime $from = null, DateTime $to = null)
     {
         return $this->getStatementOfAccountByType($account, $from, $to, 'swift');
     }
 
     /**
-     * @param HasAccountStatement $account
+     * @param IdentifiesBankAccount $account
      * @param DateTime|null $from
      * @param DateTime|null $to
      * @return array
      * @throws \Exception
      */
-    public function getCamtStatementOfAccount(HasAccountStatement $account, DateTime $from = null, DateTime $to = null)
+    public function getCamtStatementOfAccount(IdentifiesBankAccount $account, DateTime $from = null, DateTime $to = null)
     {
         return $this->getStatementOfAccountByType($account, $from, $to, 'camt');
     }
 
     /**
-     * @param HasAccountStatement $account
+     * @param IdentifiesBankAccount $account
      * @param DateTime|null $from
      * @param DateTime|null $to
      * @return array
      * @throws \Exception
      */
-    public function getStatementOfAccount(HasAccountStatement $account, DateTime $from = null, DateTime $to = null)
+    public function getStatementOfAccount(IdentifiesBankAccount $account, DateTime $from = null, DateTime $to = null)
     {
         return $this->getStatementOfAccountByType($account, $from, $to);
     }
 
     /**
-     * @param HasAccountStatement $account
+     * @param IdentifiesBankAccount $account
      * @param DateTime|null $from
      * @param DateTime|null $to
      * @param null $type
      * @return array
      * @throws \Exception
      */
-    public function getStatementOfAccountByType(HasAccountStatement $account, DateTime $from = null, DateTime $to = null, $type = null)
+    public function getStatementOfAccountByType(IdentifiesBankAccount $account, DateTime $from = null, DateTime $to = null, $type = null)
     {
         $from = $from ?? (new DateTime())->sub(new DateInterval('P6M'));
         $to = $to ?? (new DateTime());
@@ -128,7 +129,8 @@ class BaseFints
         $this->dialog->sync();
         $this->dialog->init();
         
-        $statements = $this->dialog->getStatementOfAccount($account->toFinTsAccount(), $from, $to, $type);
+        $accountModel = new Account($account->getAccountAttributes()); 
+        $statements = $this->dialog->getStatementOfAccount($accountModel, $from, $to, $type);
         
         $this->dialog->close();
         

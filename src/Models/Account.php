@@ -11,7 +11,7 @@ use Abiturma\PhpFints\DataElements\Groups\Ktz;
  * Class Account
  * @package Abiturma\PhpFints
  */
-class Account extends AbstractModel implements HasAccountStatement
+class Account extends AbstractModel implements IdentifiesBankAccount
 {
 
     /**
@@ -32,11 +32,11 @@ class Account extends AbstractModel implements HasAccountStatement
 
 
     /**
-     * @return $this
+     * @return array
      */
-    public function toFinTsAccount()
+    public function getAccountAttributes()
     {
-        return $this;
+        return $this->getAttributes();
     }
 
     /**

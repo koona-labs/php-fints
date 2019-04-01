@@ -6,7 +6,7 @@ use Abiturma\PhpFints\BaseFints;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
 use Abiturma\PhpFints\Models\Account;
-use Abiturma\PhpFints\Models\HasAccountStatement;
+use Abiturma\PhpFints\Models\IdentifiesBankAccount;
 use Abiturma\PhpFints\Response\Messages\AccountsResponse;
 use Abiturma\PhpFints\Response\Response;
 
@@ -53,7 +53,7 @@ class BaseFintsTest extends TestCase
         $this->dialog->expects($this->once())->method('close');
         
         
-        $account = $this->createMock(HasAccountStatement::class);
+        $account = $this->createMock(IdentifiesBankAccount::class);
         $account->method('toFinTsAccount')->willReturn($this->createMock(Account::class));
         
         $this->assertEquals([1,2,3], $this->make()->getStatementOfAccount($account));
@@ -64,10 +64,10 @@ class BaseFintsTest extends TestCase
     {
         $this->dialog->expects($this->once())
             ->method('getStatementOfAccount')
-            ->with($this->isInstanceOf(HasAccountStatement::class), $this->anything(), $this->anything(), $this->equalTo('swift'))
+            ->with($this->isInstanceOf(IdentifiesBankAccount::class), $this->anything(), $this->anything(), $this->equalTo('swift'))
             ->willReturn([1,2,3]);
 
-        $account = $this->createMock(HasAccountStatement::class);
+        $account = $this->createMock(IdentifiesBankAccount::class);
         $account->method('toFinTsAccount')->willReturn($this->createMock(Account::class));
 
         $this->assertEquals([1,2,3], $this->make()->getSwiftStatementOfAccount($account));
@@ -79,10 +79,10 @@ class BaseFintsTest extends TestCase
     {
         $this->dialog->expects($this->once())
             ->method('getStatementOfAccount')
-            ->with($this->isInstanceOf(HasAccountStatement::class), $this->anything(), $this->anything(), $this->equalTo('camt'))
+            ->with($this->isInstanceOf(IdentifiesBankAccount::class), $this->anything(), $this->anything(), $this->equalTo('camt'))
             ->willReturn([1,2,3]);
 
-        $account = $this->createMock(HasAccountStatement::class);
+        $account = $this->createMock(IdentifiesBankAccount::class);
         $account->method('toFinTsAccount')->willReturn($this->createMock(Account::class));
 
         $this->assertEquals([1,2,3], $this->make()->getCamtStatementOfAccount($account));
