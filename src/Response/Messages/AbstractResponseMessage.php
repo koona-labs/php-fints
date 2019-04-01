@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Response\Messages;
 
-
 use Abiturma\PhpFints\Response\Response;
 
 /**
@@ -12,7 +11,7 @@ use Abiturma\PhpFints\Response\Response;
 abstract class AbstractResponseMessage
 {
     /**
-     * @var Response 
+     * @var Response
      */
     protected $response;
 
@@ -34,5 +33,4 @@ abstract class AbstractResponseMessage
     {
         return $this->response->$name(...$arguments);
     }
-    
 }

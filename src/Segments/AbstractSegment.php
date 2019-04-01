@@ -2,25 +2,23 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Misc\HoldsDataElements;
 use Abiturma\PhpFints\Misc\OutputsSegmentAsString;
 
 /**
  * Class AbstractSegment
- * 
+ *
  * Data elements of segment head (= 1st field)
  * - Code
  * - SegmentNumber
  * - SegmentVersion
- * 
+ *
  * @package Abiturma\PhpFints
  */
 abstract class AbstractSegment
 {
-
-    use HoldsDataElements, OutputsSegmentAsString; 
+    use HoldsDataElements, OutputsSegmentAsString;
     
     const NAME = "XXXX";
 
@@ -32,12 +30,11 @@ abstract class AbstractSegment
 
     public function __construct()
     {
-        $this->boot();      
+        $this->boot();
     }
 
     protected function boot()
     {
-        
     }
 
     /**
@@ -55,7 +52,7 @@ abstract class AbstractSegment
      */
     public function getSegmentNumber()
     {
-        return $this->segmentNumber; 
+        return $this->segmentNumber;
     }
 
     public function incrementSegmentNumber()
@@ -69,7 +66,7 @@ abstract class AbstractSegment
      */
     public function mergeDialogParameters(DialogParameters $parameters)
     {
-        return $this; 
+        return $this;
     }
 
     /**
@@ -77,7 +74,7 @@ abstract class AbstractSegment
      */
     public function getVersion()
     {
-        return static::VERSION; 
+        return static::VERSION;
     }
 
     /**
@@ -85,7 +82,7 @@ abstract class AbstractSegment
      */
     public function getName()
     {
-        return static::NAME; 
+        return static::NAME;
     }
 
     /**
@@ -101,8 +98,6 @@ abstract class AbstractSegment
      */
     protected function getPositionOffset()
     {
-        return 2; 
+        return 2;
     }
-
-
 }

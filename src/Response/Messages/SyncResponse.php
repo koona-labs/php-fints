@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Response\Messages;
 
-
 use Abiturma\PhpFints\Response\HoldsDialogParameters;
 use Abiturma\PhpFints\Segments\HKVVB;
 
@@ -62,11 +61,11 @@ class SyncResponse extends AbstractResponseMessage implements HoldsDialogParamet
      */
     public function getCamtVersion()
     {
-        if(!$hicazs = $this->getFirstOfType('HICAZS')) {
-            return null; 
+        if (!$hicazs = $this->getFirstOfType('HICAZS')) {
+            return null;
         }
         
-        return $hicazs->getElementAtPosition(5)->getElementAtPosition(4)->toRawValue(); 
+        return $hicazs->getElementAtPosition(5)->getElementAtPosition(4)->toRawValue();
     }
 
     /**
@@ -74,24 +73,23 @@ class SyncResponse extends AbstractResponseMessage implements HoldsDialogParamet
      */
     public function getTanFunctionCode()
     {
-        $feedback = array_filter($this->getSegmentalFeedback(),function($feedback) {
-            return $feedback->getReference() ==  HKVVB::NAME; 
-        }); 
+        $feedback = array_filter($this->getSegmentalFeedback(), function ($feedback) {
+            return $feedback->getReference() ==  HKVVB::NAME;
+        });
         
-        if(!$feedback) {
-            return null; 
+        if (!$feedback) {
+            return null;
         }
         
         $feedback = array_shift($feedback);
         
-        $errorMessage = $feedback->getElementByCode($this->tanErrorCode); 
+        $errorMessage = $feedback->getElementByCode($this->tanErrorCode);
         
-        if(!$errorMessage) {
-            return null; 
+        if (!$errorMessage) {
+            return null;
         }
         
-        return $errorMessage->getElementAtPosition(4)->toRawValue(); 
-        
+        return $errorMessage->getElementAtPosition(4)->toRawValue();
     }
 
     /**
@@ -99,14 +97,13 @@ class SyncResponse extends AbstractResponseMessage implements HoldsDialogParamet
      */
     public function getSwiftStatementVersion()
     {
-        $result = array_map(function($segment) {
-            return $segment->getVersion(); 
-        }, $this->getByType('HIKAZS')); 
+        $result = array_map(function ($segment) {
+            return $segment->getVersion();
+        }, $this->getByType('HIKAZS'));
         
-        $result = array_intersect([6,7],$result); 
+        $result = array_intersect([6,7], $result);
         
-        return count($result) ? max($result) : null; 
-        
+        return count($result) ? max($result) : null;
     }
 
 
@@ -124,14 +121,11 @@ class SyncResponse extends AbstractResponseMessage implements HoldsDialogParamet
             'swiftStatementVersion' => $this->getSwiftStatementVersion(),
             'tanFunctionCode' => $this->getTanFunctionCode()
         ];
-        return array_filter($result,
+        return array_filter(
+            $result,
             function ($entry) {
                 return $entry !== false;
-            });
+            }
+        );
     }
-
-
-   
-
-
 }

@@ -2,31 +2,29 @@
 
 namespace Abiturma\PhpFints\DataElements\Groups;
 
-
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 
 /**
  * Class Kti
- * 
+ *
  * Fields
  * - 1 iban (O)
  * - 2 bic (O)
  * - 3 account number (O)
  * - 4 sub account number (0)
  * - 5 Kik
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class Kti extends DataElementGroup
 {
-
     protected function boot()
     {
         $this->addElement('')
             ->addElement('')
             ->addElement('')
             ->addElement('')
-            ->addElement((new Kik())->setElementAtPosition(1,'')->setElementAtPosition(2,''));
+            ->addElement((new Kik())->setElementAtPosition(1, '')->setElementAtPosition(2, ''));
     }
 
     /**
@@ -44,7 +42,7 @@ class Kti extends DataElementGroup
      */
     public function setBic($bic)
     {
-        return $this->setElementAtPosition(2,$bic); 
+        return $this->setElementAtPosition(2, $bic);
     }
 
     /**
@@ -53,7 +51,7 @@ class Kti extends DataElementGroup
      */
     public function setAccountNumber($accountNumber)
     {
-        return $this->setElementAtPosition(3,$accountNumber); 
+        return $this->setElementAtPosition(3, $accountNumber);
     }
 
     /**
@@ -62,7 +60,7 @@ class Kti extends DataElementGroup
      */
     public function setSubAccountNumber($subAccountNumber)
     {
-        return $this->setElementAtPosition(4,$subAccountNumber); 
+        return $this->setElementAtPosition(4, $subAccountNumber);
     }
 
     /**
@@ -73,7 +71,4 @@ class Kti extends DataElementGroup
     {
         return $this->setElementAtPosition(5, $kiK);
     }
-    
-    
-
 }

@@ -2,21 +2,19 @@
 
 namespace Abiturma\PhpFints\Credentials;
 
-
 /**
  * Interface HoldsCredentials
  * @package Abiturma\PhpFints
  */
 interface HoldsCredentials
 {
-
     public function host();
 
-    public function port(); 
+    public function port();
 
-    public function bankCode(); 
+    public function bankCode();
 
-    public function username(); 
+    public function username();
 
     public function pin();
 
@@ -50,6 +48,4 @@ interface HoldsCredentials
      * @return $this
      */
     public function setPin($pin);
-
-
 }

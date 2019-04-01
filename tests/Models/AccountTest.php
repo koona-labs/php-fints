@@ -8,19 +8,16 @@ use Abiturma\PhpFints\DataElements\Groups\Ktz;
 use Abiturma\PhpFints\Models\Account;
 use Tests\TestCase;
 
-
 /**
  * Class AccountTest
  * @package Tests\Models
  */
 class AccountTest extends TestCase
 {
-
-    protected $testAttributes; 
+    protected $testAttributes;
     
     public function setUp(): void
     {
-
         parent::setup();
         
         $this->testAttributes = [
@@ -28,7 +25,7 @@ class AccountTest extends TestCase
             'account_number' => 'testAccountNumber',
             'bic' => 'testBic',
             'iban' => 'testIban'
-        ]; 
+        ];
     }
     
     /** @test */
@@ -38,33 +35,26 @@ class AccountTest extends TestCase
             ->setBankCode('testBankCode')
             ->setAccountNumber('testAccountNumber')
             ->setBic('testBic')
-            ->setIban('testIban'); 
+            ->setIban('testIban');
         
-        $account = Account::fromKtz($ktz); 
+        $account = Account::fromKtz($ktz);
         
-        $this->assertEquals($this->testAttributes, $account->toArray()); 
-        
+        $this->assertEquals($this->testAttributes, $account->toArray());
     }
     
     /** @test */
     public function it_transforms_itself_to_a_ktv()
     {
-        $account = new Account($this->testAttributes); 
-        $this->assertInstanceOf(Ktv::class,$account->toKtv()); 
-        $this->assertEquals('testAccountNumber:EUR:280:testBankCode',$account->toKtv()->toString()); 
-        
+        $account = new Account($this->testAttributes);
+        $this->assertInstanceOf(Ktv::class, $account->toKtv());
+        $this->assertEquals('testAccountNumber:EUR:280:testBankCode', $account->toKtv()->toString());
     }
     
     /** @test */
     public function it_transforms_itself_to_kti()
     {
         $account = new Account($this->testAttributes);
-        $this->assertInstanceOf(Kti::class,$account->toKti());
-        $this->assertEquals('testIban:testBic:testAccountNumber::280:testBankCode',$account->toKti()->toString());
+        $this->assertInstanceOf(Kti::class, $account->toKti());
+        $this->assertEquals('testIban:testBic:testAccountNumber::280:testBankCode', $account->toKti()->toString());
     }
-    
-    
-    
-
 }
-

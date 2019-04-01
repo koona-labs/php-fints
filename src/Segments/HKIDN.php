@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Abiturma\PhpFints\Dialog\DialogParameters;
@@ -15,13 +14,12 @@ use Abiturma\PhpFints\Dialog\DialogParameters;
  * - 3 Username
  * - 4 SystemId
  * - 5 SystemStatus
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class HKIDN extends AbstractSegment
 {
-
-    const NAME = 'HKIDN'; 
+    const NAME = 'HKIDN';
     
     const VERSION = 2;
 
@@ -33,7 +31,7 @@ class HKIDN extends AbstractSegment
         $this->addElement(new Kik())
             ->addElement('username')
             ->addElement(0)
-            ->addElement(static::SYSTEM_STATUS_ID); 
+            ->addElement(static::SYSTEM_STATUS_ID);
     }
 
     /**
@@ -42,8 +40,8 @@ class HKIDN extends AbstractSegment
      */
     public function setBankCode($bankCode)
     {
-        $this->getElementAtPosition(2)->setBankCode($bankCode); 
-        return $this; 
+        $this->getElementAtPosition(2)->setBankCode($bankCode);
+        return $this;
     }
 
     /**
@@ -52,8 +50,8 @@ class HKIDN extends AbstractSegment
      */
     public function setUsername($username)
     {
-        $this->setElementAtPosition(3,$username); 
-        return $this; 
+        $this->setElementAtPosition(3, $username);
+        return $this;
     }
 
     /**
@@ -62,8 +60,8 @@ class HKIDN extends AbstractSegment
      */
     public function setSystemId($systemId)
     {
-        $this->setElementAtPosition(4,$systemId); 
-        return $this; 
+        $this->setElementAtPosition(4, $systemId);
+        return $this;
     }
 
     /**
@@ -72,10 +70,9 @@ class HKIDN extends AbstractSegment
      */
     public function fromCredentials(HoldsCredentials $credentials)
     {
-        $username = $credentials->username(); 
-        $bankCode = $credentials->bankCode(); 
-        return $this->setUsername($username)->setBankCode($bankCode); 
-        
+        $username = $credentials->username();
+        $bankCode = $credentials->bankCode();
+        return $this->setUsername($username)->setBankCode($bankCode);
     }
 
     /**
@@ -84,9 +81,6 @@ class HKIDN extends AbstractSegment
      */
     public function mergeDialogParameters(DialogParameters $parameters)
     {
-        return $this->setSystemId($parameters->systemId);  
+        return $this->setSystemId($parameters->systemId);
     }
-    
-    
-    
 }

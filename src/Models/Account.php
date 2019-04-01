@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Models;
 
-
 use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Abiturma\PhpFints\DataElements\Groups\Kti;
 use Abiturma\PhpFints\DataElements\Groups\Ktv;
@@ -37,7 +36,7 @@ class Account extends AbstractModel implements HasAccountStatement
      */
     public function toFinTsAccount()
     {
-        return $this; 
+        return $this;
     }
 
     /**

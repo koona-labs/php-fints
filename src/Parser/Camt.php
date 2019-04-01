@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Parser;
 
-
 use Abiturma\PhpFints\Models\Transaction;
 use BadMethodCallException;
 use DateTime;
@@ -16,7 +15,6 @@ use Genkgo\Camt\Reader;
  */
 class Camt
 {
-
     protected $rawString;
 
     /**
@@ -50,8 +48,8 @@ class Camt
      */
     protected function prepare()
     {
-        $this->rawString = preg_replace('/<\/Ustrd>\s*<Ustrd>/mi','',$this->rawString); 
-        return $this; 
+        $this->rawString = preg_replace('/<\/Ustrd>\s*<Ustrd>/mi', '', $this->rawString);
+        return $this;
     }
 
     /**
@@ -61,46 +59,44 @@ class Camt
      */
     protected function entryToTransaction($entry)
     {
-        $bookingDate = new DateTime($entry->getBookingDate()->format('Y-m-d')); 
+        $bookingDate = new DateTime($entry->getBookingDate()->format('Y-m-d'));
         $valueDate = new DateTime($entry->getValueDate()->format('Y-m-d'));
         $amount = $entry->getAmount()->getAmount();
-        $currency = $entry->getAmount()->getCurrency()->getCode(); 
-        $codes = explode('+',$entry->getBankTransactionCode()->getProprietary()->getCode());
+        $currency = $entry->getAmount()->getCurrency()->getCode();
+        $codes = explode('+', $entry->getBankTransactionCode()->getProprietary()->getCode());
         
         
         $transactionCode = $codes[1];
-        $primaNota = $codes[2]; 
+        $primaNota = $codes[2];
         
         $details = $entry->getTransactionDetail();
         
-        $index = $amount>0 ? 1 : 0; 
+        $index = $amount>0 ? 1 : 0;
         
-        $remote_account_number = ''; 
-        $remote_bank_code = ''; 
-        $remote_name = ''; 
+        $remote_account_number = '';
+        $remote_bank_code = '';
+        $remote_name = '';
         
-        if(array_key_exists($index,$details->getRelatedParties())) {
+        if (array_key_exists($index, $details->getRelatedParties())) {
             $relatedParty = $details->getRelatedParties()[$index];
-            $remote_account_number = $relatedParty->getAccount()->getIban()->getIban(); 
-            $remote_name = $relatedParty->getRelatedPartyType()->getName(); 
+            $remote_account_number = $relatedParty->getAccount()->getIban()->getIban();
+            $remote_name = $relatedParty->getRelatedPartyType()->getName();
         }
         
-        if(array_key_exists($index,$details->getRelatedAgents())) {
+        if (array_key_exists($index, $details->getRelatedAgents())) {
             $remote_bank_code = $details->getRelatedAgents()[$index]->getRelatedAgentType()->getBic();
         }
         
         try {
-            $description = $details->getRemittanceInformation()->getMessage();  
-        }
-        catch ( BadMethodCallException $e) {
-            $description = ''; 
+            $description = $details->getRemittanceInformation()->getMessage();
+        } catch (BadMethodCallException $e) {
+            $description = '';
         }
         
         try {
-            $end_to_end_reference = $details->getReference()->getEndToEndId(); 
-        }
-        catch( BadMethodCallException $e) {
-            $end_to_end_reference = null; 
+            $end_to_end_reference = $details->getReference()->getEndToEndId();
+        } catch (BadMethodCallException $e) {
+            $end_to_end_reference = null;
         }
 
                 
@@ -108,7 +104,7 @@ class Camt
         $data = [
             'booking_date' => $bookingDate,
             'value_date' => $valueDate,
-            'currency' => $currency, 
+            'currency' => $currency,
             'base_amount' => $amount,
             'remote_name' => $remote_name,
             'remote_account_number' => $remote_account_number,
@@ -119,9 +115,6 @@ class Camt
             'prima_nota' => $primaNota
         ];
 
-        return new Transaction($data); 
-
+        return new Transaction($data);
     }
-
-
 }

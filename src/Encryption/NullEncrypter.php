@@ -2,12 +2,12 @@
 
 namespace Abiturma\PhpFints\Encryption;
 
-
 /**
  * Class NullEncrypter
  * @package Abiturma\PhpFints
  */
-class NullEncrypter extends AbstractEncrypter {
+class NullEncrypter extends AbstractEncrypter
+{
 
 
     /**
@@ -16,10 +16,10 @@ class NullEncrypter extends AbstractEncrypter {
      */
     protected function encryptSegments($segments)
     {
-        $result = array_map(function($segment) {
+        $result = array_map(function ($segment) {
             return $segment->toString();
         }, $segments);
-        return implode($result,'');
+        return implode($result, '');
     }
 
     /**
@@ -27,10 +27,10 @@ class NullEncrypter extends AbstractEncrypter {
      * @param $segments
      * @return mixed
      */
-    protected function setHeadProps($head,$segments)
+    protected function setHeadProps($head, $segments)
     {
-        $head->setKeyTypeToCypher(); 
-        return $head; 
+        $head->setKeyTypeToCypher();
+        return $head;
     }
 
     /**
@@ -39,6 +39,6 @@ class NullEncrypter extends AbstractEncrypter {
      */
     public function decrypt($string)
     {
-        return $string; 
+        return $string;
     }
 }

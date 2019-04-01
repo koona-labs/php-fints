@@ -6,7 +6,6 @@ use Abiturma\PhpFints\Segments\HNHBK;
 use Abiturma\PhpFints\Segments\HNVSD;
 use Tests\TestCase;
 
-
 /**
  * Class HNVSDTest
  * @package Tests\Segments
@@ -19,7 +18,7 @@ class HNVSDTest extends TestCase
     public function an_encrypted_data_segment_is_built()
     {
         $segment = new HNVSD();
-        $this->assertStringStartsWith('HNVSD:1:1',$segment->toString());
+        $this->assertStringStartsWith('HNVSD:1:1', $segment->toString());
     }
     
     
@@ -31,9 +30,5 @@ class HNVSDTest extends TestCase
         $segmentUnderTest = (new HNVSD())->setEncryptedData($stringToHold);
 
         $this->assertStringEndsWith("@$length@$stringToHold'", $segmentUnderTest->toString());
-    }        
-    
-    
-
+    }
 }
-

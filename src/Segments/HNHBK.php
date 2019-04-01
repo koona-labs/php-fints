@@ -2,24 +2,22 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\Dialog\DialogParameters;
 
 /**
  * MessageHead/Nachrichtenkopf
- * 
+ *
  * Fields
  * - 2 MessageLength (fixed 12)
  * - 3 HBCI-Version
  * - 4 DialogId
  * - 5 MessageNumber
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class HNHBK extends AbstractSegment
 {
-
     const NAME = "HNHBK";
 
     const HBCI_VERSION = 300;
@@ -32,7 +30,7 @@ class HNHBK extends AbstractSegment
         )
             ->addElement(static::HBCI_VERSION)
             ->addElement(0)
-            ->addElement(1); 
+            ->addElement(1);
     }
 
 
@@ -42,7 +40,7 @@ class HNHBK extends AbstractSegment
      */
     public function setMessageLength($value)
     {
-        return $this->setElementAtPosition(2,(new DataElement($value))->fixedLength(12));
+        return $this->setElementAtPosition(2, (new DataElement($value))->fixedLength(12));
     }
 
     /**
@@ -51,7 +49,7 @@ class HNHBK extends AbstractSegment
      */
     public function setDialogId($value)
     {
-        return $this->setElementAtPosition(4,$value);
+        return $this->setElementAtPosition(4, $value);
     }
 
     /**
@@ -60,7 +58,7 @@ class HNHBK extends AbstractSegment
      */
     public function setMessageNumber($value)
     {
-        return $this->setElementAtPosition(5,$value); 
+        return $this->setElementAtPosition(5, $value);
     }
 
     /**
@@ -70,7 +68,6 @@ class HNHBK extends AbstractSegment
     public function mergeDialogParameters(DialogParameters $dialogParameters)
     {
         return $this->setMessageNumber($dialogParameters->messageNumber)
-            ->setDialogId($dialogParameters->dialogId); 
+            ->setDialogId($dialogParameters->dialogId);
     }
-
 }

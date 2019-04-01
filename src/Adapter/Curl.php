@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Adapter;
 
-
 use Abiturma\PhpFints\Exceptions\ConnectionFailed;
 use Abiturma\PhpFints\Exceptions\HttpException;
 use Abiturma\PhpFints\Message\Message;
@@ -17,7 +16,7 @@ use Exception;
 class Curl implements SendsMessages
 {
     /**
-     * @var \Curl\Curl 
+     * @var \Curl\Curl
      */
     protected $curl;
 
@@ -45,20 +44,19 @@ class Curl implements SendsMessages
 
     /**
      * Sets the host url
-     * 
+     *
      * @param $host
      * @return $this
      */
     public function to($host)
     {
-        
         $this->curl->setUserAgent('Laravel-Hbci');
-        $this->curl->setUrl($host); 
+        $this->curl->setUrl($host);
         $this->curl->setHeaders(["cache-control: no-cache", 'Content-Type: text/plain']);
-        $this->curl->setOpt(CURLOPT_SSLVERSION,1); 
-        $this->curl->setOpt(CURLOPT_SSL_VERIFYPEER,true); 
+        $this->curl->setOpt(CURLOPT_SSLVERSION, 1);
+        $this->curl->setOpt(CURLOPT_SSL_VERIFYPEER, true);
         $this->initialized = true;
-        return $this; 
+        return $this;
     }
 
     /**
@@ -66,7 +64,7 @@ class Curl implements SendsMessages
      */
     public function getCurl()
     {
-        return $this->curl;         
+        return $this->curl;
     }
 
 
@@ -78,19 +76,18 @@ class Curl implements SendsMessages
      */
     public function send(Message $message)
     {
-       if(!$this->initialized) {
-           throw new Exception('No host set'); 
-       }
-       $response = $this->curl->post('',$message->toBase64());  
-       if(!$response) {
-            throw new ConnectionFailed('Cannot connect to host');    
-       }
-       $statusCode = $this->curl->getHttpStatusCode();  
-       if($statusCode < 200 || $statusCode > 299) {
-           throw new HttpException('Received status code '. $statusCode); 
-       }
+        if (!$this->initialized) {
+            throw new Exception('No host set');
+        }
+        $response = $this->curl->post('', $message->toBase64());
+        if (!$response) {
+            throw new ConnectionFailed('Cannot connect to host');
+        }
+        $statusCode = $this->curl->getHttpStatusCode();
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw new HttpException('Received status code '. $statusCode);
+        }
        
-       return $this->responseFactory->fromBase64($response)->setOriginalOrder($message->getSegmentOrder()); 
-       
+        return $this->responseFactory->fromBase64($response)->setOriginalOrder($message->getSegmentOrder());
     }
 }

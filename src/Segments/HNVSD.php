@@ -2,21 +2,19 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\DataElements\Bin;
 
 /**
  * EncryptedData/VerschlüsselteDaten
- * 
+ *
  * Fields
  * - 2 EncryptedData (bin)
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class HNVSD extends AbstractSegment
 {
-    
-    const NAME = 'HNVSD'; 
+    const NAME = 'HNVSD';
     
     const VERSION = 1;
 
@@ -27,10 +25,7 @@ class HNVSD extends AbstractSegment
      */
     public function setEncryptedData($data)
     {
-        $this->setElementAtPosition(1,new Bin($data));
-        return $this; 
+        $this->setElementAtPosition(1, new Bin($data));
+        return $this;
     }
-    
-    
 }
-

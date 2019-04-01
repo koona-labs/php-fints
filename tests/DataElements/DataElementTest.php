@@ -5,7 +5,6 @@ namespace Tests\DataElements;
 use Abiturma\PhpFints\DataElements\DataElement;
 use Tests\TestCase;
 
-
 /**
  * Class DataElementTest
  * @package Tests\DataElements
@@ -17,14 +16,14 @@ class DataElementTest extends TestCase
     /** @test */
     public function it_wraps_a_value_and_parses_it_as_string()
     {
-        $this->assertIsString((new DataElement(12))->toString()); 
+        $this->assertIsString((new DataElement(12))->toString());
     }
     
     /** @test */
     public function it_escapes_control_characters()
     {
-        $testString = "@bla??bla'hack+"; 
-        $this->assertEquals("?@bla????bla?'hack?+", (new DataElement($testString))->toString()); 
+        $testString = "@bla??bla'hack+";
+        $this->assertEquals("?@bla????bla?'hack?+", (new DataElement($testString))->toString());
     }
     
     /** @test */
@@ -37,11 +36,11 @@ class DataElementTest extends TestCase
     /** @test */
     public function it_transforms_an_array_into_an_array_of_data_elements()
     {
-        $testArray = [1,2]; 
-        $elementArray = DataElement::fromArray($testArray); 
+        $testArray = [1,2];
+        $elementArray = DataElement::fromArray($testArray);
         $this->assertIsArray($elementArray);
-        $this->assertInstanceOf(DataElement::class, $elementArray[0]); 
-        $this->assertEquals("1",$elementArray[0]->toString()); 
+        $this->assertInstanceOf(DataElement::class, $elementArray[0]);
+        $this->assertEquals("1", $elementArray[0]->toString());
     }
     
     /** @test */
@@ -49,14 +48,7 @@ class DataElementTest extends TestCase
     {
         $original = (new DataElement(5))->fixedLength(12);
         $cloned = $original->clone();
-        $original->fixedLength(20); 
-        $this->assertEquals('000000000005',$cloned->toString()); 
+        $original->fixedLength(20);
+        $this->assertEquals('000000000005', $cloned->toString());
     }
-    
-    
-    
-    
-    
-
 }
-

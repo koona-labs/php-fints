@@ -2,19 +2,16 @@
 
 namespace Abiturma\PhpFints\DataElements;
 
-
 /**
  * Class DataElement
  * @package Abiturma\PhpFints
  */
 class DataElement implements HoldsStringableData
 {
-
-
     protected $value;
 
     /**
-     * @var bool 
+     * @var bool
      */
     protected $fixedLength = false;
 
@@ -54,7 +51,7 @@ class DataElement implements HoldsStringableData
      */
     public function toRawValue()
     {
-        return (string) $this->value; 
+        return (string) $this->value;
     }
 
 
@@ -87,10 +84,10 @@ class DataElement implements HoldsStringableData
      */
     public static function fromResponseString($string, $binaries = [])
     {
-        $matches = []; 
-        if(preg_match("/@#(\d+)@/",$string,$matches)) {
-            $binary = is_array($binaries) ? $binaries[$matches[1]] : $binaries; 
-            return new Bin($binary); 
+        $matches = [];
+        if (preg_match("/@#(\d+)@/", $string, $matches)) {
+            $binary = is_array($binaries) ? $binaries[$matches[1]] : $binaries;
+            return new Bin($binary);
         }
         
         $value = str_replace(
@@ -100,7 +97,7 @@ class DataElement implements HoldsStringableData
         );
         
         
-        return new static($value); 
+        return new static($value);
     }
 
 
@@ -112,18 +109,16 @@ class DataElement implements HoldsStringableData
     {
         return array_map(function ($value) {
             return new static($value);
-        },$array);
+        }, $array);
     }
 
     /**
-     * Clones this instance recursively 
-     * 
+     * Clones this instance recursively
+     *
      * @return DataElement
      */
     public function clone()
     {
-        return clone $this; 
+        return clone $this;
     }
-
-
 }

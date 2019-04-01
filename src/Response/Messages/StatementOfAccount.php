@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Response\Messages;
 
-
 use Abiturma\PhpFints\Exceptions\NoStatementOfAccountResponse;
 use Abiturma\PhpFints\Exceptions\UnexpectedResponseType;
 use Abiturma\PhpFints\Parser\Camt;
@@ -23,20 +22,19 @@ class StatementOfAccount extends AbstractResponseMessage
      */
     public function getTransactions()
     {
-        if($statement = $this->response->getFirstOfType('HIKAZ')) {
-            return $this->getMtStatement($statement); 
+        if ($statement = $this->response->getFirstOfType('HIKAZ')) {
+            return $this->getMtStatement($statement);
         }
         
-        if($statement = $this->response->getFirstOfType('HICAZ')) {
-            return $this->getCamtStatement($statement); 
+        if ($statement = $this->response->getFirstOfType('HICAZ')) {
+            return $this->getCamtStatement($statement);
         }
         
-        if($this->isOk()) {
-            return []; 
+        if ($this->isOk()) {
+            return [];
         }
 
-        throw new NoStatementOfAccountResponse(); 
-        
+        throw new NoStatementOfAccountResponse();
     }
 
     /**
@@ -45,11 +43,11 @@ class StatementOfAccount extends AbstractResponseMessage
      */
     public function getOriginalType()
     {
-        $segments = array_values(array_intersect(['HKKAZ','HKCAZ'],$this->getOriginalOrder())); 
-        if(count($segments) < 1) {
-            throw new UnexpectedResponseType('No HKKAZ or HKCAZ segment in message'); 
+        $segments = array_values(array_intersect(['HKKAZ','HKCAZ'], $this->getOriginalOrder()));
+        if (count($segments) < 1) {
+            throw new UnexpectedResponseType('No HKKAZ or HKCAZ segment in message');
         }
-        return $segments[0]; 
+        return $segments[0];
     }
 
     /**
@@ -58,7 +56,7 @@ class StatementOfAccount extends AbstractResponseMessage
      */
     public function isPaginated()
     {
-        return $this->response->isPaginated($this->getOriginalType()); 
+        return $this->response->isPaginated($this->getOriginalType());
     }
 
     /**
@@ -67,7 +65,7 @@ class StatementOfAccount extends AbstractResponseMessage
      */
     public function getPaginationToken()
     {
-        return $this->response->getPaginationToken($this->getOriginalType());     
+        return $this->response->getPaginationToken($this->getOriginalType());
     }
 
 
@@ -77,8 +75,8 @@ class StatementOfAccount extends AbstractResponseMessage
      */
     protected function getMtStatement(ResponseSegment $statement)
     {
-        $mt940 = $statement->getElementAtPosition(2)->toRawValue();     
-        return (new MT940)->parseFromString($mt940);     
+        $mt940 = $statement->getElementAtPosition(2)->toRawValue();
+        return (new MT940)->parseFromString($mt940);
     }
 
     /**
@@ -89,9 +87,7 @@ class StatementOfAccount extends AbstractResponseMessage
     protected function getCamtStatement(ResponseSegment $statement)
     {
         $camt = $statement->getElementAtPosition(4)->toRawValue();
-        $camt = iconv('UTF-8','ISO-8859-1',$camt); 
+        $camt = iconv('UTF-8', 'ISO-8859-1', $camt);
         return (new Camt)->parseFromString($camt);
     }
-    
-    
 }

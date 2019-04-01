@@ -7,7 +7,6 @@ use Abiturma\PhpFints\Parser\Camt;
 use DateTime;
 use Tests\TestCase;
 
-
 /**
  * Class CamtTest
  * @package Tests\Parser
@@ -18,67 +17,67 @@ class CamtTest extends TestCase
     /** @test */
     public function it_returns_an_array_of_the_right_length()
     {
-        $result = $this->parse(); 
+        $result = $this->parse();
         $this->assertIsArray($result);
-        $this->assertCount(2,$result); 
-        $this->assertInstanceOf(Transaction::class,$result[0]); 
+        $this->assertCount(2, $result);
+        $this->assertInstanceOf(Transaction::class, $result[0]);
     }
     
     /** @test */
     public function it_parses_the_booking_date_correctly()
     {
-        $result = $this->parse()[0]; 
-        $this->assertInstanceOf(DateTime::class,$result->booking_date); 
-        $this->assertEquals('2010-01-01',$result->booking_date->format('Y-m-d')); 
+        $result = $this->parse()[0];
+        $this->assertInstanceOf(DateTime::class, $result->booking_date);
+        $this->assertEquals('2010-01-01', $result->booking_date->format('Y-m-d'));
     }
     
     /** @test */
     public function it_parses_the_value_date_correctly()
     {
         $result = $this->parse()[0];
-        $this->assertInstanceOf(DateTime::class,$result->value_date);
-        $this->assertEquals('2010-01-02',$result->value_date->format('Y-m-d'));
+        $this->assertInstanceOf(DateTime::class, $result->value_date);
+        $this->assertEquals('2010-01-02', $result->value_date->format('Y-m-d'));
     }
     
     /** @test */
     public function it_parses_the_amount_correctly()
     {
-        $amounts = array_map(function($transaction) {
-            return $transaction->base_amount; 
-        },$this->parse()); 
+        $amounts = array_map(function ($transaction) {
+            return $transaction->base_amount;
+        }, $this->parse());
         
-        $this->assertEquals([-1234,5409],$amounts); 
+        $this->assertEquals([-1234,5409], $amounts);
     }
     
     /** @test */
     public function it_parses_the_remote_correctly()
     {
-        $names = array_map(function($transaction) {
+        $names = array_map(function ($transaction) {
             return $transaction->remote_name;
-        },$this->parse());
+        }, $this->parse());
 
-        $accountNumbers = array_map(function($transaction) {
+        $accountNumbers = array_map(function ($transaction) {
             return $transaction->remote_account_number;
-        },$this->parse());
+        }, $this->parse());
         
 
-        $this->assertEquals(['Creditor 1','Debitor 2'],$names);
-        $this->assertEquals(['DE11520513735120710131','DE11520513735120710131'],$accountNumbers); 
+        $this->assertEquals(['Creditor 1','Debitor 2'], $names);
+        $this->assertEquals(['DE11520513735120710131','DE11520513735120710131'], $accountNumbers);
     }
     
     /** @test */
     public function it_handles_prima_nota_and_transaction_codes_correctly()
     {
-        $result = $this->parse()[0]; 
-        $this->assertEquals('TC1',$result->transaction_code); 
-        $this->assertEquals('PN1',$result->prima_nota); 
+        $result = $this->parse()[0];
+        $this->assertEquals('TC1', $result->transaction_code);
+        $this->assertEquals('PN1', $result->prima_nota);
     }
     
     /** @test */
     public function it_handles_multiline_descriptions_correctly()
     {
         $result = $this->parse()[0];
-        $this->assertEquals('Remittance 1 Line 1Remittance 1 Line 2',$result->description);
+        $this->assertEquals('Remittance 1 Line 1Remittance 1 Line 2', $result->description);
     }
 
 
@@ -88,7 +87,7 @@ class CamtTest extends TestCase
      */
     protected function parse()
     {
-        return (new Camt())->parseFromString($this->getXml()); 
+        return (new Camt())->parseFromString($this->getXml());
     }
 
 
@@ -269,9 +268,5 @@ class CamtTest extends TestCase
     </BkToCstmrAcctRpt>
 </Document>
 EOF;
-
     }
-    
-    
 }
-

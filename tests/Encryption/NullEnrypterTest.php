@@ -8,7 +8,6 @@ use Abiturma\PhpFints\Segments\HNVSD;
 use Abiturma\PhpFints\Segments\HNVSK;
 use Tests\TestCase;
 
-
 /**
  * Class NullEnrypterTest
  * @package Tests\Encryption
@@ -46,9 +45,8 @@ class NullEnrypterTest extends TestCase
     /** @test */
     public function it_decrypts_an_encrypted_segment()
     {
-        $testString = 'thisNeedsToBeDecrypted'; 
-        $this->assertEquals($testString, (new NullEncrypter())->decrypt($testString)); 
-
+        $testString = 'thisNeedsToBeDecrypted';
+        $this->assertEquals($testString, (new NullEncrypter())->decrypt($testString));
     }
 
 
@@ -67,9 +65,6 @@ class NullEnrypterTest extends TestCase
      */
     protected function runDecrypter($segments)
     {
-        return (new NullEncrypter())->decrypt($segments); 
+        return (new NullEncrypter())->decrypt($segments);
     }
-
-
 }
-

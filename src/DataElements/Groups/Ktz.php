@@ -2,12 +2,11 @@
 
 namespace Abiturma\PhpFints\DataElements\Groups;
 
-
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 
 /**
  * Class Ktz
- * 
+ *
  * Fields
  * - 1 IsSepa
  * - 2 IBAN
@@ -15,12 +14,11 @@ use Abiturma\PhpFints\DataElements\DataElementGroup;
  * - 4 Account Number
  * - 5 Sub Account Number (or Currency)
  * - 6 Kik
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class Ktz extends DataElementGroup
 {
-
     const CURRENCY = 'EUR';
 
 
@@ -93,25 +91,23 @@ class Ktz extends DataElementGroup
      */
     protected function buildNestedGroups()
     {
-        if($this->getElementAtPosition(6) instanceof Kik) {
-            return $this; 
+        if ($this->getElementAtPosition(6) instanceof Kik) {
+            return $this;
         }
         
         if ($this->getElementAtPosition(6) instanceof DataElementGroup) {
-            $kik = Kik::fromDataElementGroup($this->getElementAtPosition(6)); 
-            $this->setElementAtPosition(6,$kik); 
-            return $this; 
+            $kik = Kik::fromDataElementGroup($this->getElementAtPosition(6));
+            $this->setElementAtPosition(6, $kik);
+            return $this;
         }
 
         $kik = (new Kik())
-            ->setElementAtPosition(1,$this->getElementAtPosition(6))
-             ->setElementAtPosition(2,$this->getElementAtPosition(7));
+            ->setElementAtPosition(1, $this->getElementAtPosition(6))
+             ->setElementAtPosition(2, $this->getElementAtPosition(7));
         $this->setElementAtPosition(6, $kik);
         $this->removeElementAtPosition(7);
         
         
-        return $this; 
+        return $this;
     }
-
-
 }

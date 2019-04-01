@@ -2,14 +2,12 @@
 
 namespace Abiturma\PhpFints;
 
-
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
 use Abiturma\PhpFints\Models\HasAccountStatement;
 use DateInterval;
 use DateTime;
 use Psr\Log\LoggerInterface;
-
 
 /**
  * Class BaseFints
@@ -19,12 +17,12 @@ class BaseFints
 {
 
     /**
-     * @var HoldsCredentials 
+     * @var HoldsCredentials
      */
     protected $credentials;
 
     /**
-     * @var Dialog 
+     * @var Dialog
      */
     protected $dialog;
 
@@ -47,8 +45,8 @@ class BaseFints
      */
     public function withLogger(LoggerInterface $logger)
     {
-        $this->dialog->setLogger($logger); 
-        return $this; 
+        $this->dialog->setLogger($logger);
+        return $this;
     }
 
     /**
@@ -57,9 +55,9 @@ class BaseFints
      */
     public function useCredentials(HoldsCredentials $credentials)
     {
-        $this->credentials = $credentials; 
-        $this->prepareDialog(); 
-        return $this; 
+        $this->credentials = $credentials;
+        $this->prepareDialog();
+        return $this;
     }
 
 
@@ -74,7 +72,7 @@ class BaseFints
         $this->dialog->init();
         $response = $this->dialog->getAccounts();
         $this->dialog->close();
-        $result = $response->accounts()->getAccounts(); 
+        $result = $response->accounts()->getAccounts();
         return $result;
     }
 
@@ -87,7 +85,7 @@ class BaseFints
      */
     public function getSwiftStatementOfAccount(HasAccountStatement $account, DateTime $from = null, DateTime $to = null)
     {
-        return $this->getStatementOfAccountByType($account,$from,$to,'swift');    
+        return $this->getStatementOfAccountByType($account, $from, $to, 'swift');
     }
 
     /**
@@ -99,7 +97,7 @@ class BaseFints
      */
     public function getCamtStatementOfAccount(HasAccountStatement $account, DateTime $from = null, DateTime $to = null)
     {
-        return $this->getStatementOfAccountByType($account,$from,$to,'camt');    
+        return $this->getStatementOfAccountByType($account, $from, $to, 'camt');
     }
 
     /**
@@ -111,7 +109,7 @@ class BaseFints
      */
     public function getStatementOfAccount(HasAccountStatement $account, DateTime $from = null, DateTime $to = null)
     {
-        return $this->getStatementOfAccountByType($account,$from,$to);
+        return $this->getStatementOfAccountByType($account, $from, $to);
     }
 
     /**
@@ -159,6 +157,4 @@ class BaseFints
         }
         return $this;
     }
-
-
 }

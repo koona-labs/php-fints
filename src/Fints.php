@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints;
 
-
 use Abiturma\PhpFints\Adapter\Curl;
 use Abiturma\PhpFints\Credentials\CredentialsContainer;
 use Abiturma\PhpFints\Dialog\Dialog;
@@ -28,24 +27,24 @@ class Fints
      */
     protected static function build(LoggerInterface $logger = null)
     {
-        if(!$logger) {
-            $logger = new NullLogger(); 
+        if (!$logger) {
+            $logger = new NullLogger();
         }
         
-        $encrypter = new NullEncrypter(); 
+        $encrypter = new NullEncrypter();
         
-        $responseFactory = new ResponseFactory($encrypter); 
-        $adapter = new Curl(new \Curl\Curl(), $responseFactory); 
+        $responseFactory = new ResponseFactory($encrypter);
+        $adapter = new Curl(new \Curl\Curl(), $responseFactory);
         
         $message = new Message($encrypter);
-        $messageBuilder = new MessageBuilder($message); 
+        $messageBuilder = new MessageBuilder($message);
         
-        $dialogParameters = new DialogParameters(); 
+        $dialogParameters = new DialogParameters();
         
-        $dialog = new Dialog($adapter,$messageBuilder,$dialogParameters,$logger); 
+        $dialog = new Dialog($adapter, $messageBuilder, $dialogParameters, $logger);
         
-        $credentials = new CredentialsContainer(); 
-        return new BaseFints($credentials,$dialog); 
+        $credentials = new CredentialsContainer();
+        return new BaseFints($credentials, $dialog);
     }
 
 
@@ -57,8 +56,6 @@ class Fints
      */
     public static function __callStatic($name, $arguments)
     {
-        return self::build()->$name(...$arguments); 
+        return self::build()->$name(...$arguments);
     }
-
-
 }

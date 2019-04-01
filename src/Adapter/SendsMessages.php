@@ -2,10 +2,8 @@
 
 namespace Abiturma\PhpFints\Adapter;
 
-
 use Abiturma\PhpFints\Message\Message;
 use Abiturma\PhpFints\Response\Response;
-
 
 /**
  * Interface SendsMessages
@@ -25,6 +23,5 @@ interface SendsMessages
      * @param $host
      * @return $this
      */
-    public function to($host); 
-    
+    public function to($host);
 }

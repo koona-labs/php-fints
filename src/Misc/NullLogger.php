@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Misc;
 
-
 use Psr\Log\LoggerInterface;
 
 /**

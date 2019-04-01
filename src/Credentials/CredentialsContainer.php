@@ -2,28 +2,26 @@
 
 namespace Abiturma\PhpFints\Credentials;
 
-
 /**
  * Class CredentialsContainer
  * @package Abiturma\PhpFints
  */
 class CredentialsContainer implements HoldsCredentials
 {
+    protected $host;
     
-    protected $host; 
+    protected $port = 443;
     
-    protected $port = 443; 
+    protected $bankCode;
     
-    protected $bankCode; 
+    protected $username;
     
-    protected $username; 
-    
-    protected $pin; 
+    protected $pin;
     
 
     public function host()
     {
-        return $this->host; 
+        return $this->host;
     }
 
     /**
@@ -31,22 +29,22 @@ class CredentialsContainer implements HoldsCredentials
      */
     public function port()
     {
-        return $this->port; 
+        return $this->port;
     }
 
     public function bankCode()
     {
-        return $this->bankCode; 
+        return $this->bankCode;
     }
 
     public function username()
     {
-        return $this->username; 
+        return $this->username;
     }
 
     public function pin()
     {
-        return $this->pin; 
+        return $this->pin;
     }
 
     /**

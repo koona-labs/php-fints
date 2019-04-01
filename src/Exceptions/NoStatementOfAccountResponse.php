@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Exceptions;
 
-
 use Exception;
 
 /**
@@ -11,5 +10,4 @@ use Exception;
  */
 class NoStatementOfAccountResponse extends Exception
 {
-
 }

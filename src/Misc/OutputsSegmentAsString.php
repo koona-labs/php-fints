@@ -2,14 +2,12 @@
 
 namespace Abiturma\PhpFints\Misc;
 
-
 /**
  * Trait OutputsSegmentAsString
  * @package Abiturma\PhpFints
  */
 trait OutputsSegmentAsString
 {
-    
     public static $SEPARATOR = "'";
 
     /**
@@ -20,9 +18,9 @@ trait OutputsSegmentAsString
         $result = array_map(function ($de) {
             return $de->toString();
         }, $this->getElements());
-        array_unshift($result,$this->buildSegmentHead());
+        array_unshift($result, $this->buildSegmentHead());
 
-        return implode('+',$result). static::$SEPARATOR;
+        return implode('+', $result). static::$SEPARATOR;
     }
 
     /**
@@ -38,6 +36,6 @@ trait OutputsSegmentAsString
      */
     protected function buildSegmentHead()
     {
-        return 'XXXX:0:0:0'; 
+        return 'XXXX:0:0:0';
     }
 }

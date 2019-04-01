@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Dialog;
 
-
 use Abiturma\PhpFints\Misc\HasAttributes;
 use Abiturma\PhpFints\Response\HoldsDialogParameters;
 
@@ -12,13 +11,12 @@ use Abiturma\PhpFints\Response\HoldsDialogParameters;
  */
 class DialogParameters
 {
-    
-    use HasAttributes; 
+    use HasAttributes;
 
 
     public function __construct()
     {
-        $this->reset();      
+        $this->reset();
     }
 
     /**
@@ -29,8 +27,8 @@ class DialogParameters
     public function mergeResponse(HoldsDialogParameters $response, $except = [])
     {
         $parameters = $response->toMergableParameters();
-        $parameters = array_diff_key($parameters,array_flip($except)); 
-        $this->attributes = array_intersect_key($parameters, $this->attributes) + $this->attributes; 
+        $parameters = array_diff_key($parameters, array_flip($except));
+        $this->attributes = array_intersect_key($parameters, $this->attributes) + $this->attributes;
         return $this;
     }
 
@@ -42,7 +40,7 @@ class DialogParameters
     public function mergeResponseOnlyWith(HoldsDialogParameters $response, $only = [])
     {
         $parameters = $response->toMergableParameters();
-        $parameters = array_intersect_key($parameters,array_flip($only));
+        $parameters = array_intersect_key($parameters, array_flip($only));
         $this->attributes = array_intersect_key($parameters, $this->attributes) + $this->attributes;
         return $this;
     }
@@ -52,7 +50,7 @@ class DialogParameters
      */
     public function incrementMessageNumber()
     {
-        return $this->setMessageNumber($this->messageNumber + 1); 
+        return $this->setMessageNumber($this->messageNumber + 1);
     }
 
     /**
@@ -66,8 +64,8 @@ class DialogParameters
             'updVersion' => 0,
             'bpdVersion' => 0,
             'messageNumber' => 1,
-            'camtVersion' => null, 
-            'swiftStatementVersion' => null, 
+            'camtVersion' => null,
+            'swiftStatementVersion' => null,
             'paginationToken' => null,
             'tanFunctionCode' => null,
         ];
@@ -84,11 +82,9 @@ class DialogParameters
     {
         $property = lcfirst(substr($name, 3));
         $set = substr($name, 0, 3);
-        if ($set === 'set' && array_key_exists($property,$this->attributes)) {
-            $this->attributes[$property] = $arguments[0]; 
+        if ($set === 'set' && array_key_exists($property, $this->attributes)) {
+            $this->attributes[$property] = $arguments[0];
         }
-        return $this; 
+        return $this;
     }
-
-
 }

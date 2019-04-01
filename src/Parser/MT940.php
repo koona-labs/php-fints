@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Parser;
 
-
 use Abiturma\PhpFints\Models\Transaction;
 use DateTime;
 
@@ -12,8 +11,6 @@ use DateTime;
  */
 class MT940
 {
-
-
     protected $descriptionMap = ['SVWZ' => 'description', 'EREF' => 'end_to_end_reference'];
 
     protected $fieldMap = [
@@ -64,7 +61,6 @@ class MT940
 
 
         return array_values($transactions);
-
     }
 
     /**
@@ -110,8 +106,7 @@ class MT940
      */
     protected function parsePrimary($primary)
     {
-
-        $primary = $this->normalizePrimary($primary); 
+        $primary = $this->normalizePrimary($primary);
         
         //in that case the booking is "canceled"
         if (mb_substr($primary, 10, 1) == 'R') {
@@ -136,13 +131,14 @@ class MT940
         $bookingReference = explode('//', mb_substr($preReference, 3))[0];
 
         return array_merge(
-            $this->buildDates($primary)
-            , [
+            $this->buildDates($primary),
+            [
             'currency' => $this->buildCurrency($currencyIdentifier),
             'base_amount' => $amount,
             'booking_key' => $bookingKey,
             'booking_reference' => $bookingReference,
-        ]);
+        ]
+        );
     }
 
     /**
@@ -165,8 +161,8 @@ class MT940
         return array_merge(
             ['transaction_code' => $transactionCode,],
             $references,
-            $other);
-
+            $other
+        );
     }
 
 
@@ -237,8 +233,8 @@ class MT940
     protected function normalizePrimary($primary)
     {
         //if no booking date is given -> set value date = booking date
-        if(!preg_match('/\d{10}/',$primary)) {
-            $primary = mb_substr($primary,0,4).$primary;
+        if (!preg_match('/\d{10}/', $primary)) {
+            $primary = mb_substr($primary, 0, 4).$primary;
         }
 
         //in that case the booking is "canceled"
@@ -246,13 +242,13 @@ class MT940
             $primary = mb_substr($primary, 0, 10) . mb_substr($primary, 11);
         }
         
-        //check is currency identifier is present (take R for EUR)       
-        if(!preg_match('/[A-Z]/',mb_substr($primary,11,1))) {
-            $primary = mb_substr($primary,0,11) . 'R' .  mb_substr($primary,11); 
+        //check is currency identifier is present (take R for EUR)
+        if (!preg_match('/[A-Z]/', mb_substr($primary, 11, 1))) {
+            $primary = mb_substr($primary, 0, 11) . 'R' .  mb_substr($primary, 11);
         }
         
         
-        return $primary; 
+        return $primary;
     }
 
     /**
@@ -261,10 +257,10 @@ class MT940
      */
     protected function buildCurrency($currencyIdentifier)
     {
-        if(array_key_exists($currencyIdentifier,static::CURRENCY_MAP)) {
-            return static::CURRENCY_MAP[$currencyIdentifier]; 
+        if (array_key_exists($currencyIdentifier, static::CURRENCY_MAP)) {
+            return static::CURRENCY_MAP[$currencyIdentifier];
         }
-        return $currencyIdentifier; 
+        return $currencyIdentifier;
     }
 
     /**
@@ -273,9 +269,7 @@ class MT940
      */
     protected function parseOtherSubfields($fields)
     {
-
         return array_map(function ($patterns) use ($fields) {
-
             if (!is_array($patterns)) {
                 $patterns = [$patterns];
             }
@@ -286,7 +280,6 @@ class MT940
             }, $patterns);
 
             return implode($result);
-
         }, $this->fieldMap);
     }
 
@@ -316,6 +309,4 @@ class MT940
 
         return null;
     }
-
-
 }

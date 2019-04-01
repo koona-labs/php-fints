@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Response;
 
-
 use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 use Abiturma\PhpFints\Exceptions\ResponseSyntaxException;
@@ -15,7 +14,6 @@ use Abiturma\PhpFints\Misc\OutputsSegmentAsString;
  */
 class ResponseSegment
 {
-
     use HoldsDataElements, OutputsSegmentAsString;
 
     protected $type;
@@ -76,7 +74,7 @@ class ResponseSegment
      */
     public function getRelationNumber()
     {
-        return (int) $this->relationNumber; 
+        return (int) $this->relationNumber;
     }
 
 
@@ -88,14 +86,14 @@ class ResponseSegment
     protected static function fromHead($head)
     {
         $headElements = explode(':', $head);
-        if (!in_array(count($headElements),[3,4])) {
-            throw new ResponseSyntaxException("A Segment's head has to have 3 or 4 Elements: " . implode('|',$headElements));
+        if (!in_array(count($headElements), [3,4])) {
+            throw new ResponseSyntaxException("A Segment's head has to have 3 or 4 Elements: " . implode('|', $headElements));
         }
         $result = new static();
         $result->type = $headElements[0];
         $result->segmentNumber = $headElements[1];
         $result->version = $headElements[2];
-        $result->relationNumber = array_key_exists(3,$headElements) ? $headElements[3] : 0;  
+        $result->relationNumber = array_key_exists(3, $headElements) ? $headElements[3] : 0;
         return $result;
     }
 
@@ -105,7 +103,7 @@ class ResponseSegment
      */
     protected function buildSegmentHead()
     {
-        return implode(':',[$this->type,$this->segmentNumber,$this->version,$this->relationNumber]);     
+        return implode(':', [$this->type,$this->segmentNumber,$this->version,$this->relationNumber]);
     }
 
     /**
@@ -115,5 +113,4 @@ class ResponseSegment
     {
         return 2;
     }
-
 }

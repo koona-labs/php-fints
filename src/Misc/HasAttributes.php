@@ -3,7 +3,6 @@
 
 namespace Abiturma\PhpFints\Misc;
 
-
 /**
  * Trait HasAttributes
  * @package Abiturma\PhpFints
@@ -24,10 +23,10 @@ trait HasAttributes
             return $this->attributes[$name];
         }
         
-        $getter = "get{$this->toStudlyCase($name)}Attribute"; 
+        $getter = "get{$this->toStudlyCase($name)}Attribute";
         
-        if(method_exists($this,$getter)) {
-            return $this->$getter(); 
+        if (method_exists($this, $getter)) {
+            return $this->$getter();
         }
         
         return null;
@@ -38,7 +37,7 @@ trait HasAttributes
      */
     public function getAttributes()
     {
-        return $this->attributes; 
+        return $this->attributes;
     }
 
     /**
@@ -46,14 +45,13 @@ trait HasAttributes
      */
     public function getAppendedAttributes()
     {
-        $result = []; 
+        $result = [];
         
-        foreach($this->appends as $value) {
-            $result[$value] = $this->$value; 
+        foreach ($this->appends as $value) {
+            $result[$value] = $this->$value;
         }
         
-        return $result; 
-        
+        return $result;
     }
 
     /**
@@ -61,7 +59,7 @@ trait HasAttributes
      */
     public function toArray()
     {
-        return array_merge($this->attributes,$this->getAppendedAttributes()); 
+        return array_merge($this->attributes, $this->getAppendedAttributes());
     }
 
     /**
@@ -70,12 +68,10 @@ trait HasAttributes
      */
     protected function toStudlyCase($string)
     {
-        $parts = explode('_',$string);
-        $parts = array_map(function($part) {
+        $parts = explode('_', $string);
+        $parts = array_map(function ($part) {
             return ucfirst($part);
-        },$parts);
-        return implode('',$parts); 
+        }, $parts);
+        return implode('', $parts);
     }
-
-    
 }

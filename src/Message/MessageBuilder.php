@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Message;
 
-
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
 use Abiturma\PhpFints\Dialog\DialogParameters;
@@ -24,7 +23,7 @@ class MessageBuilder
 {
 
     /**
-     * @var Message 
+     * @var Message
      */
     protected $message;
 
@@ -91,7 +90,6 @@ class MessageBuilder
             ->mergeDialogParameters($this->dialogParameters)
             ->encrypt()
             ->prepare();
-
     }
 
     /**
@@ -119,16 +117,16 @@ class MessageBuilder
      */
     public function getStatementOfAccount(Account $account, $from, $to, $type = null)
     {
-        $this->assureDialog(); 
+        $this->assureDialog();
         
-        $segment = $this->buildStatementSegment($type); 
+        $segment = $this->buildStatementSegment($type);
         
         return $this->newMessage()
             ->push($segment->fromAccount($account)->setFromDate($from)->setToDate($to))
             ->addSignature()
             ->mergeDialogParameters($this->dialogParameters)
             ->encrypt()
-            ->prepare(); 
+            ->prepare();
     }
 
     /**
@@ -152,13 +150,13 @@ class MessageBuilder
      */
     protected function buildStatementSegment($type)
     {
-        if($type == 'swift')  {
-            return $this->buildSwiftStatementSegment(); 
+        if ($type == 'swift') {
+            return $this->buildSwiftStatementSegment();
         }
-        if($type == 'camt') {
-            return $this->buildCamtStatementSegment(); 
+        if ($type == 'camt') {
+            return $this->buildCamtStatementSegment();
         }
-        return $this->guessStatementSegment(); 
+        return $this->guessStatementSegment();
     }
 
     /**
@@ -166,7 +164,7 @@ class MessageBuilder
      */
     protected function buildSwiftStatementSegment()
     {
-        return (new HKKAZ())->setVersion($this->dialogParameters->swiftStatementVersion); 
+        return (new HKKAZ())->setVersion($this->dialogParameters->swiftStatementVersion);
     }
 
     /**
@@ -174,7 +172,7 @@ class MessageBuilder
      */
     protected function buildCamtStatementSegment()
     {
-        return new HKCAZ(); 
+        return new HKCAZ();
     }
 
     /**
@@ -182,7 +180,7 @@ class MessageBuilder
      */
     protected function guessStatementSegment()
     {
-        return $this->dialogParameters->camtVersion ? $this->buildCamtStatementSegment() : $this->buildSwiftStatementSegment(); 
+        return $this->dialogParameters->camtVersion ? $this->buildCamtStatementSegment() : $this->buildSwiftStatementSegment();
     }
 
     /**
@@ -194,10 +192,10 @@ class MessageBuilder
     protected function newMessage($segments = [])
     {
         if (!is_array($segments)) {
-            $segments = [$segments]; 
+            $segments = [$segments];
         }
         
-        $this->assureDialog(); 
+        $this->assureDialog();
         
         
         $result = $this->message->newMessage($this->credentials);
@@ -213,9 +211,9 @@ class MessageBuilder
      */
     protected function assureDialog()
     {
-        if(!$this->credentials) {
+        if (!$this->credentials) {
             throw new DialogMissingException('Inject Dialog before usage');
         }
-        return $this; 
+        return $this;
     }
 }

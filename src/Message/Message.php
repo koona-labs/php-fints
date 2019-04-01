@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Message;
 
-
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Encryption\EncryptsASequenceOfSegments;
@@ -26,22 +25,22 @@ class Message
     protected $credentials;
 
     /**
-     * @var array 
+     * @var array
      */
     protected $segments = [];
 
     /**
-     * @var array 
+     * @var array
      */
     protected $unencryptedSegments = [];
 
     /**
-     * @var array 
+     * @var array
      */
     protected $envelope = [];
 
     /**
-     * @var EncryptsASequenceOfSegments 
+     * @var EncryptsASequenceOfSegments
      */
     protected $encrypter;
 
@@ -63,7 +62,7 @@ class Message
     {
         $this->credentials = $credentials;
         $this->segments = [];
-        $this->unencryptedSegments = []; 
+        $this->unencryptedSegments = [];
         $this->buildEnvelope();
         return $this;
     }
@@ -91,7 +90,7 @@ class Message
     public function push(AbstractSegment $segment)
     {
         $this->checkEnvelope();
-        $segment->setSegmentNumber(count($this->segments) + 2); //1 for the message head 1 for the increment 
+        $segment->setSegmentNumber(count($this->segments) + 2); //1 for the message head 1 for the increment
         $this->segments[] = $segment;
         $this->envelope[1]->incrementSegmentNumber();
         return $this;
@@ -136,10 +135,9 @@ class Message
      */
     public function encrypt()
     {
-        $this->unencryptedSegments = $this->segments; 
+        $this->unencryptedSegments = $this->segments;
         $this->segments = $this->encrypter->encrypt($this->segments);
         return $this;
-
     }
 
     /**
@@ -149,10 +147,10 @@ class Message
     public function prepare()
     {
         $this->checkEnvelope();
-        if($this->unencryptedSegments) {
-            $this->unencryptedSegments = $this->wrapWithEnvelope($this->unencryptedSegments);    
+        if ($this->unencryptedSegments) {
+            $this->unencryptedSegments = $this->wrapWithEnvelope($this->unencryptedSegments);
         }
-        $this->segments = $this->wrapWithEnvelope($this->segments); 
+        $this->segments = $this->wrapWithEnvelope($this->segments);
         
         $this->envelope = [];
         $length = mb_strlen($this->toString());
@@ -173,11 +171,11 @@ class Message
      */
     public function getSegmentOrder()
     {
-        $result = []; 
-        foreach($this->unencryptedSegments as $segment) {
-            $result[$segment->getSegmentNumber()] = $segment->getName(); 
+        $result = [];
+        foreach ($this->unencryptedSegments as $segment) {
+            $result[$segment->getSegmentNumber()] = $segment->getName();
         }
-        return $result; 
+        return $result;
     }
 
     /**
@@ -229,6 +227,4 @@ class Message
     {
         return array_merge([$this->envelope[0]], $segments, [$this->envelope[1]]);
     }
-
-
 }

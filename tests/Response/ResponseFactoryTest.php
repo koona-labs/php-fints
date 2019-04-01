@@ -8,7 +8,6 @@ use Abiturma\PhpFints\Response\Response;
 use Abiturma\PhpFints\Response\ResponseFactory;
 use Tests\TestCase;
 
-
 /**
  * Class ResponseFactoryTest
  * @package Tetsts\Response
@@ -20,7 +19,7 @@ class ResponseFactoryTest extends TestCase
     public function it_returns_a_response()
     {
         $testString = "HKTEST:1:3:5'";
-        $this->assertInstanceOf(Response::class, $this->make()->fromString($testString)); 
+        $this->assertInstanceOf(Response::class, $this->make()->fromString($testString));
     }
     
     
@@ -38,7 +37,7 @@ class ResponseFactoryTest extends TestCase
         $testString = "HKFIRST:1:3:5+???@+@11@firstbinary+123'HKSCND:2:123:5+12'HKTHRD:3:2:4+@13@secondbinary''HKEND:4:3:1'";
         $segments = $this->make()->fromString($testString)->getSegments();
         $this->assertInstanceOf(Bin::class, $segments[0]->getElementAtPosition(3));
-        $this->assertEquals("firstbinary",$segments[0]->getElementAtPosition(3)->toRawValue());
+        $this->assertEquals("firstbinary", $segments[0]->getElementAtPosition(3)->toRawValue());
     }
     
     
@@ -47,10 +46,9 @@ class ResponseFactoryTest extends TestCase
     {
         $testString = "HKTEST:1:3:5+@26@NTEST:12:3:5+@9@innertest''HKEND:2:3:4'";
         $segments = $this->make()->fromString($testString)->getSegments();
-        $bin = $segments[0]->getElementAtPosition(2); 
-        $this->assertInstanceOf(Bin::class,$bin); 
-        $this->assertEquals("NTEST:12:3:5+@9@innertest'",$bin->toRawValue()); 
-        
+        $bin = $segments[0]->getElementAtPosition(2);
+        $this->assertInstanceOf(Bin::class, $bin);
+        $this->assertEquals("NTEST:12:3:5+@9@innertest'", $bin->toRawValue());
     }
     
     /** @test */
@@ -59,8 +57,8 @@ class ResponseFactoryTest extends TestCase
         $testString = "HKTEST:1:3:5+some umlaut mess äöü+@13@moreumlauts:ä'HKEND:2:2:3";
         $segments = $this->make()->fromString($testString)->getSegments();
         $bin = $segments[0]->getElementAtPosition(3);
-        $this->assertInstanceOf(Bin::class,$bin);
-        $this->assertEquals("moreumlauts:ä",$bin->toRawValue());
+        $this->assertInstanceOf(Bin::class, $bin);
+        $this->assertEquals("moreumlauts:ä", $bin->toRawValue());
     }
     
     
@@ -69,17 +67,15 @@ class ResponseFactoryTest extends TestCase
     /** @test */
     public function it_decrypts_an_encrypted_response()
     {
-         
         $encryptedResponse = "HNHBK:1:3:0'"
             ."HNVSK:998:3:0+PIN:1+998+1+1::0+1:20100101:000000+2:2:13:@8@00000000:5:1+280:123456:username:V:0:0+0'"
             ."HNVSD:999:1:0+@40@HKFIRST:2:1:0'HKSECD:3:1:0'HKTHRD:4:1:0''"
-            ."HNHBS:5:1:0+1'"; 
+            ."HNHBS:5:1:0+1'";
         
-        $response = $this->make()->fromString($encryptedResponse); 
-        $this->assertCount(5,$response->getSegments()); 
-        $this->assertEquals('HKFIRST',$response->getSegments()[1]->getType()); 
-        $this->assertEquals('HKSECD',$response->getSegments()[2]->getType()); 
-        
+        $response = $this->make()->fromString($encryptedResponse);
+        $this->assertCount(5, $response->getSegments());
+        $this->assertEquals('HKFIRST', $response->getSegments()[1]->getType());
+        $this->assertEquals('HKSECD', $response->getSegments()[2]->getType());
     }
 
 
@@ -88,8 +84,6 @@ class ResponseFactoryTest extends TestCase
      */
     protected function make()
     {
-        return new ResponseFactory(new NullEncrypter()); 
+        return new ResponseFactory(new NullEncrypter());
     }
-
 }
-

@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Dialog;
 
-
 use Abiturma\PhpFints\Adapter\SendsMessages;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Message\Message;
@@ -26,12 +25,12 @@ class Dialog
     protected $adapter;
 
     /**
-     * @var MessageBuilder 
+     * @var MessageBuilder
      */
     protected $messageBuilder;
 
     /**
-     * @var DialogParameters 
+     * @var DialogParameters
      */
     protected $dialogParameters;
 
@@ -41,7 +40,7 @@ class Dialog
     protected $credentials;
 
     /**
-     * @var LoggerInterface 
+     * @var LoggerInterface
      */
     protected $logger;
 
@@ -70,8 +69,8 @@ class Dialog
      */
     public function setLogger(LoggerInterface $logger)
     {
-        $this->logger = $logger; 
-        return $this; 
+        $this->logger = $logger;
+        return $this;
     }
 
     /**
@@ -122,7 +121,6 @@ class Dialog
         $this->logger->info('[Prepare Get Accounts Message]');
         $response = $this->sendMessage($this->newMessage()->getAccounts());
         return $response;
-
     }
 
     /**
@@ -220,5 +218,4 @@ class Dialog
         $this->logger->debug('[Raw Response] ' . $response->getRaw());
         return $response;
     }
-
 }

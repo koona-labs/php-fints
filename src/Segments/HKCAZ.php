@@ -2,14 +2,13 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Models\Account;
 use DateTime;
 
 /**
  * Get Camt Statement
- * 
+ *
  * Fields
  * - 2 Ktv (v6) or Kti (v7)
  * - 3 CamtVersions
@@ -18,12 +17,11 @@ use DateTime;
  * - 6 ToDate
  * - 7 MaxNumberOfEntries
  * - 8 PaginationToken
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class HKCAZ extends AbstractSegment
 {
-
     const VERSION = 1;
 
     const NAME = 'HKCAZ';
@@ -38,7 +36,6 @@ class HKCAZ extends AbstractSegment
             ->addElement('')
             ->addElement('')
             ->addElement('');
-
     }
 
     /**
@@ -57,7 +54,7 @@ class HKCAZ extends AbstractSegment
      */
     public function setCamtVersion($version)
     {
-        return $this->setElementAtPosition(3,$version); 
+        return $this->setElementAtPosition(3, $version);
     }
 
     /**
@@ -84,7 +81,7 @@ class HKCAZ extends AbstractSegment
      */
     public function setPaginationToken($token)
     {
-        return $this->setElementAtPosition(8,$token);
+        return $this->setElementAtPosition(8, $token);
     }
 
 
@@ -97,6 +94,4 @@ class HKCAZ extends AbstractSegment
         return $this->setPaginationToken($parameters->paginationToken)
             ->setCamtVersion($parameters->camtVersion);
     }
-
-
 }

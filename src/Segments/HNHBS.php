@@ -2,22 +2,20 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\Dialog\DialogParameters;
 
 /**
  * EndOfMessage/Nachrichtenabschluss
- * 
+ *
  * Fields
  * - 2 MessageNumber
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class HNHBS extends AbstractSegment
 {
-    
-    const NAME = 'HNHBS'; 
+    const NAME = 'HNHBS';
     
     const VERSION = 1;
     
@@ -54,10 +52,6 @@ class HNHBS extends AbstractSegment
      */
     public function mergeDialogParameters(DialogParameters $dialogParameters)
     {
-        return $this->setMessageNumber($dialogParameters->messageNumber); 
+        return $this->setMessageNumber($dialogParameters->messageNumber);
     }
-    
-    
-
-    
 }

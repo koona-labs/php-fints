@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Encryption;
 
-
 use Abiturma\PhpFints\Segments\HNSHK;
 use Abiturma\PhpFints\Segments\HNVSD;
 use Abiturma\PhpFints\Segments\HNVSK;
@@ -13,7 +12,6 @@ use Abiturma\PhpFints\Segments\HNVSK;
  */
 abstract class AbstractEncrypter implements EncryptsASequenceOfSegments
 {
-
     const ENCRYPTION_HEAD_SEGMENT_NUMBER = 998;
 
     const ENCRYPTED_DATA_SEGMENT_NUMBER = 999;
@@ -79,5 +77,4 @@ abstract class AbstractEncrypter implements EncryptsASequenceOfSegments
      * @return mixed
      */
     abstract protected function encryptSegments($segments);
-
 }

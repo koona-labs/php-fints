@@ -6,14 +6,12 @@ use Abiturma\PhpFints\Response\Messages\SyncResponse;
 use Abiturma\PhpFints\Response\Response;
 use Tests\TestCase;
 
-
 /**
  * Class SyncResponseTest
  * @package Tests\Response\Messages
  */
 class SyncResponseTest extends TestCase
 {
-
     protected $response;
 
     public function setUp(): void
@@ -28,12 +26,12 @@ class SyncResponseTest extends TestCase
     {
         $this->response->expects($this->exactly(2))
             ->method('getFirstOfType')
-            ->withConsecutive(['HIBPA'],['HIUPA'])
-            ->will($this->onConsecutiveCalls('testBpd','testUpd'));
+            ->withConsecutive(['HIBPA'], ['HIUPA'])
+            ->will($this->onConsecutiveCalls('testBpd', 'testUpd'));
 
-        $sync = $this->make(); 
-        $this->assertEquals('testBpd',$sync->getBpd()); 
-        $this->assertEquals('testUpd',$sync->getUpd()); 
+        $sync = $this->make();
+        $this->assertEquals('testBpd', $sync->getBpd());
+        $this->assertEquals('testUpd', $sync->getUpd());
     }
 
 
@@ -44,7 +42,4 @@ class SyncResponseTest extends TestCase
     {
         return new SyncResponse($this->response);
     }
-
-
 }
-

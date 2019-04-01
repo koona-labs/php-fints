@@ -2,14 +2,13 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Models\Account;
 use DateTime;
 
 /**
- * Get Swift Statement 
- * 
+ * Get Swift Statement
+ *
  * Fields
  * - 2 Ktv (v6) or Kti (v7)
  * - 3 Query for All Accounts ?
@@ -17,12 +16,11 @@ use DateTime;
  * - 5 ToDate
  * - 6 MaxNumberOfEntries
  * - 7 PaginationToken
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class HKKAZ extends AbstractSegment
 {
-
     const VERSION = 6;
 
     const NAME = 'HKKAZ';
@@ -37,8 +35,7 @@ class HKKAZ extends AbstractSegment
             ->addElement((new DateTime())->format('Ymd'))
             ->addElement((new DateTime())->format('Ymd'))
             ->addElement('')
-            ->addElement(''); 
-                
+            ->addElement('');
     }
 
     /**
@@ -47,7 +44,7 @@ class HKKAZ extends AbstractSegment
      */
     public function setFromDate(DateTime $date)
     {
-        return $this->setElementAtPosition(4, $date->format('Ymd'));     
+        return $this->setElementAtPosition(4, $date->format('Ymd'));
     }
 
     /**
@@ -56,7 +53,7 @@ class HKKAZ extends AbstractSegment
      */
     public function setToDate(DateTime $date)
     {
-        return $this->setElementAtPosition(5, $date->format('Ymd'));     
+        return $this->setElementAtPosition(5, $date->format('Ymd'));
     }
 
     /**
@@ -84,8 +81,8 @@ class HKKAZ extends AbstractSegment
     public function fromAccount(Account $account)
     {
         $ktx = $this->version == 7 ? $account->toKti() : $account->toKtv();
-        $this->setElementAtPosition(2,$ktx);
-        return $this; 
+        $this->setElementAtPosition(2, $ktx);
+        return $this;
     }
 
     /**
@@ -93,7 +90,7 @@ class HKKAZ extends AbstractSegment
      */
     public function setPaginationToken($token)
     {
-        $this->setElementAtPosition(7,$token); 
+        $this->setElementAtPosition(7, $token);
     }
 
     /**
@@ -102,8 +99,6 @@ class HKKAZ extends AbstractSegment
      */
     public function mergeDialogParameters(DialogParameters $dialogParameters)
     {
-        return $this->setPaginationToken($dialogParameters->paginationToken); 
+        return $this->setPaginationToken($dialogParameters->paginationToken);
     }
-
-
 }

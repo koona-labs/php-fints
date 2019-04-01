@@ -2,17 +2,16 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\DataElements\Groups\UserSignature;
 
 /**
  * EndOfSignature/SignaturAbschluss
- * 
+ *
  * Fields:
  * - 2 SecurityControlReference
  * - 3 ResultOfValidation (N)
  * - 4 UserSignature
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class HNSHA extends AbstractSegment
@@ -45,8 +44,8 @@ class HNSHA extends AbstractSegment
      */
     public function setPin($pin)
     {
-        $this->getElementAtPosition(4)->setPin($pin); 
-        return $this; 
+        $this->getElementAtPosition(4)->setPin($pin);
+        return $this;
     }
 
     /**
@@ -56,8 +55,6 @@ class HNSHA extends AbstractSegment
     public function setTan($tan)
     {
         $this->getElementAtPosition(4)->setTan($tan);
-        return $this; 
+        return $this;
     }
-
-
 }

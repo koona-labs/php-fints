@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Models;
 
-
 use Abiturma\PhpFints\Misc\HasAttributes;
 
 /**
@@ -19,9 +18,6 @@ abstract class AbstractModel
      */
     public function __construct($attributes = [])
     {
-        $this->attributes = $attributes; 
+        $this->attributes = $attributes;
     }
-    
-    
-    
 }

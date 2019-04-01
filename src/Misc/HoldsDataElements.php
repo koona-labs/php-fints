@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Misc;
 
-
 use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\DataElements\HoldsStringableData;
 
@@ -12,8 +11,6 @@ use Abiturma\PhpFints\DataElements\HoldsStringableData;
  */
 trait HoldsDataElements
 {
-
-
     protected $elements = [];
 
 
@@ -44,7 +41,7 @@ trait HoldsDataElements
      */
     public function getElementAtPosition($position)
     {
-        if(array_key_exists($position-$this->getPositionOffset(),$this->elements)) {
+        if (array_key_exists($position-$this->getPositionOffset(), $this->elements)) {
             return $this->elements[$position-$this->getPositionOffset()];
         }
         return new DataElement('');
@@ -75,10 +72,10 @@ trait HoldsDataElements
      */
     protected function removeElementAtPosition($position)
     {
-        if(array_key_exists($position-$this->getPositionOffset(),$this->elements)) {
+        if (array_key_exists($position-$this->getPositionOffset(), $this->elements)) {
             unset($this->elements[$position-$this->getPositionOffset()]);
-        } 
-        return $this; 
+        }
+        return $this;
     }
 
     /**
@@ -87,7 +84,7 @@ trait HoldsDataElements
      */
     protected function normalizeDataElement($element)
     {
-        if($element instanceof HoldsStringableData) {
+        if ($element instanceof HoldsStringableData) {
             return $element;
         }
 
@@ -99,13 +96,6 @@ trait HoldsDataElements
      */
     protected function getPositionOffset()
     {
-        return 1; 
+        return 1;
     }
-    
-    
-    
-    
-    
-    
-    
 }

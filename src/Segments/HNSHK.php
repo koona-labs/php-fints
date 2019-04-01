@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\DataElements\Groups\HashAlgorithm;
 use Abiturma\PhpFints\DataElements\Groups\KeyName;
 use Abiturma\PhpFints\DataElements\Groups\SecurityDateTime;
@@ -13,7 +12,7 @@ use Abiturma\PhpFints\Dialog\DialogParameters;
 
 /**
  * SignatureHead/SignaturKopf
- * 
+ *
  * Fields
  * - 2 SecurityProfile
  * - 3 SecurityFunctionCode
@@ -26,21 +25,20 @@ use Abiturma\PhpFints\Dialog\DialogParameters;
  * - 10 HashAlgorithm
  * - 11 SignatureAlgorithm
  * - 12 KeyName
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class HNSHK extends AbstractSegment
 {
-
     const NAME = 'HNSHK';
 
     const VERSION = 4;
 
     const SECURITY_FUNCTION_CODE = 999; // legacy not parsed for FinTs-Version >= 300
 
-    const SECURITY_SCOPE = 1; //1 = SHM, 2 = SHT 
+    const SECURITY_SCOPE = 1; //1 = SHM, 2 = SHT
 
-    const SECURITY_ROLE = 1;  // 1 = ISS = Signer is also author, 2 = CON = Signer is supporter, 3 = WIT = Signer is witness 
+    const SECURITY_ROLE = 1;  // 1 = ISS = Signer is also author, 2 = CON = Signer is supporter, 3 = WIT = Signer is witness
 
 
     protected function boot()
@@ -56,7 +54,6 @@ class HNSHK extends AbstractSegment
             ->addElement(new HashAlgorithm())
             ->addElement(new SignatureAlgorithm())
             ->addElement(new KeyName());
-
     }
 
     /**
@@ -84,7 +81,7 @@ class HNSHK extends AbstractSegment
      */
     public function getSecurityControlReference()
     {
-        return $this->getElementAtPosition(4)->toString(); 
+        return $this->getElementAtPosition(4)->toString();
     }
 
     /**
@@ -93,7 +90,7 @@ class HNSHK extends AbstractSegment
      */
     public function setTanFunctionCode($code)
     {
-        return $this->setElementAtPosition(3,$code); 
+        return $this->setElementAtPosition(3, $code);
     }
 
     /**
@@ -101,7 +98,7 @@ class HNSHK extends AbstractSegment
      */
     protected function generateSecurityReferenceNumber()
     {
-        return 1; 
+        return 1;
     }
 
     /**
@@ -110,8 +107,8 @@ class HNSHK extends AbstractSegment
      */
     public function setSystemId($id)
     {
-        $this->getElementAtPosition(7)->setSystemId($id); 
-        return $this; 
+        $this->getElementAtPosition(7)->setSystemId($id);
+        return $this;
     }
 
     /**
@@ -120,13 +117,12 @@ class HNSHK extends AbstractSegment
      */
     public function mergeDialogParameters(DialogParameters $parameters)
     {
-        if($parameters->systemId) {
+        if ($parameters->systemId) {
             $this->setSystemId($parameters->systemId);
         }
-        if($parameters->tanFunctionCode) {
-            $this->setTanFunctionCode($parameters->tanFunctionCode); 
+        if ($parameters->tanFunctionCode) {
+            $this->setTanFunctionCode($parameters->tanFunctionCode);
         }
-        return $this; 
+        return $this;
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Response;
 
-
 use Abiturma\PhpFints\Encryption\EncryptsASequenceOfSegments;
 
 /**
@@ -11,8 +10,6 @@ use Abiturma\PhpFints\Encryption\EncryptsASequenceOfSegments;
  */
 class ResponseFactory
 {
-
-
     protected $responseString;
 
     protected $savedBinaries = [];
@@ -53,8 +50,8 @@ class ResponseFactory
     {
         $decodedString = base64_decode($base64String);
         
-        if(!mb_check_encoding($decodedString)) {
-            $decodedString = iconv('ISO-8859-1',mb_internal_encoding(),$decodedString); 
+        if (!mb_check_encoding($decodedString)) {
+            $decodedString = iconv('ISO-8859-1', mb_internal_encoding(), $decodedString);
         }
         return $this->fromString($decodedString);
     }
@@ -65,10 +62,10 @@ class ResponseFactory
      * @throws \Abiturma\PhpFints\Exceptions\ResponseSyntaxException
      */
     protected function parse()
-    {   
+    {
         $responseString = $this->responseString;
-        $responseString = $this->handleBinaries($responseString); 
-        $rawSegments = $this->splitSegments($responseString); 
+        $responseString = $this->handleBinaries($responseString);
+        $rawSegments = $this->splitSegments($responseString);
         $segments = $this->buildSegments($rawSegments);
 
         return $this->isEncrypted($segments) ? $this->decrypt($segments) : Response::fromSegments($segments)->setRaw($this->responseString);
@@ -83,15 +80,15 @@ class ResponseFactory
     {
         $binaryPattern = "/([^\?]|^)(\?\?)*(@\d+@)/m";
         $matches = [];
-        $key = 0; 
+        $key = 0;
         $savedBinaries = [];
-        while($this->mb_preg_match($binaryPattern, $responseString, $matches)) {
+        while ($this->mb_preg_match($binaryPattern, $responseString, $matches)) {
             list($lengthMarker, $position) = $matches[3];
             $length = (int)str_replace('@', '', $lengthMarker);
             $lengthOfLengthMarker = mb_strlen($lengthMarker);
             $savedBinaries[$key] = mb_substr($responseString, $position + $lengthOfLengthMarker, $length);
             $responseString = mb_substr($responseString, 0, $position) . "@#$key@" . mb_substr($responseString, $position + $length + $lengthOfLengthMarker);
-            $key++; 
+            $key++;
         }
         $this->savedBinaries = $savedBinaries;
         return $responseString;
@@ -103,7 +100,7 @@ class ResponseFactory
      */
     protected function splitSegments($responseString)
     {
-        $segmentPattern = "/[^\?](\?\?)*\K'/"; 
+        $segmentPattern = "/[^\?](\?\?)*\K'/";
         return preg_split($segmentPattern, $responseString);
     }
 
@@ -135,7 +132,6 @@ class ResponseFactory
         $end = $segments[3]->toString();
 
         return $this->fromString($head . $response . $end);
-
     }
 
     /**
@@ -165,17 +161,15 @@ class ResponseFactory
      * @param $matches
      * @return false|int
      */
-    protected function mb_preg_match($pattern, $subject, &$matches) {
+    protected function mb_preg_match($pattern, $subject, &$matches)
+    {
         $hasMatch = preg_match($pattern, $subject, $matches, PREG_OFFSET_CAPTURE);
         if ($hasMatch) {
-
-            foreach($matches as &$ha_match) {
+            foreach ($matches as &$ha_match) {
                 $ha_match[1] = mb_strlen(substr($subject, 0, $ha_match[1]));
             }
         }
 
         return $hasMatch;
     }
-
-
 }

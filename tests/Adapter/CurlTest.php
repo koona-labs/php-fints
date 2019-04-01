@@ -2,7 +2,6 @@
 
 namespace Tests\Adapter;
 
-
 use Abiturma\PhpFints\Adapter\Curl;
 use Abiturma\PhpFints\Exceptions\ConnectionFailed;
 use Abiturma\PhpFints\Exceptions\HttpException;
@@ -15,55 +14,52 @@ use Tests\TestCase;
  * Class CurlTest
  * @package Tests\Adapter
  */
-class CurlTest extends TestCase 
+class CurlTest extends TestCase
 {
+    protected $curl;
     
-    protected $curl; 
+    protected $message;
     
-    protected $message; 
+    protected $responseFactory;
     
-    protected $responseFactory; 
-    
-    public function setUp() :void 
+    public function setUp() :void
     {
-        
-        parent::setUp(); 
+        parent::setUp();
             
-        $this->message = $this->createMock(Message::class); 
-        $this->curl = $this->createMock(\Curl\Curl::class); 
-        $this->responseFactory = $this->createMock(ResponseFactory::class); 
-        
+        $this->message = $this->createMock(Message::class);
+        $this->curl = $this->createMock(\Curl\Curl::class);
+        $this->responseFactory = $this->createMock(ResponseFactory::class);
     }
         
         
     /** @test */
     public function it_instantiates_the_right_class()
     {
-        $this->assertInstanceOf(Curl::class, $this->make()); 
+        $this->assertInstanceOf(Curl::class, $this->make());
     }
     
     /** @test */
     public function it_throws_an_exception_if_no_host_is_set()
     {
-        $this->expectException(Exception::class); 
-        $this->make()->send($this->message); 
+        $this->expectException(Exception::class);
+        $this->make()->send($this->message);
     }
     
     /** @test */
     public function it_accepts_a_url()
     {
-        $host = 'https://test.test'; 
-        $this->curl->expects($this->once())->method('setUrl')->with($this->equalTo($host)); 
-        $this->make()->to($host); 
+        $host = 'https://test.test';
+        $this->curl->expects($this->once())->method('setUrl')->with($this->equalTo($host));
+        $this->make()->to($host);
     }
     
     /** @test */
     public function it_throws_a_connection_if_its_connected_to_a_nonexistent_host()
     {
         $host = 'https://does-not-exists.com';
-        $this->curl->method('post')->willReturn(null); 
-        $this->expectException(ConnectionFailed::class); 
-        $this->make()->to($host)->send($this->message); 
+        $this->curl->method('post')->willReturn(null);
+        $this->expectException(ConnectionFailed::class);
+        $this->make()->to($host)->send($this->message);
     }
     
     /** @test */
@@ -71,7 +67,7 @@ class CurlTest extends TestCase
     {
         $host = 'https://my-host.com';
         $this->curl->method('post')->willReturn('check');
-        $this->curl->method('getHttpStatusCode')->willReturn(300); 
+        $this->curl->method('getHttpStatusCode')->willReturn(300);
         $this->expectException(HttpException::class);
         $this->make()->to($host)->send($this->message);
     }
@@ -81,7 +77,7 @@ class CurlTest extends TestCase
      * @return Curl
      */
     public function make()
-    {   
-        return new Curl($this->curl,$this->responseFactory); 
+    {
+        return new Curl($this->curl, $this->responseFactory);
     }
 }

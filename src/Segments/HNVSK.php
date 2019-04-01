@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Segments;
 
-
 use Abiturma\PhpFints\DataElements\Groups\EncryptionAlgorithm;
 use Abiturma\PhpFints\DataElements\Groups\KeyName;
 use Abiturma\PhpFints\DataElements\Groups\SecurityDateTime;
@@ -11,7 +10,7 @@ use Abiturma\PhpFints\DataElements\Groups\SecurityProfile;
 
 /**
  * EncryptionHead/VerschlüsselungsKopf
- * 
+ *
  * Fields
  * - 2 SecurityProfile
  * - 3 SecurityFunctionCode
@@ -21,13 +20,12 @@ use Abiturma\PhpFints\DataElements\Groups\SecurityProfile;
  * - 7 EncryptionAlgorithm
  * - 8 KeyName
  * - 9 CompressFunction
- * 
+ *
  * @package Abiturma\PhpFints
  */
 class HNVSK extends AbstractSegment
 {
-
-    const NAME = 'HNVSK'; 
+    const NAME = 'HNVSK';
     
     const VERSION = 3;
     
@@ -38,7 +36,6 @@ class HNVSK extends AbstractSegment
 
     protected function boot()
     {
-    
         $this->addElement(new SecurityProfile())
             ->addElement(static::SECURITY_FUNCTION_CODE)
             ->addElement(HNSHK::SECURITY_ROLE)
@@ -46,8 +43,7 @@ class HNVSK extends AbstractSegment
             ->addElement(new SecurityDateTime())
             ->addElement(new EncryptionAlgorithm())
             ->addElement(new KeyName())
-            ->addElement(static::COMPRESS_FUNCTION_CODE); 
-        
+            ->addElement(static::COMPRESS_FUNCTION_CODE);
     }
 
     /**
@@ -56,18 +52,18 @@ class HNVSK extends AbstractSegment
      */
     public function fromSignatureHead(HNSHK $signatureHead)
     {
-        //FieldNumbers in HNVSK mapped to according FieldNumber in HNSHK 
+        //FieldNumbers in HNVSK mapped to according FieldNumber in HNSHK
         $fieldMap = [
             2 => 2,
-            4 => 6, 
-            5 => 7, 
+            4 => 6,
+            5 => 7,
             6 => 9,
             8 => 12
-        ];  
-        foreach($fieldMap as $ownPosition => $otherPosition) {
-            $this->setElementAtPosition($ownPosition, $signatureHead->getElementAtPosition($otherPosition)->clone()); 
+        ];
+        foreach ($fieldMap as $ownPosition => $otherPosition) {
+            $this->setElementAtPosition($ownPosition, $signatureHead->getElementAtPosition($otherPosition)->clone());
         }
-        return $this; 
+        return $this;
     }
 
     /**
@@ -76,7 +72,6 @@ class HNVSK extends AbstractSegment
     public function setKeyTypeToCypher()
     {
         $this->getElementAtPosition(8)->setKeyTypeToCypher();
-        return $this; 
+        return $this;
     }
-    
 }

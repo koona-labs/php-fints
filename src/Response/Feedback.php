@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Response;
 
-
 use Abiturma\PhpFints\DataElements\DataElement;
 
 /**
@@ -12,7 +11,7 @@ use Abiturma\PhpFints\DataElements\DataElement;
 class Feedback
 {
     /**
-     * @var ResponseSegment 
+     * @var ResponseSegment
      */
     protected $segment;
     
@@ -33,8 +32,8 @@ class Feedback
      */
     public function setReference($reference)
     {
-        $this->reference = $reference; 
-        return $this; 
+        $this->reference = $reference;
+        return $this;
     }
 
     /**
@@ -51,12 +50,12 @@ class Feedback
      */
     public function getElementByCode($code)
     {
-        foreach($this->segment->getElements() as $element) {
-            if($element->getElementAtPosition(1)->toRawValue() == $code) {
-                return $element;     
+        foreach ($this->segment->getElements() as $element) {
+            if ($element->getElementAtPosition(1)->toRawValue() == $code) {
+                return $element;
             }
         }
-        return null; 
+        return null;
     }
 
     /**
@@ -64,7 +63,7 @@ class Feedback
      */
     public function getReference()
     {
-        return $this->reference; 
+        return $this->reference;
     }
 
     /**
@@ -72,7 +71,7 @@ class Feedback
      */
     public function getPaginationToken()
     {
-        return $this->segment->getElementAtPosition(2)->getElementAtPosition(4)->toRawValue(); 
+        return $this->segment->getElementAtPosition(2)->getElementAtPosition(4)->toRawValue();
     }
 
     /**
@@ -90,7 +89,6 @@ class Feedback
      */
     public function getFullMessage()
     {
-        return implode(' | ',$this->getMessages()); 
+        return implode(' | ', $this->getMessages());
     }
-
 }

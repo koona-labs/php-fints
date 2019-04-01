@@ -7,7 +7,6 @@ use Abiturma\PhpFints\Parser\MT940;
 use DateTime;
 use Tests\TestCase;
 
-
 /**
  * Class MT940Test
  * @package Tests\Parser
@@ -46,7 +45,6 @@ class MT940Test extends TestCase
         $result = $this->parse(":61:1001021220DR512,00NMSCNONREF@@")[0];
         $this->assertInstanceOf(DateTime::class, $result->booking_date);
         $this->assertEquals('2009-12-20', $result->booking_date->format('Y-m-d'));
-
     }
 
     /** @test */
@@ -114,9 +112,8 @@ class MT940Test extends TestCase
         $result = $this->parse($testString);
         $this->assertCount(1, $result);
         $this->assertEquals($result[0]->description, 'Description Part 1Part2Part3 MREF: mref CRED: cred IBAN iban BIC: bic ');
-        $this->assertEquals($result[0]->prima_nota,931); 
-        $this->assertEquals($result[0]->base_amount,-33034); 
-
+        $this->assertEquals($result[0]->prima_nota, 931);
+        $this->assertEquals($result[0]->base_amount, -33034);
     }
 
 
@@ -131,7 +128,6 @@ class MT940Test extends TestCase
         }
         $start = "@@:20:STARTUMS@@:25:12345678/123456789@@:28C:3/1@@:60F:C15674EUR54976,93@@";
         return $start . implode($transactions);
-
     }
 
     /**
@@ -154,6 +150,4 @@ class MT940Test extends TestCase
         $testString = $this->buildTestString($transactions);
         return (new MT940())->parseFromString($testString);
     }
-
 }
-

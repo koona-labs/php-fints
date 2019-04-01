@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\DataElements;
 
-
 /**
  * Interface HoldsStringableData
  * @package Abiturma\PhpFints
@@ -19,5 +18,4 @@ interface HoldsStringableData
      * @return HoldsStringableData
      */
     public function clone();
-    
 }

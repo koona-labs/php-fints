@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Response;
 
-
 use Abiturma\PhpFints\Response\Messages\AccountsResponse;
 use Abiturma\PhpFints\Response\Messages\StatementOfAccount;
 use Abiturma\PhpFints\Response\Messages\SyncResponse;
@@ -13,7 +12,6 @@ use Abiturma\PhpFints\Response\Messages\SyncResponse;
  */
 class Response implements HoldsDialogParameters
 {
-
     protected $segments = [];
 
     protected $originalOrder = [];
@@ -101,10 +99,12 @@ class Response implements HoldsDialogParameters
     public function getByType($type)
     {
         $type = mb_strtoupper($type);
-        $result = array_filter($this->segments,
+        $result = array_filter(
+            $this->segments,
             function ($segment) use ($type) {
                 return $segment->getType() == $type;
-            });
+            }
+        );
         return array_values($result);
     }
 
@@ -137,8 +137,8 @@ class Response implements HoldsDialogParameters
     {
         $result = $this->getGeneralFeedback()->getFullMessage();
         $result .= "|||" . implode('||', array_map(function ($feedback) {
-                return $feedback->getFullMessage();
-            }, $this->getSegmentalFeedback()));
+            return $feedback->getFullMessage();
+        }, $this->getSegmentalFeedback()));
         return $result;
     }
 
@@ -244,7 +244,6 @@ class Response implements HoldsDialogParameters
             return ['dialogId' => $this->getDialogId()];
         }
         
-        return []; 
+        return [];
     }
-
 }

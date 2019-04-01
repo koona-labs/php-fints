@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\DataElements\Groups;
 
-
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 
 /**
@@ -14,12 +13,11 @@ use Abiturma\PhpFints\DataElements\DataElementGroup;
  * - 3 KeyType
  * - 4 KeyNumber
  * - 5 KeyVersion
- * 
+ *
  * @package Abiturma\PhpFints\Groups
  */
 class KeyName extends DataElementGroup
 {
-
     const KEY_TYPE = 'S';  // D = digital signature, S = signing key, v = cypher key
 
     
@@ -30,7 +28,7 @@ class KeyName extends DataElementGroup
             ->addElement(static::KEY_TYPE)
             ->addElement(0)
             ->addElement(0)
-        ; 
+        ;
     }
 
     /**
@@ -38,11 +36,7 @@ class KeyName extends DataElementGroup
      */
     public function setKeyTypeToCypher()
     {
-        $this->setElementAtPosition(3,'V'); 
-        return $this; 
+        $this->setElementAtPosition(3, 'V');
+        return $this;
     }
-    
-    
-    
-    
 }

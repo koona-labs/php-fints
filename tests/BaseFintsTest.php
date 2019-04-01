@@ -16,19 +16,18 @@ use Abiturma\PhpFints\Response\Response;
  */
 class BaseFintsTest extends TestCase
 {
-
     protected $dialog;
 
     protected $credentials;
     
-    protected $response; 
+    protected $response;
 
     public function setUp(): void
     {
         parent::setup();
         $this->dialog = $this->createMock(Dialog::class);
         $this->credentials = $this->createMock(HoldsCredentials::class);
-        $this->response = $this->createMock(Response::class); 
+        $this->response = $this->createMock(Response::class);
     }
 
     /** @test */
@@ -38,10 +37,10 @@ class BaseFintsTest extends TestCase
         $this->dialog->expects($this->once())->method('init');
         $this->dialog->expects($this->once())->method('getAccounts')->willReturn($this->response);
         $this->dialog->expects($this->once())->method('close');
-        $accountResponse = $this->createMock(AccountsResponse::class); 
-        $accountResponse->method('getAccounts')->willReturn([1,2,3]); 
+        $accountResponse = $this->createMock(AccountsResponse::class);
+        $accountResponse->method('getAccounts')->willReturn([1,2,3]);
         $this->response->expects($this->once())->method('accounts')->willReturn($accountResponse);
-        $this->assertEquals([1,2,3], $this->make()->getAccounts()); 
+        $this->assertEquals([1,2,3], $this->make()->getAccounts());
     }
     
     
@@ -54,8 +53,8 @@ class BaseFintsTest extends TestCase
         $this->dialog->expects($this->once())->method('close');
         
         
-        $account = $this->createMock(HasAccountStatement::class); 
-        $account->method('toFinTsAccount')->willReturn($this->createMock(Account::class)); 
+        $account = $this->createMock(HasAccountStatement::class);
+        $account->method('toFinTsAccount')->willReturn($this->createMock(Account::class));
         
         $this->assertEquals([1,2,3], $this->make()->getStatementOfAccount($account));
     }
@@ -65,7 +64,7 @@ class BaseFintsTest extends TestCase
     {
         $this->dialog->expects($this->once())
             ->method('getStatementOfAccount')
-            ->with($this->isInstanceOf(HasAccountStatement::class),$this->anything(),$this->anything(),$this->equalTo('swift'))
+            ->with($this->isInstanceOf(HasAccountStatement::class), $this->anything(), $this->anything(), $this->equalTo('swift'))
             ->willReturn([1,2,3]);
 
         $account = $this->createMock(HasAccountStatement::class);
@@ -80,7 +79,7 @@ class BaseFintsTest extends TestCase
     {
         $this->dialog->expects($this->once())
             ->method('getStatementOfAccount')
-            ->with($this->isInstanceOf(HasAccountStatement::class),$this->anything(),$this->anything(),$this->equalTo('camt'))
+            ->with($this->isInstanceOf(HasAccountStatement::class), $this->anything(), $this->anything(), $this->equalTo('camt'))
             ->willReturn([1,2,3]);
 
         $account = $this->createMock(HasAccountStatement::class);
@@ -92,8 +91,8 @@ class BaseFintsTest extends TestCase
     /** @test */
     public function it_proxies_calls_to_credentials()
     {
-        $this->credentials->expects($this->once())->method('setUsername')->with('testUsername'); 
-        $this->make()->username('testUsername'); 
+        $this->credentials->expects($this->once())->method('setUsername')->with('testUsername');
+        $this->make()->username('testUsername');
     }
 
 
@@ -104,6 +103,4 @@ class BaseFintsTest extends TestCase
     {
         return new BaseFints($this->credentials, $this->dialog);
     }
-
 }
-

@@ -2,7 +2,6 @@
 
 namespace Abiturma\PhpFints\Encryption;
 
-
 /**
  * Interface EncryptsASequenceOfSegments
  * @package Abiturma\PhpFints
@@ -20,6 +19,5 @@ interface EncryptsASequenceOfSegments
      * @param $string
      * @return mixed
      */
-    public function decrypt($string); 
-    
+    public function decrypt($string);
 }
