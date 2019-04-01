@@ -9,11 +9,6 @@ use Tests\TestCase;
 class HBHBSTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
-    
     /** @test */
     public function an_end_of_message_segment_is_built()
     {

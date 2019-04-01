@@ -40,6 +40,12 @@ class Dialog
         $this->logger = $logger;
     }
 
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger; 
+        return $this; 
+    }
+    
     public function sync()
     {
         $this->logger->info('[Prepare Sync Message]');

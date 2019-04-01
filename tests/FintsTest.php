@@ -6,7 +6,6 @@ use Abiturma\PhpFints\BaseFints;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Fints;
 use Psr\Log\LoggerInterface;
-use Tests\TestCase;
 
 
 class FintsTest extends TestCase

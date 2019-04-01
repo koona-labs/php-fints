@@ -8,8 +8,6 @@ use Abiturma\PhpFints\DataElements\Groups\KeyName;
 use Abiturma\PhpFints\DataElements\Groups\SecurityDateTime;
 use Abiturma\PhpFints\DataElements\Groups\SecurityIdentificationDetails;
 use Abiturma\PhpFints\DataElements\Groups\SecurityProfile;
-use Abiturma\PhpFints\Segments\AbstractSegment;
-use Abiturma\PhpFints\Segments\HNSHK;
 
 class HNVSK extends AbstractSegment
 {
@@ -55,7 +53,6 @@ class HNVSK extends AbstractSegment
         //FieldNumbers in HNVSK mapped to according FieldNumber in HNSHK 
         $fieldMap = [
             2 => 2,
-//            3 => 3, 
             4 => 6, 
             5 => 7, 
             6 => 9,

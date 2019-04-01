@@ -9,10 +9,6 @@ use Tests\TestCase;
 class KikTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
     
     /** @test */
     public function the_kik_has_sensible_defaults()

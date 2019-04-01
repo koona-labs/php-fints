@@ -9,11 +9,6 @@ use Tests\TestCase;
 class EncryptionAlgorithmTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-
-        parent::setup();
-    }
 
     /** @test */
     public function the_encryption_algorithm_has_sensible_defaults()

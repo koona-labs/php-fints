@@ -9,10 +9,6 @@ use Tests\TestCase;
 class HNSHKTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
 
     /** @test */
     public function a_signature_head_segment_is_built()

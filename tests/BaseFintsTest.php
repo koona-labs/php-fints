@@ -3,10 +3,8 @@
 namespace Tests;
 
 use Abiturma\PhpFints\BaseFints;
-use Abiturma\PhpFints\BaseHbci;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
-use Abiturma\PhpFints\Hbci;
 use Abiturma\PhpFints\Models\Account;
 use Abiturma\PhpFints\Models\HasAccountStatement;
 use Abiturma\PhpFints\Response\Messages\AccountsResponse;
@@ -23,10 +21,10 @@ class BaseFintsTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setup();
         $this->dialog = $this->createMock(Dialog::class);
         $this->credentials = $this->createMock(HoldsCredentials::class);
         $this->response = $this->createMock(Response::class); 
-        parent::setup();
     }
 
     /** @test */

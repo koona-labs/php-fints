@@ -9,10 +9,6 @@ use Tests\TestCase;
 class AbstractSegmentTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
     
     /** @test */
     public function a_segment_head_is_built()

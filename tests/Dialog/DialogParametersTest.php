@@ -3,7 +3,6 @@
 namespace Tests\Dialog;
 
 use Abiturma\PhpFints\Dialog\DialogParameters;
-use Abiturma\PhpFints\Encryption\NullEncrypter;
 use Abiturma\PhpFints\Response\Response;
 use Tests\TestCase;
 

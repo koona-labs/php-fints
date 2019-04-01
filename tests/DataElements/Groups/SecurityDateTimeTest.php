@@ -10,10 +10,6 @@ use Tests\TestCase;
 class SecurityDateTimeTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
     
     /** @test */
     public function the_security_date_has_sensible_defaults()

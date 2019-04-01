@@ -2,7 +2,6 @@
 
 namespace Tests\Segments;
 
-use Abiturma\PhpFints\Segments\AbstractSegment;
 use Abiturma\PhpFints\Segments\HNHBK;
 use Tests\TestCase;
 
@@ -10,11 +9,6 @@ use Tests\TestCase;
 class HBHBKTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
-    
     /** @test */
     public function a_message_head_is_built()
     {

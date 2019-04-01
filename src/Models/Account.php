@@ -3,7 +3,6 @@
 namespace Abiturma\PhpFints\Models;
 
 
-use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Abiturma\PhpFints\DataElements\Groups\Kti;
 use Abiturma\PhpFints\DataElements\Groups\Ktv;

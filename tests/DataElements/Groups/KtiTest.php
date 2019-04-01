@@ -10,10 +10,6 @@ use Tests\TestCase;
 class KtiTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
     
     /** @test */
     public function it_builds_an_empty_object()

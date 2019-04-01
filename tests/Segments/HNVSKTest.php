@@ -10,12 +10,6 @@ use Tests\TestCase;
 class HNVSKTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-
-        parent::setup();
-    }
-
     /** @test */
     public function a_encryption_head_segment_is_built()
     {

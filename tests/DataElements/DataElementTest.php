@@ -9,10 +9,6 @@ use Tests\TestCase;
 class DataElementTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
     
     /** @test */
     public function it_wraps_a_value_and_parses_it_as_string()

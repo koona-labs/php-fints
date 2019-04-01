@@ -4,14 +4,9 @@ namespace Tests\Adapter;
 
 
 use Abiturma\PhpFints\Adapter\Curl;
-use Abiturma\PhpFints\Adapter\SendsMessages;
-use Abiturma\PhpFints\Credentials\ConfigCredentials;
-use Abiturma\PhpFints\Encryption\EncryptsASequenceOfSegments;
 use Abiturma\PhpFints\Exceptions\ConnectionFailed;
 use Abiturma\PhpFints\Exceptions\HttpException;
 use Abiturma\PhpFints\Message\Message;
-use Abiturma\PhpFints\MyClass;
-use Abiturma\PhpFints\Response\Response;
 use Abiturma\PhpFints\Response\ResponseFactory;
 use Exception;
 use Tests\TestCase;

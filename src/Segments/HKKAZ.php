@@ -3,11 +3,9 @@
 namespace Abiturma\PhpFints\Segments;
 
 
-use Abiturma\PhpFints\DataElements\Groups\Ktv;
 use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Models\Account;
 use DateTime;
-use Genkgo\Camt\Decoder\Date;
 
 class HKKAZ extends AbstractSegment
 {

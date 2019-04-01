@@ -2,7 +2,6 @@
 
 namespace Tests\Message;
 
-use Abiturma\PhpFints\Credentials\ConfigCredentials;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
 use Abiturma\PhpFints\Dialog\DialogParameters;
@@ -16,6 +15,12 @@ class MessageBuilderIntegrationTest extends TestCase
 {
 
     protected $credentials;
+    
+    
+    protected $dialog; 
+    
+    protected $dialogParameters; 
+    
 
     public function setUp() :void 
     {

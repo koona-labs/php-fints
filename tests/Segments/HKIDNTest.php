@@ -2,7 +2,6 @@
 
 namespace Tests\Segments;
 
-use Abiturma\PhpFints\Credentials\ConfigCredentials;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Segments\HKIDN;
 use Tests\TestCase;

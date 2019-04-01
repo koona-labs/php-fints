@@ -9,11 +9,6 @@ use Tests\TestCase;
 class UserSignatureTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
-    
     
     /** @test */
     public function the_user_signature_has_sensible_defaults()

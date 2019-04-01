@@ -9,11 +9,6 @@ use Tests\TestCase;
 class BinTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-
-        parent::setup();
-    }
 
     /** @test */
     public function a_string_is_encapsuled_in_the_bin_format()

@@ -10,7 +10,6 @@ use Abiturma\PhpFints\DataElements\Groups\SecurityIdentificationDetails;
 use Abiturma\PhpFints\DataElements\Groups\SecurityProfile;
 use Abiturma\PhpFints\DataElements\Groups\SignatureAlgorithm;
 use Abiturma\PhpFints\Dialog\DialogParameters;
-use DateTime;
 
 class HNSHK extends AbstractSegment
 {

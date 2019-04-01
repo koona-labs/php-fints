@@ -3,7 +3,6 @@
 namespace Abiturma\PhpFints\Parser;
 
 
-use Abiturma\PhpFints\Exceptions\MT940Exception;
 use Abiturma\PhpFints\Models\Transaction;
 use DateTime;
 

@@ -9,11 +9,6 @@ use Tests\TestCase;
 class TransactionTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
-    
     /** @test */
     public function it_casts_the_amount_in_cents_to_a_two_digit_float()
     {

@@ -4,7 +4,6 @@ namespace Tests\DataElements;
 
 use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\DataElements\DataElementGroup;
-use Abiturma\PhpFints\DataElements\Groups\KeyName;
 use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Tests\TestCase;
 
@@ -12,11 +11,6 @@ use Tests\TestCase;
 class DataElementGroupTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-
-        parent::setup();
-    }
     
     /** @test */
     public function it_takes_several_values_and_glues_them_as_string()

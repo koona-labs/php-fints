@@ -3,7 +3,6 @@
 namespace Abiturma\PhpFints\Message;
 
 
-use Abiturma\PhpFints\Credentials\ConfigCredentials;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Encryption\EncryptsASequenceOfSegments;
@@ -19,9 +18,6 @@ class Message
 
     protected $credentials;
 
-    /**
-     * @var array
-     */
     protected $segments = [];
     
     protected $unencryptedSegments = []; 

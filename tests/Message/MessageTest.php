@@ -2,7 +2,6 @@
 
 namespace Tests\Message;
 
-use Abiturma\PhpFints\Credentials\ConfigCredentials;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Encryption\NullEncrypter;
 use Abiturma\PhpFints\Message\Message;
@@ -18,16 +17,19 @@ class MessageTest extends TestCase
 {
 
     protected $credentials;
+    
+    protected $encrypter; 
 
     public function setUp(): void
     {
+        parent::setup();
+      
         $this->encrypter = $this->createMock(NullEncrypter::class);;
         $this->credentials = $this->createMock(HoldsCredentials::class);
         $this->credentials->method('pin')->willReturn('mySecretPin');
         $this->credentials->method('username')->willReturn('myUsername');
         $this->credentials->method('bankCode')->willReturn(12345678);
 
-        parent::setup();
     }
 
     /** @test */

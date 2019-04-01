@@ -10,11 +10,6 @@ use Tests\TestCase;
 class HNSHATEST extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
-
 
     /** @test */
     public function an_end_of_signature_segment_is_built()

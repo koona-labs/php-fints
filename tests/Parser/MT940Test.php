@@ -11,11 +11,6 @@ use Tests\TestCase;
 class MT940Test extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
-
 
     /** @test */
     public function it_returns_an_array_of_the_right_length_and_type()

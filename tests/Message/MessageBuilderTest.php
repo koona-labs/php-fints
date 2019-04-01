@@ -9,7 +9,6 @@ use Abiturma\PhpFints\Exceptions\DialogMissingException;
 use Abiturma\PhpFints\Message\Message;
 use Abiturma\PhpFints\Message\MessageBuilder;
 use Abiturma\PhpFints\Models\Account;
-use Abiturma\PhpFints\Segments\AbstractSegment;
 use Abiturma\PhpFints\Segments\HKCAZ;
 use Abiturma\PhpFints\Segments\HKEND;
 use Abiturma\PhpFints\Segments\HKIDN;

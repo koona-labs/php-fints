@@ -9,12 +9,18 @@ use Tests\TestCase;
 class CredentialsContainerTest extends TestCase
 {
 
+    
+    protected $credentials; 
+    
+    
     public function setUp(): void
     {
 
         parent::setup();
         $this->credentials = new CredentialsContainer(); 
     }
+    
+    
     
     /** @test */
     public function it_stores_all_credentials_correctly()

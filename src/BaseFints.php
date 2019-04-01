@@ -10,40 +10,34 @@ use DateInterval;
 use DateTime;
 use Psr\Log\LoggerInterface;
 
-/**
- * Class Bank
- * @package Abiturma\LaravelHbci
- */
+
+
 class BaseFints
 {
 
-    /**
-     * @var ConfigCredentials
-     */
     protected $credentials;
-    /**
-     * @var Dialog
-     */
+    
+    
     protected $dialog;
     
-
+    
     public function __construct(HoldsCredentials $credentials, Dialog $dialog)
     {
         $this->credentials = $credentials;
         $this->dialog = $dialog;
-        $this->prepareDialog($credentials);
+        $this->prepareDialog();
     }
 
     public function withLogger(LoggerInterface $logger)
     {
-        $this->logger = $logger; 
+        $this->dialog->setLogger($logger); 
         return $this; 
     }
 
     public function useCredentials(HoldsCredentials $credentials)
     {
         $this->credentials = $credentials; 
-        $this->prepareDialog($credentials); 
+        $this->prepareDialog(); 
         return $this; 
     }
 

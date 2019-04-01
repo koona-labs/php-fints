@@ -3,7 +3,6 @@
 namespace Tests\Encryption;
 
 use Abiturma\PhpFints\Encryption\NullEncrypter;
-use Abiturma\PhpFints\Response\ResponseSegment;
 use Abiturma\PhpFints\Segments\HNHBK;
 use Abiturma\PhpFints\Segments\HNVSD;
 use Abiturma\PhpFints\Segments\HNVSK;
@@ -12,12 +11,6 @@ use Tests\TestCase;
 
 class NullEnrypterTest extends TestCase
 {
-
-    public function setUp(): void
-    {
-
-        parent::setup();
-    }
 
 
     /** @test */

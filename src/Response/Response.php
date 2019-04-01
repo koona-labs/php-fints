@@ -164,6 +164,8 @@ class Response implements HoldsDialogParameters
         if ($this->isOk()) {
             return ['dialogId' => $this->getDialogId()];
         }
+        
+        return []; 
     }
 
 }

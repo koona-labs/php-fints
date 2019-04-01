@@ -9,6 +9,9 @@ use Tests\TestCase;
 
 class HKKAZTest extends TestCase
 {
+    
+    
+    protected $account; 
 
     public function setUp(): void
     {

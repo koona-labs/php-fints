@@ -18,6 +18,8 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^7.1",
+        "ext-mbstring": "*",
+        "ext-iconv": "*",
         "php-curl-class/php-curl-class": "^8.5",
         "genkgo/camt": "^0.5.0",
         "psr/log": "^1.1"

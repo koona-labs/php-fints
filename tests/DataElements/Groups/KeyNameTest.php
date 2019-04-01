@@ -10,10 +10,6 @@ use Tests\TestCase;
 class KeyNameTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        parent::setup();
-    }
     
     /** @test */
     public function the_key_name_has_sensible_defaults()

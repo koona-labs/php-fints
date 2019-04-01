@@ -3,7 +3,6 @@
 namespace Abiturma\PhpFints\Encryption;
 
 
-use Abiturma\PhpFints\Exceptions\ResponseCouldNotBeDecryptedException;
 use Abiturma\PhpFints\Segments\HNSHK;
 use Abiturma\PhpFints\Segments\HNVSD;
 use Abiturma\PhpFints\Segments\HNVSK;

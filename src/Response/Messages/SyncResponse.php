@@ -4,9 +4,7 @@ namespace Abiturma\PhpFints\Response\Messages;
 
 
 use Abiturma\PhpFints\Response\HoldsDialogParameters;
-use Abiturma\PhpFints\Response\Response;
 use Abiturma\PhpFints\Segments\HKVVB;
-use Abiturma\PhpFints\Segments\HNSHK;
 
 class SyncResponse extends AbstractResponseMessage implements HoldsDialogParameters
 {

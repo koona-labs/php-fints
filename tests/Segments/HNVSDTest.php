@@ -10,12 +10,6 @@ use Tests\TestCase;
 class HNVSDTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-
-        parent::setup();
-    }
-
 
     /** @test */
     public function an_encrypted_data_segment_is_built()

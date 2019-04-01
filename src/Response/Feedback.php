@@ -31,7 +31,8 @@ class Feedback
             if($element->getElementAtPosition(1)->toRawValue() == $code) {
                 return $element;     
             }
-        }    
+        }
+        return null; 
     }
 
     public function getReference()
