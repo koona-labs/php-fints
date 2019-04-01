@@ -54,7 +54,7 @@ class BaseFintsTest extends TestCase
         
         
         $account = $this->createMock(IdentifiesBankAccount::class);
-        $account->method('toFinTsAccount')->willReturn($this->createMock(Account::class));
+        $account->method('getAccountAttributes')->willReturn([]);
         
         $this->assertEquals([1,2,3], $this->make()->getStatementOfAccount($account));
     }
@@ -68,7 +68,7 @@ class BaseFintsTest extends TestCase
             ->willReturn([1,2,3]);
 
         $account = $this->createMock(IdentifiesBankAccount::class);
-        $account->method('toFinTsAccount')->willReturn($this->createMock(Account::class));
+        $account->method('getAccountAttributes')->willReturn([]);
 
         $this->assertEquals([1,2,3], $this->make()->getSwiftStatementOfAccount($account));
     }
@@ -83,7 +83,7 @@ class BaseFintsTest extends TestCase
             ->willReturn([1,2,3]);
 
         $account = $this->createMock(IdentifiesBankAccount::class);
-        $account->method('toFinTsAccount')->willReturn($this->createMock(Account::class));
+        $account->method('getAccountAttributes')->willReturn([]);
 
         $this->assertEquals([1,2,3], $this->make()->getCamtStatementOfAccount($account));
     }
