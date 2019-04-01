@@ -6,6 +6,14 @@ namespace Abiturma\PhpFints\Segments;
 
 use Abiturma\PhpFints\Dialog\DialogParameters;
 
+/**
+ * EndOfDialog/DialogAbschluss
+ * 
+ * Fields
+ * - 2 DialogId
+ * 
+ * @package Abiturma\PhpFints
+ */
 class HKEND extends AbstractSegment
 {
 
@@ -14,9 +22,7 @@ class HKEND extends AbstractSegment
     const VERSION = 1;
 
     /*
-     * EndOfDialog/DialogAbschluss
-     * DataFields: 
-     * * DialogId
+    
      */
 
     protected function boot()
@@ -24,12 +30,20 @@ class HKEND extends AbstractSegment
         $this->addElement(0);
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
     public function setDialogId($id)
     {
         $this->setElementAtPosition(2,$id); 
         return $this; 
     }
 
+    /**
+     * @param DialogParameters $dialogParameters
+     * @return AbstractSegment|HKEND
+     */
     public function mergeDialogParameters(DialogParameters $dialogParameters)
     {
         return $this->setDialogId($dialogParameters->dialogId); 

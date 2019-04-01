@@ -3,6 +3,11 @@
 namespace Abiturma\PhpFints\Segments;
 
 
+/**
+ * Get SEPA Accounts 
+ * 
+ * @package Abiturma\PhpFints
+ */
 class HKSPA extends AbstractSegment
 {
 

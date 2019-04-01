@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\DataElement;
 use Tests\TestCase;
 
 
+/**
+ * Class DataElementTest
+ * @package Tests\DataElements
+ */
 class DataElementTest extends TestCase
 {
 

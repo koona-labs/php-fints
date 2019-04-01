@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\Groups\SignatureAlgorithm;
 use Tests\TestCase;
 
 
+/**
+ * Class SecurityAlgorithmTest
+ * @package Tests\DataElements\Groups
+ */
 class SecurityAlgorithmTest extends TestCase
 {
 

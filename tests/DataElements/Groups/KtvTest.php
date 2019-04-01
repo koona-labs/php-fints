@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\Groups\Ktv;
 use Tests\TestCase;
 
 
+/**
+ * Class KtvTest
+ * @package Tests\DataElements\Groups
+ */
 class KtvTest extends TestCase
 {
 

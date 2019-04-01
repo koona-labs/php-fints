@@ -9,6 +9,10 @@ use Abiturma\PhpFints\Response\ResponseFactory;
 use Tests\TestCase;
 
 
+/**
+ * Class ResponseFactoryTest
+ * @package Tetsts\Response
+ */
 class ResponseFactoryTest extends TestCase
 {
 
@@ -77,8 +81,11 @@ class ResponseFactoryTest extends TestCase
         $this->assertEquals('HKSECD',$response->getSegments()[2]->getType()); 
         
     }
-    
 
+
+    /**
+     * @return ResponseFactory
+     */
     protected function make()
     {
         return new ResponseFactory(new NullEncrypter()); 

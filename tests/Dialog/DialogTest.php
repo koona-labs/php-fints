@@ -17,6 +17,10 @@ use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 
+/**
+ * Class DialogTest
+ * @package Tests\Dialog
+ */
 class DialogTest extends TestCase
 {
 
@@ -141,14 +145,12 @@ class DialogTest extends TestCase
         $this->dialogParameters->expects($this->once())->method('reset');
         $this->make()->close(); 
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+    /**
+     * @return Dialog
+     * @throws \ReflectionException
+     */
     protected function make()
     {
         return 

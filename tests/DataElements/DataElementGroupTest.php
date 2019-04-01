@@ -8,6 +8,10 @@ use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Tests\TestCase;
 
 
+/**
+ * Class DataElementGroupTest
+ * @package Tests\DataElements
+ */
 class DataElementGroupTest extends TestCase
 {
 

@@ -7,6 +7,10 @@ use Abiturma\PhpFints\Segments\HNVSD;
 use Tests\TestCase;
 
 
+/**
+ * Class HNVSDTest
+ * @package Tests\Segments
+ */
 class HNVSDTest extends TestCase
 {
 

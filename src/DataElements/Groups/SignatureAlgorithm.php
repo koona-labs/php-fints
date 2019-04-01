@@ -5,6 +5,16 @@ namespace Abiturma\PhpFints\DataElements\Groups;
 
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 
+/**
+ * Class SignatureAlgorithm
+ * 
+ * Fields
+ * - 1 SignatureUsage
+ * - 2 AlgorithmCode
+ * - 3 OperationMode
+ * 
+ * @package Abiturma\PhpFints
+ */
 class SignatureAlgorithm extends DataElementGroup
 {
 
@@ -15,13 +25,6 @@ class SignatureAlgorithm extends DataElementGroup
     const OPERATION_MODE = 16; // 2=CBC,16=ISO-9796-1 ,17=ISO-9796-2, 18=RSASSA-PKC, 19 =RSASSA-PSS, 999 = Mutually negotiated 
 
 
-    /*
-     * DataFields: 
-     * 1 SignatureUsage
-     * 2 AlgorithmCode
-     * 3 OperationMode
-     */
-    
     
     protected function boot()
     {

@@ -10,6 +10,10 @@ use Abiturma\PhpFints\Models\HasAccountStatement;
 use Abiturma\PhpFints\Response\Messages\AccountsResponse;
 use Abiturma\PhpFints\Response\Response;
 
+/**
+ * Class BaseFintsTest
+ * @package Tests
+ */
 class BaseFintsTest extends TestCase
 {
 
@@ -91,12 +95,11 @@ class BaseFintsTest extends TestCase
         $this->credentials->expects($this->once())->method('setUsername')->with('testUsername'); 
         $this->make()->username('testUsername'); 
     }
-    
-    
-    
-    
 
 
+    /**
+     * @return BaseFints
+     */
     protected function make()
     {
         return new BaseFints($this->credentials, $this->dialog);

@@ -3,7 +3,9 @@
 namespace Abiturma\PhpFints\Message;
 
 
+use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
+use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Exceptions\DialogMissingException;
 use Abiturma\PhpFints\Models\Account;
 use Abiturma\PhpFints\Segments\HKCAZ;
@@ -14,27 +16,54 @@ use Abiturma\PhpFints\Segments\HKSPA;
 use Abiturma\PhpFints\Segments\HKSYN;
 use Abiturma\PhpFints\Segments\HKVVB;
 
+/**
+ * Class MessageBuilder
+ * @package Abiturma\PhpFints
+ */
 class MessageBuilder
 {
-    protected $message;
-    
-    protected $dialogParameters = null; 
-    
-    protected $credentials = null; 
 
+    /**
+     * @var Message 
+     */
+    protected $message;
+
+    /**
+     * @var null|DialogParameters
+     */
+    protected $dialogParameters = null;
+
+    /**
+     * @var null|HoldsCredentials
+     */
+    protected $credentials = null;
+
+    /**
+     * MessageBuilder constructor.
+     * @param Message $message
+     */
     public function __construct(Message $message)
     {
         $this->message = $message;
     }
 
+    /**
+     * @param Dialog $dialog
+     * @return $this
+     */
     public function fromDialog(Dialog $dialog)
     {
         $this->dialogParameters = $dialog->getDialogParameters();
         $this->credentials = $dialog->getCredentials();
         return $this;
     }
-    
 
+
+    /**
+     * @return Message
+     * @throws DialogMissingException
+     * @throws \Abiturma\PhpFints\Exceptions\MessageHeadMissingException
+     */
     public function sync()
     {
         return $this->newMessage()
@@ -48,6 +77,11 @@ class MessageBuilder
     }
 
 
+    /**
+     * @return Message
+     * @throws DialogMissingException
+     * @throws \Abiturma\PhpFints\Exceptions\MessageHeadMissingException
+     */
     public function init()
     {
         return $this->newMessage()
@@ -60,6 +94,11 @@ class MessageBuilder
 
     }
 
+    /**
+     * @return Message
+     * @throws DialogMissingException
+     * @throws \Abiturma\PhpFints\Exceptions\MessageHeadMissingException
+     */
     public function getAccounts()
     {
         return $this->newMessage(new HKSPA)
@@ -69,6 +108,15 @@ class MessageBuilder
             ->prepare();
     }
 
+    /**
+     * @param Account $account
+     * @param $from
+     * @param $to
+     * @param null $type
+     * @return Message
+     * @throws DialogMissingException
+     * @throws \Abiturma\PhpFints\Exceptions\MessageHeadMissingException
+     */
     public function getStatementOfAccount(Account $account, $from, $to, $type = null)
     {
         $this->assureDialog(); 
@@ -83,6 +131,11 @@ class MessageBuilder
             ->prepare(); 
     }
 
+    /**
+     * @return Message
+     * @throws DialogMissingException
+     * @throws \Abiturma\PhpFints\Exceptions\MessageHeadMissingException
+     */
     public function close()
     {
         return $this->newMessage(new HKEND())
@@ -93,8 +146,10 @@ class MessageBuilder
     }
 
 
-
-
+    /**
+     * @param $type
+     * @return HKCAZ|HKKAZ
+     */
     protected function buildStatementSegment($type)
     {
         if($type == 'swift')  {
@@ -106,21 +161,36 @@ class MessageBuilder
         return $this->guessStatementSegment(); 
     }
 
+    /**
+     * @return HKKAZ
+     */
     protected function buildSwiftStatementSegment()
     {
         return (new HKKAZ())->setVersion($this->dialogParameters->swiftStatementVersion); 
     }
 
+    /**
+     * @return HKCAZ
+     */
     protected function buildCamtStatementSegment()
     {
         return new HKCAZ(); 
     }
 
+    /**
+     * @return HKCAZ|HKKAZ
+     */
     protected function guessStatementSegment()
     {
         return $this->dialogParameters->camtVersion ? $this->buildCamtStatementSegment() : $this->buildSwiftStatementSegment(); 
     }
 
+    /**
+     * @param array $segments
+     * @return Message
+     * @throws DialogMissingException
+     * @throws \Abiturma\PhpFints\Exceptions\MessageHeadMissingException
+     */
     protected function newMessage($segments = [])
     {
         if (!is_array($segments)) {
@@ -137,6 +207,10 @@ class MessageBuilder
         return $result;
     }
 
+    /**
+     * @return $this
+     * @throws DialogMissingException
+     */
     protected function assureDialog()
     {
         if(!$this->credentials) {

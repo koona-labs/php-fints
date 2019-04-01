@@ -13,6 +13,10 @@ use Abiturma\PhpFints\Segments\HNVSK;
 use Tests\TestCase;
 
 
+/**
+ * Class MessageTest
+ * @package Tests\Message
+ */
 class MessageTest extends TestCase
 {
 
@@ -109,10 +113,11 @@ class MessageTest extends TestCase
         $message = $this->make()->newMessage($this->credentials)->push(new HKSYN())->push(new HKKAZ())->encrypt()->prepare();
         $this->assertEquals([1 => 'HNHBK', 2 => 'HKSYN', 3 => 'HKKAZ', 4 => 'HNHBS'],$message->getSegmentOrder());
     }
-    
-    
 
 
+    /**
+     * @return Message
+     */
     public function make()
     {
         return new Message($this->encrypter);

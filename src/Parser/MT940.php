@@ -6,6 +6,10 @@ namespace Abiturma\PhpFints\Parser;
 use Abiturma\PhpFints\Models\Transaction;
 use DateTime;
 
+/**
+ * Class MT940
+ * @package Abiturma\PhpFints
+ */
 class MT940
 {
 
@@ -29,6 +33,10 @@ class MT940
     protected $inputString = '';
 
 
+    /**
+     * @param $input
+     * @return array
+     */
     public function parseFromString($input)
     {
         $this->inputString = $input;
@@ -36,6 +44,9 @@ class MT940
         return $this->buildModels($models);
     }
 
+    /**
+     * @return array
+     */
     protected function parse()
     {
         $delimiter = substr_count($this->inputString, "\r\n-") > substr_count($this->inputString, '@@-') ? "\r\n" : '@@';
@@ -56,6 +67,11 @@ class MT940
 
     }
 
+    /**
+     * @param $input
+     * @param $delimiter
+     * @return array
+     */
     protected function splitInputInFields($input, $delimiter)
     {
         $fields = explode($delimiter . ':', $input);
@@ -66,6 +82,10 @@ class MT940
         }, $fields);
     }
 
+    /**
+     * @param $fields
+     * @return array
+     */
     protected function buildTransactionsFromFields($fields)
     {
         $result = [];
@@ -84,6 +104,10 @@ class MT940
         return array_filter($result);
     }
 
+    /**
+     * @param $primary
+     * @return array
+     */
     protected function parsePrimary($primary)
     {
 
@@ -121,6 +145,10 @@ class MT940
         ]);
     }
 
+    /**
+     * @param $meta
+     * @return array
+     */
     protected function parseMeta($meta)
     {
         $delimiter = mb_substr($meta, 3, 1);
@@ -142,7 +170,10 @@ class MT940
     }
 
 
-    
+    /**
+     * @param $primary
+     * @return array
+     */
     protected function buildDates($primary)
     {
         $valueDate = DateTime::createFromFormat('ymd', mb_substr($primary, 0, 6));
@@ -161,6 +192,10 @@ class MT940
     }
 
 
+    /**
+     * @param $fields
+     * @return array
+     */
     protected function parseReferenceSubFields($fields)
     {
         $breakPattern = "/^2\d([A-Z]{4})\+/";
@@ -195,6 +230,10 @@ class MT940
         return $result;
     }
 
+    /**
+     * @param $primary
+     * @return string
+     */
     protected function normalizePrimary($primary)
     {
         //if no booking date is given -> set value date = booking date
@@ -216,6 +255,10 @@ class MT940
         return $primary; 
     }
 
+    /**
+     * @param $currencyIdentifier
+     * @return mixed
+     */
     protected function buildCurrency($currencyIdentifier)
     {
         if(array_key_exists($currencyIdentifier,static::CURRENCY_MAP)) {
@@ -224,6 +267,10 @@ class MT940
         return $currencyIdentifier; 
     }
 
+    /**
+     * @param $fields
+     * @return array
+     */
     protected function parseOtherSubfields($fields)
     {
 
@@ -243,6 +290,10 @@ class MT940
         }, $this->fieldMap);
     }
 
+    /**
+     * @param array $models
+     * @return array
+     */
     protected function buildModels(array $models = [])
     {
         return array_map(function ($props) {
@@ -250,6 +301,11 @@ class MT940
         }, $models);
     }
 
+    /**
+     * @param $pattern
+     * @param array $haystack
+     * @return mixed|null
+     */
     protected function findFirst($pattern, array $haystack = [])
     {
         foreach ($haystack as $field) {

@@ -7,6 +7,10 @@ use Abiturma\PhpFints\Segments\HKIDN;
 use Tests\TestCase;
 
 
+/**
+ * Class HKIDNTest
+ * @package Tests\Segments
+ */
 class HKIDNTest extends TestCase
 {
 

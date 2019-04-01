@@ -14,9 +14,18 @@ use Abiturma\PhpFints\Misc\NullLogger;
 use Abiturma\PhpFints\Response\ResponseFactory;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class Fints
+ * @package Abiturma\PhpFints
+ */
 class Fints
 {
 
+    /**
+     * @param LoggerInterface|null $logger
+     * @return BaseFints
+     * @throws \ErrorException
+     */
     protected static function build(LoggerInterface $logger = null)
     {
         if(!$logger) {
@@ -40,6 +49,12 @@ class Fints
     }
 
 
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     * @throws \ErrorException
+     */
     public static function __callStatic($name, $arguments)
     {
         return self::build()->$name(...$arguments); 

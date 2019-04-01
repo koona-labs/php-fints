@@ -10,17 +10,30 @@ use Genkgo\Camt\Camt052\MessageFormat\V02;
 use Genkgo\Camt\Config;
 use Genkgo\Camt\Reader;
 
+/**
+ * Class Camt
+ * @package Abiturma\PhpFints
+ */
 class Camt
 {
 
     protected $rawString;
 
+    /**
+     * @param $rawString
+     * @return array
+     * @throws \Genkgo\Camt\Exception\ReaderException
+     */
     public function parseFromString($rawString)
     {
         $this->rawString = $rawString;
         return $this->prepare()->parse();
     }
 
+    /**
+     * @return array
+     * @throws \Genkgo\Camt\Exception\ReaderException
+     */
     protected function parse()
     {
         $config = Config::getDefault();
@@ -32,12 +45,20 @@ class Camt
         }, $entries);
     }
 
+    /**
+     * @return $this
+     */
     protected function prepare()
     {
         $this->rawString = preg_replace('/<\/Ustrd>\s*<Ustrd>/mi','',$this->rawString); 
         return $this; 
     }
 
+    /**
+     * @param $entry
+     * @return Transaction
+     * @throws \Exception
+     */
     protected function entryToTransaction($entry)
     {
         $bookingDate = new DateTime($entry->getBookingDate()->format('Y-m-d')); 

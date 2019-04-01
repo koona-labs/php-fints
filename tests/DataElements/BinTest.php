@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\Bin;
 use Tests\TestCase;
 
 
+/**
+ * Class BinTest
+ * @package Tests\DataElements
+ */
 class BinTest extends TestCase
 {
 

@@ -13,25 +13,52 @@ use Abiturma\PhpFints\Segments\HNHBS;
 use Abiturma\PhpFints\Segments\HNSHA;
 use Abiturma\PhpFints\Segments\HNSHK;
 
+/**
+ * Class Message
+ * @package Abiturma\PhpFints
+ */
 class Message
 {
 
+    /**
+     * @var HoldsCredentials
+     */
     protected $credentials;
 
+    /**
+     * @var array 
+     */
     protected $segments = [];
-    
-    protected $unencryptedSegments = []; 
 
+    /**
+     * @var array 
+     */
+    protected $unencryptedSegments = [];
+
+    /**
+     * @var array 
+     */
     protected $envelope = [];
 
+    /**
+     * @var EncryptsASequenceOfSegments 
+     */
     protected $encrypter;
 
 
+    /**
+     * Message constructor.
+     * @param EncryptsASequenceOfSegments $encrypter
+     */
     public function __construct(EncryptsASequenceOfSegments $encrypter)
     {
         $this->encrypter = $encrypter;
     }
 
+    /**
+     * @param HoldsCredentials $credentials
+     * @return $this
+     */
     public function newMessage(HoldsCredentials $credentials)
     {
         $this->credentials = $credentials;
@@ -41,6 +68,11 @@ class Message
         return $this;
     }
 
+    /**
+     * @param AbstractSegment $segment
+     * @return $this
+     * @throws MessageHeadMissingException
+     */
     public function prepend(AbstractSegment $segment)
     {
         $this->checkEnvelope();
@@ -51,6 +83,11 @@ class Message
         return $this;
     }
 
+    /**
+     * @param AbstractSegment $segment
+     * @return $this
+     * @throws MessageHeadMissingException
+     */
     public function push(AbstractSegment $segment)
     {
         $this->checkEnvelope();
@@ -60,6 +97,10 @@ class Message
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws MessageHeadMissingException
+     */
     public function addSignature()
     {
         $this->checkEnvelope();
@@ -71,6 +112,11 @@ class Message
         return $this;
     }
 
+    /**
+     * @param DialogParameters|null $parameters
+     * @return $this
+     * @throws MessageHeadMissingException
+     */
     public function mergeDialogParameters(DialogParameters $parameters = null)
     {
         $this->checkEnvelope();
@@ -85,6 +131,9 @@ class Message
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function encrypt()
     {
         $this->unencryptedSegments = $this->segments; 
@@ -93,6 +142,10 @@ class Message
 
     }
 
+    /**
+     * @return $this
+     * @throws MessageHeadMissingException
+     */
     public function prepare()
     {
         $this->checkEnvelope();
@@ -107,11 +160,17 @@ class Message
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getSegments()
     {
         return $this->segments;
     }
 
+    /**
+     * @return array
+     */
     public function getSegmentOrder()
     {
         $result = []; 
@@ -121,6 +180,9 @@ class Message
         return $result; 
     }
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $result = array_map(function ($segment) {
@@ -129,6 +191,9 @@ class Message
         return implode($result, '');
     }
 
+    /**
+     * @return string
+     */
     public function toBase64()
     {
         return base64_encode($this->toString());
@@ -156,6 +221,10 @@ class Message
         }
     }
 
+    /**
+     * @param array $segments
+     * @return array
+     */
     protected function wrapWithEnvelope(array $segments)
     {
         return array_merge([$this->envelope[0]], $segments, [$this->envelope[1]]);

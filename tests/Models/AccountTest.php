@@ -9,6 +9,10 @@ use Abiturma\PhpFints\Models\Account;
 use Tests\TestCase;
 
 
+/**
+ * Class AccountTest
+ * @package Tests\Models
+ */
 class AccountTest extends TestCase
 {
 

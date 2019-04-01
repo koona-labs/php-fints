@@ -11,6 +11,10 @@ use Abiturma\PhpFints\Response\ResponseFactory;
 use Exception;
 use Tests\TestCase;
 
+/**
+ * Class CurlTest
+ * @package Tests\Adapter
+ */
 class CurlTest extends TestCase 
 {
     
@@ -71,10 +75,11 @@ class CurlTest extends TestCase
         $this->expectException(HttpException::class);
         $this->make()->to($host)->send($this->message);
     }
-    
 
 
-
+    /**
+     * @return Curl
+     */
     public function make()
     {   
         return new Curl($this->curl,$this->responseFactory); 

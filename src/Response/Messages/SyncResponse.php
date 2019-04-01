@@ -6,15 +6,25 @@ namespace Abiturma\PhpFints\Response\Messages;
 use Abiturma\PhpFints\Response\HoldsDialogParameters;
 use Abiturma\PhpFints\Segments\HKVVB;
 
+/**
+ * Class SyncResponse
+ * @package Abiturma\PhpFints
+ */
 class SyncResponse extends AbstractResponseMessage implements HoldsDialogParameters
 {
-    protected $tanErrorCode = 3920; 
+    protected $tanErrorCode = 3920;
 
+    /**
+     * @return mixed
+     */
     public function getBpd()
     {
         return $this->getFirstOfType('HIBPA');
     }
 
+    /**
+     * @return bool|int
+     */
     public function getBpdVersion()
     {
         $bpd = $this->getBpd();
@@ -22,22 +32,34 @@ class SyncResponse extends AbstractResponseMessage implements HoldsDialogParamet
         return $bpd ? (int)$bpd->getElementAtPosition(2)->toString() : false;
     }
 
+    /**
+     * @return mixed
+     */
     public function getUpd()
     {
         return $this->getFirstOfType('HIUPA');
     }
 
+    /**
+     * @return bool|int
+     */
     public function getUpdVersion()
     {
         $upd = $this->getUpd();
         return $upd ? (int)$upd->getElementAtPosition(3)->toString() : false;
     }
 
+    /**
+     * @return string
+     */
     public function getSystemId()
     {
         return $this->getFirstOfType('HISYN')->getElementAtPosition(2)->toRawValue();
     }
 
+    /**
+     * @return string|null
+     */
     public function getCamtVersion()
     {
         if(!$hicazs = $this->getFirstOfType('HICAZS')) {
@@ -47,6 +69,9 @@ class SyncResponse extends AbstractResponseMessage implements HoldsDialogParamet
         return $hicazs->getElementAtPosition(5)->getElementAtPosition(4)->toRawValue(); 
     }
 
+    /**
+     * @return string|null
+     */
     public function getTanFunctionCode()
     {
         $feedback = array_filter($this->getSegmentalFeedback(),function($feedback) {
@@ -69,6 +94,9 @@ class SyncResponse extends AbstractResponseMessage implements HoldsDialogParamet
         
     }
 
+    /**
+     * @return string|null
+     */
     public function getSwiftStatementVersion()
     {
         $result = array_map(function($segment) {
@@ -82,7 +110,9 @@ class SyncResponse extends AbstractResponseMessage implements HoldsDialogParamet
     }
 
 
-
+    /**
+     * @return array
+     */
     public function toMergableParameters()
     {
         $result = [

@@ -9,6 +9,10 @@ use Abiturma\PhpFints\Segments\HNVSK;
 use Tests\TestCase;
 
 
+/**
+ * Class NullEnrypterTest
+ * @package Tests\Encryption
+ */
 class NullEnrypterTest extends TestCase
 {
 
@@ -48,12 +52,19 @@ class NullEnrypterTest extends TestCase
     }
 
 
+    /**
+     * @return array
+     */
     protected function runEncrypter()
     {
         $segments = [new HNHBK(), new HNHBK(), new HNHBK()];
         return (new NullEncrypter())->encrypt($segments);
     }
 
+    /**
+     * @param $segments
+     * @return mixed
+     */
     protected function runDecrypter($segments)
     {
         return (new NullEncrypter())->decrypt($segments); 

@@ -6,6 +6,10 @@ namespace Abiturma\PhpFints\Dialog;
 use Abiturma\PhpFints\Misc\HasAttributes;
 use Abiturma\PhpFints\Response\HoldsDialogParameters;
 
+/**
+ * Class DialogParameters
+ * @package Abiturma\PhpFints
+ */
 class DialogParameters
 {
     
@@ -17,6 +21,11 @@ class DialogParameters
         $this->reset();      
     }
 
+    /**
+     * @param HoldsDialogParameters $response
+     * @param array $except
+     * @return $this
+     */
     public function mergeResponse(HoldsDialogParameters $response, $except = [])
     {
         $parameters = $response->toMergableParameters();
@@ -25,6 +34,11 @@ class DialogParameters
         return $this;
     }
 
+    /**
+     * @param HoldsDialogParameters $response
+     * @param array $only
+     * @return $this
+     */
     public function mergeResponseOnlyWith(HoldsDialogParameters $response, $only = [])
     {
         $parameters = $response->toMergableParameters();
@@ -33,11 +47,17 @@ class DialogParameters
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function incrementMessageNumber()
     {
         return $this->setMessageNumber($this->messageNumber + 1); 
     }
 
+    /**
+     * @return $this
+     */
     public function reset()
     {
         $this->attributes = [
@@ -54,8 +74,12 @@ class DialogParameters
         return $this;
     }
 
-    
 
+    /**
+     * @param $name
+     * @param $arguments
+     * @return $this
+     */
     public function __call($name, $arguments)
     {
         $property = lcfirst(substr($name, 3));

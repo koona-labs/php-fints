@@ -7,6 +7,10 @@ use DateTime;
 use Tests\TestCase;
 
 
+/**
+ * Class SecurityDateTimeTest
+ * @package Tests\DataElements\Groups
+ */
 class SecurityDateTimeTest extends TestCase
 {
 

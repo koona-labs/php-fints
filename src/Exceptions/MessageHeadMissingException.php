@@ -3,6 +3,10 @@
 namespace Abiturma\PhpFints\Exceptions;
 
 
+/**
+ * Class MessageHeadMissingException
+ * @package Abiturma\PhpFints
+ */
 class MessageHeadMissingException extends \Exception
 {
     public function __construct()

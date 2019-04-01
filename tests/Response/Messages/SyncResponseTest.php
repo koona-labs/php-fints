@@ -7,6 +7,10 @@ use Abiturma\PhpFints\Response\Response;
 use Tests\TestCase;
 
 
+/**
+ * Class SyncResponseTest
+ * @package Tests\Response\Messages
+ */
 class SyncResponseTest extends TestCase
 {
 
@@ -33,6 +37,9 @@ class SyncResponseTest extends TestCase
     }
 
 
+    /**
+     * @return SyncResponse
+     */
     protected function make()
     {
         return new SyncResponse($this->response);

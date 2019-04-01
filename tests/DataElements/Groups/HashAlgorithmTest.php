@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\Groups\HashAlgorithm;
 use Tests\TestCase;
 
 
+/**
+ * Class HashAlgorithmTest
+ * @package Tests\DataElements\Groups
+ */
 class HashAlgorithmTest extends TestCase
 {
 

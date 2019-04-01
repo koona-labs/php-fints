@@ -5,10 +5,15 @@ namespace Abiturma\PhpFints\DataElements;
 
 use Abiturma\PhpFints\Misc\HoldsDataElements;
 
+/**
+ * Class DataElementGroup
+ * @package Abiturma\PhpFints
+ */
 class DataElementGroup implements HoldsStringableData
 {
 
     use HoldsDataElements; 
+    
     
     public function __construct()
     {
@@ -19,8 +24,11 @@ class DataElementGroup implements HoldsStringableData
     {
         
     }
-    
-   
+
+
+    /**
+     * @return string
+     */
     public function toString()
     {
         $result = array_map(function($element) {
@@ -31,12 +39,20 @@ class DataElementGroup implements HoldsStringableData
         
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->toString(); 
     }
 
 
+    /**
+     * Clones this instance recursively
+     *
+     * @return DataElementGroup
+     */
     public function clone()
     {
         $clone = new static(); 
@@ -46,11 +62,18 @@ class DataElementGroup implements HoldsStringableData
         return $clone; 
     }
 
+    /**
+     * @return $this
+     */
     protected function buildNestedGroups()
     {
         return $this;
     }
 
+    /**
+     * @param DataElementGroup $dataElementGroup
+     * @return DataElementGroup
+     */
     public static function fromDataElementGroup(DataElementGroup $dataElementGroup)
     {
         $result = (new static())->setElements($dataElementGroup->getElements()); 

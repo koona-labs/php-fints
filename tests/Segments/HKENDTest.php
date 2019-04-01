@@ -6,6 +6,10 @@ use Abiturma\PhpFints\Segments\HKEND;
 use Tests\TestCase;
 
 
+/**
+ * Class HKENDTest
+ * @package Tests\Segments
+ */
 class HKENDTest extends TestCase
 {
 

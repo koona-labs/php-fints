@@ -6,6 +6,10 @@ use Abiturma\PhpFints\Segments\AbstractSegment;
 use Tests\TestCase;
 
 
+/**
+ * Class AbstractSegmentTest
+ * @package Tests\Segments
+ */
 class AbstractSegmentTest extends TestCase
 {
 

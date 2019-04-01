@@ -11,6 +11,24 @@ use Abiturma\PhpFints\DataElements\Groups\SecurityProfile;
 use Abiturma\PhpFints\DataElements\Groups\SignatureAlgorithm;
 use Abiturma\PhpFints\Dialog\DialogParameters;
 
+/**
+ * SignatureHead/SignaturKopf
+ * 
+ * Fields
+ * - 2 SecurityProfile
+ * - 3 SecurityFunctionCode
+ * - 4 SecurityControlReference
+ * - 5 SecurityScope
+ * - 6 SecurityRole
+ * - 7 SecurityIdentificationDetails
+ * - 8 SecurityReferenceNumber
+ * - 9 SecurityDateTime
+ * - 10 HashAlgorithm
+ * - 11 SignatureAlgorithm
+ * - 12 KeyName
+ * 
+ * @package Abiturma\PhpFints
+ */
 class HNSHK extends AbstractSegment
 {
 
@@ -23,23 +41,6 @@ class HNSHK extends AbstractSegment
     const SECURITY_SCOPE = 1; //1 = SHM, 2 = SHT 
 
     const SECURITY_ROLE = 1;  // 1 = ISS = Signer is also author, 2 = CON = Signer is supporter, 3 = WIT = Signer is witness 
-
-
-    /*
-     * SignatureHead/SignaturKopf
-     * DataFields: 
-     * 2 SecurityProfile
-     * 3 SecurityFunctionCode
-     * 4 SecurityControlReference 
-     * 5 SecurityScope
-     * 6 SecurityRole
-     * 7 SecurityIdentificationDetails
-     * 8 SecurityReferenceNumber
-     * 9 SecurityDateTime
-     * 10 HashAlgorithm
-     * 11 SignatureAlgorithm
-     * 12 KeyName
-     */
 
 
     protected function boot()
@@ -58,39 +59,65 @@ class HNSHK extends AbstractSegment
 
     }
 
+    /**
+     * @param $bankCode
+     * @return $this
+     */
     public function setBankCode($bankCode)
     {
         $this->getElementAtPosition(12)->getElementAtPosition(1)->setBankCode($bankCode);
         return $this;
     }
 
+    /**
+     * @param $username
+     * @return $this
+     */
     public function setUsername($username)
     {
         $this->getElementAtPosition(12)->setElementAtPosition(2, $username);
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getSecurityControlReference()
     {
         return $this->getElementAtPosition(4)->toString(); 
     }
 
+    /**
+     * @param $code
+     * @return HNSHK
+     */
     public function setTanFunctionCode($code)
     {
         return $this->setElementAtPosition(3,$code); 
     }
 
+    /**
+     * @return int
+     */
     protected function generateSecurityReferenceNumber()
     {
         return 1; 
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
     public function setSystemId($id)
     {
         $this->getElementAtPosition(7)->setSystemId($id); 
         return $this; 
     }
 
+    /**
+     * @param DialogParameters $parameters
+     * @return $this|AbstractSegment
+     */
     public function mergeDialogParameters(DialogParameters $parameters)
     {
         if($parameters->systemId) {

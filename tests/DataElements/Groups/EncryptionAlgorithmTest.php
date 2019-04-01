@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\Groups\EncryptionAlgorithm;
 use Tests\TestCase;
 
 
+/**
+ * Class EncryptionAlgorithmTest
+ * @package Tests\DataElements\Groups
+ */
 class EncryptionAlgorithmTest extends TestCase
 {
 

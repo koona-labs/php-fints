@@ -6,6 +6,14 @@ namespace Abiturma\PhpFints\Segments;
 use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\Dialog\DialogParameters;
 
+/**
+ * EndOfMessage/Nachrichtenabschluss
+ * 
+ * Fields
+ * - 2 MessageNumber
+ * 
+ * @package Abiturma\PhpFints
+ */
 class HNHBS extends AbstractSegment
 {
     
@@ -13,11 +21,6 @@ class HNHBS extends AbstractSegment
     
     const VERSION = 1;
     
-    /*
-     * EndOfMessage/Nachrichtenabschluss
-     * DataFields: 
-     * * MessageNumber
-    */
 
     public function boot()
     {
@@ -26,17 +29,29 @@ class HNHBS extends AbstractSegment
         ];
     }
 
+    /**
+     * @param $value
+     * @return $this
+     */
     public function setMessageNumber($value)
     {
         $this->elements[0] = (new DataElement($value));
         return $this;
     }
 
+    /**
+     * @param array $dataElements
+     * @return $this|AbstractSegment
+     */
     public function setElements(array $dataElements = [])
     {
         return $this;
     }
 
+    /**
+     * @param DialogParameters $dialogParameters
+     * @return AbstractSegment|HNHBS
+     */
     public function mergeDialogParameters(DialogParameters $dialogParameters)
     {
         return $this->setMessageNumber($dialogParameters->messageNumber); 

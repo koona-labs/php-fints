@@ -6,6 +6,10 @@ use Abiturma\PhpFints\Segments\HKSPA;
 use Tests\TestCase;
 
 
+/**
+ * Class HKSPATest
+ * @package Tests\Segments
+ */
 class HKSPATest extends TestCase
 {
 

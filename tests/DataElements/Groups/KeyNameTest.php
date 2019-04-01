@@ -7,6 +7,10 @@ use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Tests\TestCase;
 
 
+/**
+ * Class KeyNameTest
+ * @package Tests\DataElements\Groups
+ */
 class KeyNameTest extends TestCase
 {
 

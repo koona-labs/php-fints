@@ -5,6 +5,16 @@ namespace Abiturma\PhpFints\DataElements\Groups;
 
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 
+/**
+ * Class HashAlgorithm
+ * 
+ * Fields
+ * - 1 HashUsage
+ * - 2 HashAlgorithmCode
+ * - 3 HashAlgorithmParameterDescription
+ * 
+ * @package Abiturma\PhpFints
+ */
 class HashAlgorithm extends DataElementGroup
 {
 
@@ -14,13 +24,6 @@ class HashAlgorithm extends DataElementGroup
 
     const ALGORITHM_PARAMATER_DESCRIPTION = 1; //1 = ICV = initialization value/clear text (only one value available)
 
-    /*
-     * DataFields: 
-     * 1 HashUsage
-     * 2 HashAlgorithmCode
-     * 3 HashAlgorithmParameterDescription
-     */
-    
 
     protected function boot()
     {

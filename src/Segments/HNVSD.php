@@ -5,6 +5,14 @@ namespace Abiturma\PhpFints\Segments;
 
 use Abiturma\PhpFints\DataElements\Bin;
 
+/**
+ * EncryptedData/VerschlüsselteDaten
+ * 
+ * Fields
+ * - 2 EncryptedData (bin)
+ * 
+ * @package Abiturma\PhpFints
+ */
 class HNVSD extends AbstractSegment
 {
     
@@ -13,13 +21,10 @@ class HNVSD extends AbstractSegment
     const VERSION = 1;
 
 
-    /*
-     * EncryptedData/VerschlüsselteDaten
-     * DataFields: 
-     * 2 EncryptedData (bin)
+    /**
+     * @param $data
+     * @return $this
      */
-    
-
     public function setEncryptedData($data)
     {
         $this->setElementAtPosition(1,new Bin($data));

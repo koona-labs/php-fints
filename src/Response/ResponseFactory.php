@@ -5,6 +5,10 @@ namespace Abiturma\PhpFints\Response;
 
 use Abiturma\PhpFints\Encryption\EncryptsASequenceOfSegments;
 
+/**
+ * Class ResponseFactory
+ * @package Abiturma\PhpFints
+ */
 class ResponseFactory
 {
 
@@ -19,12 +23,21 @@ class ResponseFactory
     protected $encrypter;
 
 
+    /**
+     * ResponseFactory constructor.
+     * @param EncryptsASequenceOfSegments $encrypter
+     */
     public function __construct(EncryptsASequenceOfSegments $encrypter)
     {
         $this->encrypter = $encrypter;
     }
 
 
+    /**
+     * @param $responseString
+     * @return mixed
+     * @throws \Abiturma\PhpFints\Exceptions\ResponseSyntaxException
+     */
     public function fromString($responseString)
     {
         $this->responseString = $responseString;
@@ -32,6 +45,10 @@ class ResponseFactory
         return $this->parse();
     }
 
+    /**
+     * @param $base64String
+     * @return mixed
+     */
     public function fromBase64($base64String)
     {
         $decodedString = base64_decode($base64String);
@@ -43,6 +60,10 @@ class ResponseFactory
     }
 
 
+    /**
+     * @return mixed
+     * @throws \Abiturma\PhpFints\Exceptions\ResponseSyntaxException
+     */
     protected function parse()
     {   
         $responseString = $this->responseString;
@@ -54,6 +75,10 @@ class ResponseFactory
     }
 
 
+    /**
+     * @param $responseString
+     * @return string
+     */
     protected function handleBinaries($responseString)
     {
         $binaryPattern = "/([^\?]|^)(\?\?)*(@\d+@)/m";
@@ -72,12 +97,21 @@ class ResponseFactory
         return $responseString;
     }
 
+    /**
+     * @param $responseString
+     * @return array[]|false|string[]
+     */
     protected function splitSegments($responseString)
     {
         $segmentPattern = "/[^\?](\?\?)*\K'/"; 
         return preg_split($segmentPattern, $responseString);
     }
 
+    /**
+     * @param $rawSegments
+     * @return array
+     * @throws \Abiturma\PhpFints\Exceptions\ResponseSyntaxException
+     */
     protected function buildSegments($rawSegments)
     {
         $result = [];
@@ -90,6 +124,10 @@ class ResponseFactory
         return $result;
     }
 
+    /**
+     * @param $segments
+     * @return mixed
+     */
     protected function decrypt($segments)
     {
         $response = $this->encrypter->decrypt($segments[2]->getElementAtPosition(2)->toRawValue());
@@ -100,6 +138,10 @@ class ResponseFactory
 
     }
 
+    /**
+     * @param $segments
+     * @return bool
+     */
     protected function isEncrypted($segments)
     {
         if (count($segments) != 4) {
@@ -117,6 +159,12 @@ class ResponseFactory
     }
 
 
+    /**
+     * @param $pattern
+     * @param $subject
+     * @param $matches
+     * @return false|int
+     */
     protected function mb_preg_match($pattern, $subject, &$matches) {
         $hasMatch = preg_match($pattern, $subject, $matches, PREG_OFFSET_CAPTURE);
         if ($hasMatch) {

@@ -6,6 +6,10 @@ use Abiturma\PhpFints\Credentials\CredentialsContainer;
 use Tests\TestCase;
 
 
+/**
+ * Class CredentialsContainerTest
+ * @package Tests\Credentials
+ */
 class CredentialsContainerTest extends TestCase
 {
 
@@ -33,11 +37,12 @@ class CredentialsContainerTest extends TestCase
         
     }
 
-    
-    
-    
 
-
+    /**
+     * @param $setter
+     * @param $value
+     * @return $this
+     */
     protected function setValue($setter,$value)
     {
         $setter = 'set'. ucfirst($setter); 
@@ -45,6 +50,10 @@ class CredentialsContainerTest extends TestCase
         return $this; 
     }
 
+    /**
+     * @param $method
+     * @param $value
+     */
     protected function assertValue($method,$value)
     {
         $this->assertEquals($this->credentials->$method(),$value); 

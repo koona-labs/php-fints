@@ -5,6 +5,15 @@ namespace Abiturma\PhpFints\DataElements\Groups;
 
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 
+/**
+ * Class SecurityProfile
+ * 
+ * Fields
+ * - 1 SecurityMechanism (PIN/RAH)
+ * - 2 MechanismVersion (1 (PIN), 7,9,10 (RAH))
+ * 
+ * @package Abiturma\PhpFints
+ */
 class SecurityProfile extends DataElementGroup
 {
 
@@ -12,11 +21,6 @@ class SecurityProfile extends DataElementGroup
 
     const MECHANISM_VERSION = 1; // 1 for PIN, 7,9,10 for RAH
 
-    /*
-     * DataFields: 
-     * 1 SecurityMechanism (PIN/RAH)
-     * 2 MechanismVersion (1 (PIN), 7,9,10 (RAH))
-     */
 
     protected function boot()
     {

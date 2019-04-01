@@ -6,25 +6,49 @@ namespace Abiturma\PhpFints\Adapter;
 use Abiturma\PhpFints\Exceptions\ConnectionFailed;
 use Abiturma\PhpFints\Exceptions\HttpException;
 use Abiturma\PhpFints\Message\Message;
+use Abiturma\PhpFints\Response\Response;
 use Abiturma\PhpFints\Response\ResponseFactory;
 use Exception;
 
+/**
+ * Class Curl
+ * @package Abiturma\PhpFints
+ */
 class Curl implements SendsMessages
 {
+    /**
+     * @var \Curl\Curl 
+     */
+    protected $curl;
 
-    protected $curl; 
-    
+    /**
+     * @var boolean
+     */
     protected $initialized = false;
     
-    
+    /**
+     * @var ResponseFactory
+     */
     protected $responseFactory;
 
+
+    /**
+     * Curl constructor.
+     * @param \Curl\Curl $curl
+     * @param ResponseFactory $responseFactory
+     */
     public function __construct(\Curl\Curl $curl, ResponseFactory $responseFactory)
     {
         $this->curl = $curl;
         $this->responseFactory = $responseFactory;
     }
 
+    /**
+     * Sets the host url
+     * 
+     * @param $host
+     * @return $this
+     */
     public function to($host)
     {
         
@@ -37,12 +61,21 @@ class Curl implements SendsMessages
         return $this; 
     }
 
+    /**
+     * @return \Curl\Curl
+     */
     public function getCurl()
     {
         return $this->curl;         
     }
 
 
+    /**
+     * @param Message $message
+     * @return Response
+     * @throws ConnectionFailed
+     * @throws HttpException
+     */
     public function send(Message $message)
     {
        if(!$this->initialized) {

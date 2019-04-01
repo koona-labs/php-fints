@@ -20,6 +20,10 @@ use DateTime;
 use Tests\TestCase;
 
 
+/**
+ * Class MessageBuilderTest
+ * @package Tests\Message
+ */
 class MessageBuilderTest extends TestCase
 {
     
@@ -174,10 +178,14 @@ class MessageBuilderTest extends TestCase
         $this->message->expects($this->once())->method('encrypt');
         $this->assertInstanceOf(Message::class,$this->make()->close());
     }
-    
-    
 
 
+    /**
+     * @param null $type
+     * @return Message
+     * @throws DialogMissingException
+     * @throws \ReflectionException
+     */
     protected function getAccount($type = null)
     {
         $account = $this->createMock(Account::class);
@@ -185,9 +193,11 @@ class MessageBuilderTest extends TestCase
         $to = new DateTime();
         return $this->make()->getStatementOfAccount($account,$from,$to,$type); 
     }
-    
-    
 
+
+    /**
+     * @return MessageBuilder
+     */
     protected function make()
     {
         return (new MessageBuilder($this->message))->fromDialog($this->dialog); 

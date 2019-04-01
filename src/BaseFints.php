@@ -11,16 +11,29 @@ use DateTime;
 use Psr\Log\LoggerInterface;
 
 
-
+/**
+ * Class BaseFints
+ * @package Abiturma\PhpFints
+ */
 class BaseFints
 {
 
+    /**
+     * @var HoldsCredentials 
+     */
     protected $credentials;
-    
-    
+
+    /**
+     * @var Dialog 
+     */
     protected $dialog;
-    
-    
+
+
+    /**
+     * BaseFints constructor.
+     * @param HoldsCredentials $credentials
+     * @param Dialog $dialog
+     */
     public function __construct(HoldsCredentials $credentials, Dialog $dialog)
     {
         $this->credentials = $credentials;
@@ -28,12 +41,20 @@ class BaseFints
         $this->prepareDialog();
     }
 
+    /**
+     * @param LoggerInterface $logger
+     * @return $this
+     */
     public function withLogger(LoggerInterface $logger)
     {
         $this->dialog->setLogger($logger); 
         return $this; 
     }
 
+    /**
+     * @param HoldsCredentials $credentials
+     * @return $this
+     */
     public function useCredentials(HoldsCredentials $credentials)
     {
         $this->credentials = $credentials; 
@@ -42,6 +63,11 @@ class BaseFints
     }
 
 
+    /**
+     * @return array
+     * @throws Exceptions\DialogMissingException
+     * @throws Exceptions\MessageHeadMissingException
+     */
     public function getAccounts()
     {
         $this->dialog->sync();
@@ -52,21 +78,50 @@ class BaseFints
         return $result;
     }
 
+    /**
+     * @param HasAccountStatement $account
+     * @param DateTime|null $from
+     * @param DateTime|null $to
+     * @return array
+     * @throws \Exception
+     */
     public function getSwiftStatementOfAccount(HasAccountStatement $account, DateTime $from = null, DateTime $to = null)
     {
         return $this->getStatementOfAccountByType($account,$from,$to,'swift');    
     }
 
+    /**
+     * @param HasAccountStatement $account
+     * @param DateTime|null $from
+     * @param DateTime|null $to
+     * @return array
+     * @throws \Exception
+     */
     public function getCamtStatementOfAccount(HasAccountStatement $account, DateTime $from = null, DateTime $to = null)
     {
         return $this->getStatementOfAccountByType($account,$from,$to,'camt');    
     }
 
+    /**
+     * @param HasAccountStatement $account
+     * @param DateTime|null $from
+     * @param DateTime|null $to
+     * @return array
+     * @throws \Exception
+     */
     public function getStatementOfAccount(HasAccountStatement $account, DateTime $from = null, DateTime $to = null)
     {
         return $this->getStatementOfAccountByType($account,$from,$to);
     }
 
+    /**
+     * @param HasAccountStatement $account
+     * @param DateTime|null $from
+     * @param DateTime|null $to
+     * @param null $type
+     * @return array
+     * @throws \Exception
+     */
     public function getStatementOfAccountByType(HasAccountStatement $account, DateTime $from = null, DateTime $to = null, $type = null)
     {
         $from = $from ?? (new DateTime())->sub(new DateInterval('P6M'));
@@ -83,11 +138,19 @@ class BaseFints
     }
 
 
+    /**
+     * @return Dialog
+     */
     protected function prepareDialog()
     {
         return $this->dialog->setCredentials($this->credentials);
     }
 
+    /**
+     * @param $method
+     * @param $arguments
+     * @return $this
+     */
     public function __call($method, $arguments)
     {
         $setter = 'set' . ucfirst($method);

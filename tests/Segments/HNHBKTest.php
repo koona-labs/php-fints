@@ -6,6 +6,10 @@ use Abiturma\PhpFints\Segments\HNHBK;
 use Tests\TestCase;
 
 
+/**
+ * Class HBHBKTest
+ * @package Tests\Segments
+ */
 class HBHBKTest extends TestCase
 {
 

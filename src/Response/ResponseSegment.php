@@ -9,6 +9,10 @@ use Abiturma\PhpFints\Exceptions\ResponseSyntaxException;
 use Abiturma\PhpFints\Misc\HoldsDataElements;
 use Abiturma\PhpFints\Misc\OutputsSegmentAsString;
 
+/**
+ * Class ResponseSegment
+ * @package Abiturma\PhpFints
+ */
 class ResponseSegment
 {
 
@@ -20,8 +24,14 @@ class ResponseSegment
 
     protected $version;
     
-    protected $relationNumber; 
-    
+    protected $relationNumber;
+
+    /**
+     * @param $string
+     * @param array $binaries
+     * @return ResponseSegment
+     * @throws ResponseSyntaxException
+     */
     public static function parseFromString($string, $binaries = [])
     {
         $elements = preg_split("/(?<!\?)\+|[^\?](\?\?)+\K\+/", $string);
@@ -43,6 +53,9 @@ class ResponseSegment
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return mb_strtoupper($this->type);
@@ -58,12 +71,20 @@ class ResponseSegment
         return $this->version;
     }
 
+    /**
+     * @return int
+     */
     public function getRelationNumber()
     {
         return (int) $this->relationNumber; 
     }
 
 
+    /**
+     * @param $head
+     * @return ResponseSegment
+     * @throws ResponseSyntaxException
+     */
     protected static function fromHead($head)
     {
         $headElements = explode(':', $head);
@@ -79,11 +100,17 @@ class ResponseSegment
     }
 
 
+    /**
+     * @return string
+     */
     protected function buildSegmentHead()
     {
         return implode(':',[$this->type,$this->segmentNumber,$this->version,$this->relationNumber]);     
     }
 
+    /**
+     * @return int
+     */
     protected function getPositionOffset()
     {
         return 2;

@@ -8,6 +8,10 @@ use DateTime;
 use Tests\TestCase;
 
 
+/**
+ * Class MT940Test
+ * @package Tests\Parser
+ */
 class MT940Test extends TestCase
 {
 
@@ -116,6 +120,10 @@ class MT940Test extends TestCase
     }
 
 
+    /**
+     * @param array $transactions
+     * @return string
+     */
     protected function buildTestString($transactions = [])
     {
         if (!is_array($transactions)) {
@@ -126,6 +134,9 @@ class MT940Test extends TestCase
 
     }
 
+    /**
+     * @return string
+     */
     protected function makeStandardTransaction()
     {
         return ":61:1912150102DR512,00NMSCNONREF@@" .
@@ -134,6 +145,10 @@ class MT940Test extends TestCase
             "?26SVWZ+HERE:SOME:DESCRIPTION:?2@@8AND:MORE:DESCRIPTION?30remoteBankCode?31SomeIban?32A REMOTE NAME@@";
     }
 
+    /**
+     * @param $transactions
+     * @return array
+     */
     protected function parse($transactions)
     {
         $testString = $this->buildTestString($transactions);

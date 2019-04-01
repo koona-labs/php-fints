@@ -6,6 +6,10 @@ use Abiturma\PhpFints\Segments\HKSYN;
 use Tests\TestCase;
 
 
+/**
+ * Class HNSYNTest
+ * @package Tests\Segments
+ */
 class HNSYNTest extends TestCase
 {
 

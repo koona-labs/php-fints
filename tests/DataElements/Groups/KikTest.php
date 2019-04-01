@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Tests\TestCase;
 
 
+/**
+ * Class KikTest
+ * @package Tests\DataElements\Groups
+ */
 class KikTest extends TestCase
 {
 

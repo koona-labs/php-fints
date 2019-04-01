@@ -7,6 +7,10 @@ use Abiturma\PhpFints\DataElements\Groups\Kti;
 use Tests\TestCase;
 
 
+/**
+ * Class KtiTest
+ * @package Tests\DataElements\Groups
+ */
 class KtiTest extends TestCase
 {
 

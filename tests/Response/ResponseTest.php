@@ -8,6 +8,10 @@ use Abiturma\PhpFints\Response\ResponseSegment;
 use Tests\TestCase;
 
 
+/**
+ * Class ResponseTest
+ * @package Tests\Response
+ */
 class ResponseTest extends TestCase
 {
 
@@ -121,12 +125,12 @@ class ResponseTest extends TestCase
         $this->assertEquals('testToken',$response->getPaginationToken('HPAGE'));
         $this->assertNull($response->getPaginationToken('HNOPAGE'));
     }
-    
-    
-    
 
 
-
+    /**
+     * @param array $segments
+     * @return Response
+     */
     protected function fromSegments($segments = [])
     {
         if(!is_array($segments)) {

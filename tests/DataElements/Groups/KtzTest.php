@@ -8,6 +8,10 @@ use Abiturma\PhpFints\DataElements\Groups\Ktz;
 use Tests\TestCase;
 
 
+/**
+ * Class KtzTest
+ * @package Tests\DataElements\Groups
+ */
 class KtzTest extends TestCase
 {
 

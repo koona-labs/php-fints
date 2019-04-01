@@ -7,6 +7,10 @@ use Abiturma\PhpFints\Segments\HNVSK;
 use Tests\TestCase;
 
 
+/**
+ * Class HNVSKTest
+ * @package Tests\Segments
+ */
 class HNVSKTest extends TestCase
 {
 

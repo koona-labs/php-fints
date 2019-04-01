@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\Groups\SecurityProfile;
 use Tests\TestCase;
 
 
+/**
+ * Class SecurityProfileTest
+ * @package Tests\DataElements\Groups
+ */
 class SecurityProfileTest extends TestCase
 {
 

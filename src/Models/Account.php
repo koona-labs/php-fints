@@ -8,9 +8,17 @@ use Abiturma\PhpFints\DataElements\Groups\Kti;
 use Abiturma\PhpFints\DataElements\Groups\Ktv;
 use Abiturma\PhpFints\DataElements\Groups\Ktz;
 
+/**
+ * Class Account
+ * @package Abiturma\PhpFints
+ */
 class Account extends AbstractModel implements HasAccountStatement
 {
 
+    /**
+     * @param Ktz $ktz
+     * @return Account
+     */
     public static function fromKtz(Ktz $ktz)
     {
         $attributes = [
@@ -24,11 +32,17 @@ class Account extends AbstractModel implements HasAccountStatement
     }
 
 
+    /**
+     * @return $this
+     */
     public function toFinTsAccount()
     {
         return $this; 
     }
 
+    /**
+     * @return Ktv
+     */
     public function toKtv()
     {
         return (new Ktv())
@@ -36,6 +50,9 @@ class Account extends AbstractModel implements HasAccountStatement
             ->setElementAtPosition(3, (new Kik())->setBankCode($this->bank_code));
     }
 
+    /**
+     * @return Kti
+     */
     public function toKti()
     {
         return (new Kti())

@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\Groups\SecurityIdentificationDetails;
 use Tests\TestCase;
 
 
+/**
+ * Class SecurityIdentificationDetailsTest
+ * @package Tests\DataElements\Groups
+ */
 class SecurityIdentificationDetailsTest extends TestCase
 {
 

@@ -7,6 +7,10 @@ use Abiturma\PhpFints\Segments\HKKAZ;
 use Tests\TestCase;
 
 
+/**
+ * Class HKKAZTest
+ * @package Tests\Segments
+ */
 class HKKAZTest extends TestCase
 {
     

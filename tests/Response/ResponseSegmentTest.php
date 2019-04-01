@@ -9,6 +9,10 @@ use Abiturma\PhpFints\Response\ResponseSegment;
 use Tests\TestCase;
 
 
+/**
+ * Class ResponseSegmentTest
+ * @package Tests\Response
+ */
 class ResponseSegmentTest extends TestCase
 {
 

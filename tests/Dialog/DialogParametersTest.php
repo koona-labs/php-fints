@@ -7,6 +7,10 @@ use Abiturma\PhpFints\Response\Response;
 use Tests\TestCase;
 
 
+/**
+ * Class DialogParametersTest
+ * @package Tests\Dialog
+ */
 class DialogParametersTest extends TestCase
 {
 

@@ -8,6 +8,10 @@ use DateTime;
 use Tests\TestCase;
 
 
+/**
+ * Class CamtTest
+ * @package Tests\Parser
+ */
 class CamtTest extends TestCase
 {
 
@@ -76,20 +80,21 @@ class CamtTest extends TestCase
         $result = $this->parse()[0];
         $this->assertEquals('Remittance 1 Line 1Remittance 1 Line 2',$result->description);
     }
-    
-    
-    
-    
-    
-    
 
 
+    /**
+     * @return array
+     * @throws \Genkgo\Camt\Exception\ReaderException
+     */
     protected function parse()
     {
         return (new Camt())->parseFromString($this->getXml()); 
     }
-    
 
+
+    /**
+     * @return string
+     */
     protected function getXml()
     {
         return <<<EOF

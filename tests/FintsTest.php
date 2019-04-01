@@ -8,6 +8,10 @@ use Abiturma\PhpFints\Fints;
 use Psr\Log\LoggerInterface;
 
 
+/**
+ * Class FintsTest
+ * @package Tests
+ */
 class FintsTest extends TestCase
 {
 

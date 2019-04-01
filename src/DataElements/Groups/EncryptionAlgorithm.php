@@ -6,6 +6,19 @@ namespace Abiturma\PhpFints\DataElements\Groups;
 use Abiturma\PhpFints\DataElements\Bin;
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 
+/**
+ * Class EncryptionAlgorithm
+ * 
+ * Fields
+ * - 1 EncryptionUsage
+ * - 2 OperationMode
+ * - 3 AlgorithmCode
+ * - 4 AlgorithmKeyValue
+ * - 5 AlgorithmKeyDescription
+ * - 6 AlgorithmParameterIVDescription
+ * 
+ * @package Abiturma\PhpFints
+ */
 class EncryptionAlgorithm extends DataElementGroup
 {
 
@@ -21,16 +34,6 @@ class EncryptionAlgorithm extends DataElementGroup
 
     const ALGORITHM_PARAMETER_IV_DESCRIPTION = 1; // 1 = IVC = Initialization Value Clear Text (only one value available) 
 
-
-    /*
-     * DataFields: 
-     * 1 EncryptionUsage
-     * 2 OperationMode
-     * 3 AlgorithmCode
-     * 4 AlgorithmKeyValue
-     * 5 AlgorithmKeyDescription
-     * 6 AlgorithmParameterIVDescription
-     */
 
     protected function boot()
     {

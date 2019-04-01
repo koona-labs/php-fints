@@ -11,6 +11,10 @@ use Abiturma\PhpFints\Message\MessageBuilder;
 use Tests\TestCase;
 
 
+/**
+ * Class MessageBuilderIntegrationTest
+ * @package Tests\Message
+ */
 class MessageBuilderIntegrationTest extends TestCase
 {
 
@@ -79,9 +83,11 @@ class MessageBuilderIntegrationTest extends TestCase
         $close = $this->makeMessageBuilder()->close()->toString(); 
         $this->assertStringContainsString('HKEND',$close); 
     }
-    
-    
-    
+
+
+    /**
+     * @return MessageBuilder
+     */
     protected function makeMessageBuilder()
     {
         $message = new Message(new NullEncrypter()); 

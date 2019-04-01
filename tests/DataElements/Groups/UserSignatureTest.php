@@ -6,6 +6,10 @@ use Abiturma\PhpFints\DataElements\Groups\UserSignature;
 use Tests\TestCase;
 
 
+/**
+ * Class UserSignatureTest
+ * @package Tests\DataElements\Groups
+ */
 class UserSignatureTest extends TestCase
 {
 

@@ -6,6 +6,10 @@ use Abiturma\PhpFints\Models\Transaction;
 use Tests\TestCase;
 
 
+/**
+ * Class TransactionTest
+ * @package Tests\Models
+ */
 class TransactionTest extends TestCase
 {
 

@@ -3,6 +3,10 @@
 namespace Abiturma\PhpFints\Credentials;
 
 
+/**
+ * Class CredentialsContainer
+ * @package Abiturma\PhpFints
+ */
 class CredentialsContainer implements HoldsCredentials
 {
     
@@ -22,6 +26,9 @@ class CredentialsContainer implements HoldsCredentials
         return $this->host; 
     }
 
+    /**
+     * @return int
+     */
     public function port()
     {
         return $this->port; 
@@ -42,30 +49,50 @@ class CredentialsContainer implements HoldsCredentials
         return $this->pin; 
     }
 
+    /**
+     * @param $host
+     * @return $this|mixed
+     */
     public function setHost($host)
     {
         $this->host = $host;
         return $this;
     }
 
+    /**
+     * @param $port
+     * @return $this|mixed
+     */
     public function setPort($port)
     {
         $this->port = $port;
         return $this;
     }
 
+    /**
+     * @param $bankCode
+     * @return $this|mixed
+     */
     public function setBankCode($bankCode)
     {
         $this->bankCode = $bankCode;
         return $this;
     }
 
+    /**
+     * @param $username
+     * @return $this|mixed
+     */
     public function setUsername($username)
     {
         $this->username = $username;
         return $this;
     }
 
+    /**
+     * @param $pin
+     * @return $this|mixed
+     */
     public function setPin($pin)
     {
         $this->pin = $pin;
