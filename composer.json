@@ -2,6 +2,11 @@
     "name": "abiturma/php-fints",
     "description": "An adapter to use home banking with php",
     "type": "library",
+    "keywords": [
+        "banking",
+        "hbci",
+        "fints"
+    ],
     "license": "MIT",
     "autoload": {
         "psr-4": {
