@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Adapter;
+namespace Abiturma\PhpFints\Tests\Adapter;
 
 use Abiturma\PhpFints\Adapter\Curl;
 use Abiturma\PhpFints\Exceptions\ConnectionFailed;
@@ -8,7 +8,7 @@ use Abiturma\PhpFints\Exceptions\HttpException;
 use Abiturma\PhpFints\Message\Message;
 use Abiturma\PhpFints\Response\ResponseFactory;
 use Exception;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class CurlTest

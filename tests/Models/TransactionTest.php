@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Models;
+namespace Abiturma\PhpFints\Tests\Models;
 
 use Abiturma\PhpFints\Models\Transaction;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class TransactionTest

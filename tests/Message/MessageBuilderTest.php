@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Message;
+namespace Abiturma\PhpFints\Tests\Message;
 
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
@@ -17,7 +17,7 @@ use Abiturma\PhpFints\Segments\HKSPA;
 use Abiturma\PhpFints\Segments\HKSYN;
 use Abiturma\PhpFints\Segments\HKVVB;
 use DateTime;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class MessageBuilderTest

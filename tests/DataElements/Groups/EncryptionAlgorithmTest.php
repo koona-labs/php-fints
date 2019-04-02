@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\DataElements\Groups;
+namespace Abiturma\PhpFints\Tests\DataElements\Groups;
 
 use Abiturma\PhpFints\DataElements\Groups\EncryptionAlgorithm;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class EncryptionAlgorithmTest

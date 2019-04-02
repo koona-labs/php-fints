@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Segments;
+namespace Abiturma\PhpFints\Tests\Segments;
 
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Segments\HKIDN;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class HKIDNTest

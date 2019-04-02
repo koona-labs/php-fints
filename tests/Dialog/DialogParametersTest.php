@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Dialog;
+namespace Abiturma\PhpFints\Tests\Dialog;
 
 use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Response\Response;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class DialogParametersTest

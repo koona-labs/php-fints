@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Segments;
+namespace Abiturma\PhpFints\Tests\Segments;
 
 use Abiturma\PhpFints\Models\Account;
 use Abiturma\PhpFints\Segments\HKKAZ;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class HKKAZTest

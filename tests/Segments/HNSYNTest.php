@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Segments;
+namespace Abiturma\PhpFints\Tests\Segments;
 
 use Abiturma\PhpFints\Segments\HKSYN;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class HNSYNTest

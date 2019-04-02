@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Models;
+namespace Abiturma\PhpFints\Tests\Models;
 
 use Abiturma\PhpFints\DataElements\Groups\Kti;
 use Abiturma\PhpFints\DataElements\Groups\Ktv;
 use Abiturma\PhpFints\DataElements\Groups\Ktz;
 use Abiturma\PhpFints\Models\Account;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class AccountTest

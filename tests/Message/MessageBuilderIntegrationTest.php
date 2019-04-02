@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Message;
+namespace Abiturma\PhpFints\Tests\Message;
 
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
@@ -8,7 +8,7 @@ use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Encryption\NullEncrypter;
 use Abiturma\PhpFints\Message\Message;
 use Abiturma\PhpFints\Message\MessageBuilder;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class MessageBuilderIntegrationTest

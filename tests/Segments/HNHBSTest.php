@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Segments;
+namespace Abiturma\PhpFints\Tests\Segments;
 
 use Abiturma\PhpFints\Segments\HNHBS;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class HBHBSTest

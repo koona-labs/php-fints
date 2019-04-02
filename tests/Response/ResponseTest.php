@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Response;
+namespace Abiturma\PhpFints\Tests\Response;
 
 use Abiturma\PhpFints\Response\Feedback;
 use Abiturma\PhpFints\Response\Response;
 use Abiturma\PhpFints\Response\ResponseSegment;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class ResponseTest

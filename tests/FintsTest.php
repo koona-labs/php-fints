@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Abiturma\PhpFints\Tests;
 
 use Abiturma\PhpFints\BaseFints;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;

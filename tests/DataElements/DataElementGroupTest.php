@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\DataElements;
+namespace Abiturma\PhpFints\Tests\DataElements;
 
 use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 use Abiturma\PhpFints\DataElements\Groups\Kik;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class DataElementGroupTest

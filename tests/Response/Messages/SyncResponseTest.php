@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Response\Messages;
+namespace Abiturma\PhpFints\Tests\Response\Messages;
 
 use Abiturma\PhpFints\Response\Messages\SyncResponse;
 use Abiturma\PhpFints\Response\Response;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class SyncResponseTest

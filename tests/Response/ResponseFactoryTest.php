@@ -6,7 +6,7 @@ use Abiturma\PhpFints\DataElements\Bin;
 use Abiturma\PhpFints\Encryption\NullEncrypter;
 use Abiturma\PhpFints\Response\Response;
 use Abiturma\PhpFints\Response\ResponseFactory;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class ResponseFactoryTest

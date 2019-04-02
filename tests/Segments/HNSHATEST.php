@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Segments;
+namespace Abiturma\PhpFints\Tests\Segments;
 
 use Abiturma\PhpFints\Segments\HNSHA;
 use Abiturma\PhpFints\Segments\HNSHK;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class HNSHATEST

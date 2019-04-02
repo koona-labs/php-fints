@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Response;
+namespace Abiturma\PhpFints\Tests\Response;
 
 use Abiturma\PhpFints\DataElements\Bin;
 use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 use Abiturma\PhpFints\Response\ResponseSegment;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class ResponseSegmentTest

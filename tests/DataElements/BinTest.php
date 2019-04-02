@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\DataElements;
+namespace Abiturma\PhpFints\Tests\DataElements;
 
 use Abiturma\PhpFints\DataElements\Bin;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class BinTest

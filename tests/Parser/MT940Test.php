@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Parser;
+namespace Abiturma\PhpFints\Tests\Parser;
 
 use Abiturma\PhpFints\Models\Transaction;
 use Abiturma\PhpFints\Parser\MT940;
 use DateTime;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class MT940Test

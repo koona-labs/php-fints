@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\DataElements\Groups;
+namespace Abiturma\PhpFints\Tests\DataElements\Groups;
 
 use Abiturma\PhpFints\DataElements\Groups\SecurityDateTime;
 use DateTime;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class SecurityDateTimeTest

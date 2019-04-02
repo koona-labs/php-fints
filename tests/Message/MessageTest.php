@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Message;
+namespace Abiturma\PhpFints\Tests\Message;
 
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Encryption\NullEncrypter;
@@ -10,7 +10,7 @@ use Abiturma\PhpFints\Segments\HKKAZ;
 use Abiturma\PhpFints\Segments\HKSYN;
 use Abiturma\PhpFints\Segments\HNVSD;
 use Abiturma\PhpFints\Segments\HNVSK;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class MessageTest

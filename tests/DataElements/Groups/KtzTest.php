@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\DataElements\Groups;
+namespace Abiturma\PhpFints\Tests\DataElements\Groups;
 
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Abiturma\PhpFints\DataElements\Groups\Ktz;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class KtzTest

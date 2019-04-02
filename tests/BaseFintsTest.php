@@ -1,11 +1,10 @@
 <?php
 
-namespace Tests;
+namespace Abiturma\PhpFints\Tests;
 
 use Abiturma\PhpFints\BaseFints;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
 use Abiturma\PhpFints\Dialog\Dialog;
-use Abiturma\PhpFints\Models\Account;
 use Abiturma\PhpFints\Models\IdentifiesBankAccount;
 use Abiturma\PhpFints\Response\Messages\AccountsResponse;
 use Abiturma\PhpFints\Response\Response;

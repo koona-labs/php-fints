@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Dialog;
+namespace Abiturma\PhpFints\Tests\Dialog;
 
 use Abiturma\PhpFints\Adapter\SendsMessages;
 use Abiturma\PhpFints\Credentials\HoldsCredentials;
@@ -14,7 +14,7 @@ use Abiturma\PhpFints\Response\Messages\StatementOfAccount;
 use Abiturma\PhpFints\Response\Response;
 use DateTime;
 use Psr\Log\LoggerInterface;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class DialogTest

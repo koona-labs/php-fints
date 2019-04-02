@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Credentials;
+namespace Abiturma\PhpFints\Tests\Credentials;
 
 use Abiturma\PhpFints\Credentials\CredentialsContainer;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class CredentialsContainerTest

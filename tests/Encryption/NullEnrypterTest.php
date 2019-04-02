@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Encryption;
+namespace Abiturma\PhpFints\Tests\Encryption;
 
 use Abiturma\PhpFints\Encryption\NullEncrypter;
 use Abiturma\PhpFints\Segments\HNHBK;
 use Abiturma\PhpFints\Segments\HNVSD;
 use Abiturma\PhpFints\Segments\HNVSK;
-use Tests\TestCase;
+use Abiturma\PhpFints\Tests\TestCase;
 
 /**
  * Class NullEnrypterTest

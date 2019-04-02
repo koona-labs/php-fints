@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Abiturma\PhpFints\Tests;
 
 /**
  * Class TestCase
