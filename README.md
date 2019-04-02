@@ -1,5 +1,11 @@
 # Php-Fints
 
+[![Latest Stable Version](https://poser.pugx.org/abiturma/php-fints/v/stable)](https://packagist.org/packages/abiturma/php-fints)
+[![Build Status](https://travis-ci.com/abiturma/php-fints.svg?branch=master)](https://travis-ci.com/abiturma/php-fints)
+[![License](https://poser.pugx.org/abiturma/php-fints/license)](https://packagist.org/packages/abiturma/php-fints)
+[![composer.lock](https://poser.pugx.org/abiturma/php-fints/composerlock)](https://packagist.org/packages/abiturma/php-fints)
+
+
 This package is a library to use an Hbci connection to your bank in order to retrieve statements of your bank accounts. 
 
 ## Installation
@@ -18,9 +24,9 @@ use Abiturma\PhpFints\Fints
 ...
 
 $fints = Fints::host('https://url-to-your-hbci-endpoint')
-->bankCode('yourBankCode)
-->username('yourUsername')
-->pin('your-secret-pin'); 
+    ->bankCode('yourBankCode)
+    ->username('yourUsername')
+    ->pin('your-secret-pin'); 
 
 ```
 The port of the connection defaults to 443, optionally you can change it by calling 
@@ -121,9 +127,9 @@ $account = new Account([
     'bank_code' => 'yourBankCode'
 ])
 
-$transactions = $fints = Fints::host(...)
-                       ->...
-                       ->getStatementOfAccount($account)
+$transactions = Fints::host(...)
+    ->...
+    ->getStatementOfAccount($account)
 
 ````
 
