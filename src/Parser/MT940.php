@@ -201,6 +201,7 @@ class MT940
         $preResult = array_map(function () {
             return null;
         }, $this->descriptionMap);
+        
         foreach ($fields as $field) {
             $currentMatch = [];
             if (preg_match($breakPattern, $field, $currentMatch)) {
@@ -213,7 +214,7 @@ class MT940
                 continue;
             }
         }
-
+        
         $result = [];
         foreach ($preResult as $key => $item) {
             if (!array_key_exists($key, $this->descriptionMap)) {
@@ -221,8 +222,9 @@ class MT940
             }
             $result[$this->descriptionMap[$key]] = $item;
         }
-
-
+        
+        $result = $this->postProcessReferenceSubfields($result,$fields); 
+        
         return $result;
     }
 
@@ -308,5 +310,31 @@ class MT940
         }
 
         return null;
+    }
+
+    /**
+     * @param $result
+     * @param $fields
+     * @return mixed
+     */
+    protected function postProcessReferenceSubfields($result,$fields)
+    {
+        if(!is_null($result['description'])) {
+            return $result; 
+        }
+        
+        $pattern = "/^2\d/"; 
+        $fields = array_map(function($field) use ($pattern) {
+            if(!preg_match($pattern,$field)) {
+                return null; 
+            }    
+            return preg_replace($pattern,'',$field); 
+        },$fields); 
+        
+        $description = implode('',$fields); 
+        
+        $result['description'] = $description ? $description: null; 
+        
+        return $result; 
     }
 }

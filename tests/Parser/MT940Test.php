@@ -98,6 +98,14 @@ class MT940Test extends TestCase
         $this->assertEquals(1234, $result->base_amount);
     }
 
+    /** @test */
+    public function it_parses_an_alternative_description()
+    {
+        $testString = ":61:1001010101DR32,40NMSCNONREF@@:86:005?00Zinsen?primanota?20SomeOtherDescription@@"; 
+        $result = $this->parse($this->buildTestString($testString))[0];
+        $this->assertEquals('SomeOtherDescription',$result->description); 
+    }
+    
 
     /** @test */
     public function it_recognizes_different_formats()
@@ -115,6 +123,9 @@ class MT940Test extends TestCase
         $this->assertEquals($result[0]->prima_nota, 931);
         $this->assertEquals($result[0]->base_amount, -33034);
     }
+    
+    
+    
 
 
     /**
