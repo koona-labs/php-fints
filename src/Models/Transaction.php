@@ -15,6 +15,6 @@ class Transaction extends AbstractModel
      */
     public function getAmountAttribute()
     {
-        return number_format($this->base_amount/100, 2);
+        return round($this->base_amount/100,2); 
     }
 }
