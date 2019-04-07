@@ -11,7 +11,19 @@ use DateTime;
  */
 class MT940
 {
-    protected $descriptionMap = ['SVWZ' => 'description', 'EREF' => 'end_to_end_reference'];
+    protected $descriptionMap = [
+        'SVWZ' => 'description',
+        'EREF' => 'end_to_end_reference',
+        'KREF' => 'kref',
+        'MREF' => 'mref',
+        'CREF' => 'cref',
+    ];
+    
+    protected $unwantedFields = [
+        'kref',
+        'mref',
+        'cref'
+    ]; 
 
     protected $fieldMap = [
         'prima_nota' => 10,
@@ -46,7 +58,8 @@ class MT940
      */
     protected function parse()
     {
-        $delimiter = substr_count($this->inputString, "\r\n-") > substr_count($this->inputString, '@@-') ? "\r\n" : '@@';
+        $delimiter = substr_count($this->inputString, "\r\n-") > substr_count($this->inputString,
+            '@@-') ? "\r\n" : '@@';
         $sanitizedInput = preg_replace("/$delimiter(?!:)/ms", '', $this->inputString);
 
 
@@ -59,6 +72,7 @@ class MT940
             return array_merge($this->parsePrimary($primary), $this->parseMeta($meta));
         }, $transactions);
 
+//        $transactions = $this->stripUnwantedFields($transactions); 
 
         return array_values($transactions);
     }
@@ -107,7 +121,7 @@ class MT940
     protected function parsePrimary($primary)
     {
         $primary = $this->normalizePrimary($primary);
-        
+
         //in that case the booking is "canceled"
         if (mb_substr($primary, 10, 1) == 'R') {
             $primary = mb_substr($primary, 0, 10) . mb_substr($primary, 11);
@@ -115,12 +129,11 @@ class MT940
 
         $sign = mb_substr($primary, 10, 1);
         $sign = ['C' => 1, 'D' => -1][$sign];
-        
-        
-        $currencyIdentifier  = mb_substr($primary, 11, 1);
 
-        
-        
+
+        $currencyIdentifier = mb_substr($primary, 11, 1);
+
+
         $referenceContainer = mb_substr($primary, 12);
 
         list($amount, $preReference) = explode('N', $referenceContainer, 2);
@@ -133,11 +146,11 @@ class MT940
         return array_merge(
             $this->buildDates($primary),
             [
-            'currency' => $this->buildCurrency($currencyIdentifier),
-            'base_amount' => $amount,
-            'booking_key' => $bookingKey,
-            'booking_reference' => $bookingReference,
-        ]
+                'currency' => $this->buildCurrency($currencyIdentifier),
+                'base_amount' => $amount,
+                'booking_key' => $bookingKey,
+                'booking_reference' => $bookingReference,
+            ]
         );
     }
 
@@ -173,7 +186,7 @@ class MT940
     protected function buildDates($primary)
     {
         $valueDate = DateTime::createFromFormat('ymd', mb_substr($primary, 0, 6));
-        
+
         $bookingDate = DateTime::createFromFormat('ymd', $valueDate->format('y') . mb_substr($primary, 6, 4));
 
         $diff = $valueDate->diff($bookingDate, false);
@@ -201,7 +214,7 @@ class MT940
         $preResult = array_map(function () {
             return null;
         }, $this->descriptionMap);
-        
+
         foreach ($fields as $field) {
             $currentMatch = [];
             if (preg_match($breakPattern, $field, $currentMatch)) {
@@ -214,7 +227,7 @@ class MT940
                 continue;
             }
         }
-        
+
         $result = [];
         foreach ($preResult as $key => $item) {
             if (!array_key_exists($key, $this->descriptionMap)) {
@@ -222,9 +235,9 @@ class MT940
             }
             $result[$this->descriptionMap[$key]] = $item;
         }
-        
-        $result = $this->postProcessReferenceSubfields($result,$fields); 
-        
+
+        $result = $this->postProcessReferenceSubfields($result, $fields);
+
         return $result;
     }
 
@@ -236,20 +249,20 @@ class MT940
     {
         //if no booking date is given -> set value date = booking date
         if (!preg_match('/\d{10}/', $primary)) {
-            $primary = mb_substr($primary, 0, 4).$primary;
+            $primary = mb_substr($primary, 0, 4) . $primary;
         }
 
         //in that case the booking is "canceled"
         if (mb_substr($primary, 10, 1) == 'R') {
             $primary = mb_substr($primary, 0, 10) . mb_substr($primary, 11);
         }
-        
+
         //check is currency identifier is present (take R for EUR)
         if (!preg_match('/[A-Z]/', mb_substr($primary, 11, 1))) {
-            $primary = mb_substr($primary, 0, 11) . 'R' .  mb_substr($primary, 11);
+            $primary = mb_substr($primary, 0, 11) . 'R' . mb_substr($primary, 11);
         }
-        
-        
+
+
         return $primary;
     }
 
@@ -313,28 +326,42 @@ class MT940
     }
 
     /**
+     * @param $transactions
+     * @return array
+     */
+    protected function stripUnwantedFields($transactions)
+    {
+        return array_map(function($transaction) {
+            return array_diff_key($transaction, array_flip($this->unwantedFields));        
+        },$transactions);         
+    }
+
+    /**
      * @param $result
      * @param $fields
      * @return mixed
      */
-    protected function postProcessReferenceSubfields($result,$fields)
+    protected function postProcessReferenceSubfields($result, $fields)
     {
-        if(!is_null($result['description'])) {
-            return $result; 
+        $filledFields = array_filter($result, function ($field) {
+            return !is_null($field);
+        });
+        if (count($filledFields) > 0) {
+            return $result;
         }
         
-        $pattern = "/^2\d/"; 
-        $fields = array_map(function($field) use ($pattern) {
-            if(!preg_match($pattern,$field)) {
-                return null; 
-            }    
-            return preg_replace($pattern,'',$field); 
-        },$fields); 
-        
-        $description = implode('',$fields); 
-        
-        $result['description'] = $description ? $description: null; 
-        
-        return $result; 
+        $pattern = "/^2\d/";
+        $fields = array_map(function ($field) use ($pattern) {
+            if (!preg_match($pattern, $field)) {
+                return null;
+            }
+            return preg_replace($pattern, '', $field);
+        }, $fields);
+
+        $description = implode('', $fields);
+
+        $result['description'] = $description ? $description : null;
+
+        return $result;
     }
 }
