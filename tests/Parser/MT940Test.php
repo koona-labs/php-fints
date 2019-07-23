@@ -48,6 +48,16 @@ class MT940Test extends TestCase
     }
 
     /** @test */
+    public function if_no_booking_date_is_given_it_takes_the_value_date()
+    {
+        $result = $this->parse($this->buildTestString(":61:190710D123,00NMSC@@"))[0];
+        $this->assertEquals('2019-07-10',$result->booking_date->format('Y-m-d'));
+        $this->assertEquals('2019-07-10',$result->value_date->format('Y-m-d'));
+
+    }
+
+
+    /** @test */
     public function it_parses_multiline_description_correctly()
     {
         $result = $this->parse($this->makeStandardTransaction())[0];
@@ -101,11 +111,11 @@ class MT940Test extends TestCase
     /** @test */
     public function it_parses_an_alternative_description()
     {
-        $testString = ":61:1001010101DR32,40NMSCNONREF@@:86:005?00Zinsen?primanota?20SomeOtherDescription@@"; 
+        $testString = ":61:1001010101DR32,40NMSCNONREF@@:86:005?00Zinsen?primanota?20SomeOtherDescription@@";
         $result = $this->parse($this->buildTestString($testString))[0];
-        $this->assertEquals('SomeOtherDescription',$result->description); 
+        $this->assertEquals('SomeOtherDescription',$result->description);
     }
-    
+
 
     /** @test */
     public function it_recognizes_different_formats()
@@ -123,9 +133,9 @@ class MT940Test extends TestCase
         $this->assertEquals($result[0]->prima_nota, 931);
         $this->assertEquals($result[0]->base_amount, -33034);
     }
-    
-    
-    
+
+
+
 
 
     /**

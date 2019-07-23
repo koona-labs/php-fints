@@ -18,12 +18,12 @@ class MT940
         'MREF' => 'mref',
         'CREF' => 'cref',
     ];
-    
+
     protected $unwantedFields = [
         'kref',
         'mref',
         'cref'
-    ]; 
+    ];
 
     protected $fieldMap = [
         'prima_nota' => 10,
@@ -72,7 +72,7 @@ class MT940
             return array_merge($this->parsePrimary($primary), $this->parseMeta($meta));
         }, $transactions);
 
-//        $transactions = $this->stripUnwantedFields($transactions); 
+//        $transactions = $this->stripUnwantedFields($transactions);
 
         return array_values($transactions);
     }
@@ -248,8 +248,8 @@ class MT940
     protected function normalizePrimary($primary)
     {
         //if no booking date is given -> set value date = booking date
-        if (!preg_match('/\d{10}/', $primary)) {
-            $primary = mb_substr($primary, 0, 4) . $primary;
+        if (!preg_match('/^\d{10}/', $primary)) {
+            $primary = mb_substr($primary,0,6) . mb_substr($primary, 2, 4) . mb_substr($primary,6);
         }
 
         //in that case the booking is "canceled"
@@ -332,8 +332,8 @@ class MT940
     protected function stripUnwantedFields($transactions)
     {
         return array_map(function($transaction) {
-            return array_diff_key($transaction, array_flip($this->unwantedFields));        
-        },$transactions);         
+            return array_diff_key($transaction, array_flip($this->unwantedFields));
+        },$transactions);
     }
 
     /**
@@ -349,7 +349,7 @@ class MT940
         if (count($filledFields) > 0) {
             return $result;
         }
-        
+
         $pattern = "/^2\d/";
         $fields = array_map(function ($field) use ($pattern) {
             if (!preg_match($pattern, $field)) {
