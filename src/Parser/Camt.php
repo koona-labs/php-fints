@@ -63,44 +63,49 @@ class Camt
         $valueDate = new DateTime($entry->getValueDate()->format('Y-m-d'));
         $amount = $entry->getAmount()->getAmount();
         $currency = $entry->getAmount()->getCurrency()->getCode();
-        $codes = explode('+', $entry->getBankTransactionCode()->getProprietary()->getCode());
-        
-        
+        $codes = $entry->getBankTransactionCode()->getProprietary();
+        $details = $entry->getTransactionDetail();
+
+        if(!is_null($codes)) {
+            $codes = explode('+', $entry->getBankTransactionCode()->getProprietary()->getCode());
+        }
+        else {
+            $codes = explode('+', $details->getBankTransactionCode()->getProprietary()->getCode());
+        }
+
         $transactionCode = $codes[1];
         $primaNota = $codes[2];
-        
-        $details = $entry->getTransactionDetail();
-        
+
         $index = $amount>0 ? 1 : 0;
-        
+
         $remote_account_number = '';
         $remote_bank_code = '';
         $remote_name = '';
-        
+
         if (array_key_exists($index, $details->getRelatedParties())) {
             $relatedParty = $details->getRelatedParties()[$index];
             $remote_account_number = $relatedParty->getAccount()->getIban()->getIban();
             $remote_name = $relatedParty->getRelatedPartyType()->getName();
         }
-        
+
         if (array_key_exists($index, $details->getRelatedAgents())) {
             $remote_bank_code = $details->getRelatedAgents()[$index]->getRelatedAgentType()->getBic();
         }
-        
+
         try {
             $description = $details->getRemittanceInformation()->getMessage();
         } catch (BadMethodCallException $e) {
             $description = '';
         }
-        
+
         try {
             $end_to_end_reference = $details->getReference()->getEndToEndId();
         } catch (BadMethodCallException $e) {
             $end_to_end_reference = null;
         }
 
-                
-        
+
+
         $data = [
             'booking_date' => $bookingDate,
             'value_date' => $valueDate,
