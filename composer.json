@@ -31,7 +31,7 @@
         "ext-mbstring": "*",
         "ext-iconv": "*",
         "php-curl-class/php-curl-class": "^8.5",
-        "genkgo/camt": "^0.5.0",
+        "genkgo/camt": "^0.6.0",
         "psr/log": "^1.1"
     },
     "require-dev": {
