@@ -28,9 +28,9 @@ class HKVVB extends AbstractSegment
     
     const DIALOG_LANGUAGE = 0; // 0 = Standard/Default, 1 = DE, 2 = EN, 3 = FR
     
-    const PRODUCT_NAME = 'abiturma-php-fints';
+    const PRODUCT_NAME = '5802C9F7CC38DD0CA24451B8E';
     
-    const PRODUCT_VERSION = '0.8';
+    const PRODUCT_VERSION = '1.0.6';
 
 
     protected function boot()
