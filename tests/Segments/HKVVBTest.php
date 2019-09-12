@@ -21,6 +21,6 @@ class HKVVBTest extends TestCase
     /** @test */
     public function it_has_sensible_defaults()
     {
-        $this->assertStringStartsWith("HKVVB:1:3+0+0+0+abiturma-php-fints+", (new HKVVB())->toString());
+        $this->assertStringStartsWith("HKVVB:1:3+0+0+0+580", (new HKVVB())->toString());
     }
 }
