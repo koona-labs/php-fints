@@ -13,6 +13,7 @@ use Abiturma\PhpFints\Segments\HKIDN;
 use Abiturma\PhpFints\Segments\HKKAZ;
 use Abiturma\PhpFints\Segments\HKSPA;
 use Abiturma\PhpFints\Segments\HKSYN;
+use Abiturma\PhpFints\Segments\HKTAN;
 use Abiturma\PhpFints\Segments\HKVVB;
 
 /**
@@ -86,6 +87,7 @@ class MessageBuilder
         return $this->newMessage()
             ->push((new HKIDN())->fromCredentials($this->credentials))
             ->push(new HKVVB)
+            ->push((new HKTAN()))
             ->addSignature()
             ->mergeDialogParameters($this->dialogParameters)
             ->encrypt()
@@ -99,6 +101,7 @@ class MessageBuilder
      */
     public function getAccounts()
     {
+        
         return $this->newMessage(new HKSPA)
             ->addSignature()
             ->mergeDialogParameters($this->dialogParameters)
@@ -120,9 +123,10 @@ class MessageBuilder
         $this->assureDialog();
         
         $segment = $this->buildStatementSegment($type);
-        
+
         return $this->newMessage()
             ->push($segment->fromAccount($account)->setFromDate($from)->setToDate($to))
+            ->push(new HKTAN())
             ->addSignature()
             ->mergeDialogParameters($this->dialogParameters)
             ->encrypt()

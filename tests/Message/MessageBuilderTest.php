@@ -15,6 +15,7 @@ use Abiturma\PhpFints\Segments\HKIDN;
 use Abiturma\PhpFints\Segments\HKKAZ;
 use Abiturma\PhpFints\Segments\HKSPA;
 use Abiturma\PhpFints\Segments\HKSYN;
+use Abiturma\PhpFints\Segments\HKTAN;
 use Abiturma\PhpFints\Segments\HKVVB;
 use DateTime;
 use Abiturma\PhpFints\Tests\TestCase;
@@ -79,7 +80,7 @@ class MessageBuilderTest extends TestCase
     public function it_builds_a_dialog_initialization_message()
     {
         $this->message
-            ->expects($this->exactly(2))
+            ->expects($this->exactly(3))
             ->method('push')
             ->withConsecutive(
                 [$this->isInstanceOf(HKIDN::class)],
@@ -111,9 +112,12 @@ class MessageBuilderTest extends TestCase
     public function it_builds_a_get_swift_statement_of_account_message()
     {
         $this->message
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('push')
-            ->with($this->isInstanceOf(HKKAZ::class));
+            ->withConsecutive(
+                [$this->isInstanceOf(HKKAZ::class)],
+                [$this->isInstanceOf(HKTAN::class)]
+            );
 
         $this->message->expects($this->once())->method('mergeDialogParameters')->with($this->dialogParameters);
         $this->message->expects($this->once())->method('addSignature');
@@ -125,9 +129,12 @@ class MessageBuilderTest extends TestCase
     public function it_builds_a_get_camt_statement_of_account_message()
     {
         $this->message
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('push')
-            ->with($this->isInstanceOf(HKCAZ::class));
+            ->withConsecutive(
+                [$this->isInstanceOf(HKCAZ::class)],
+                [$this->isInstanceOf(HKTAN::class)]
+            );
 
         $this->message->expects($this->once())->method('mergeDialogParameters')->with($this->dialogParameters);
         $this->message->expects($this->once())->method('addSignature');
@@ -140,9 +147,12 @@ class MessageBuilderTest extends TestCase
     {
         $this->dialogParameters->method('__get')->with('camtVersion')->willReturn(7);
         $this->message
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('push')
-            ->with($this->isInstanceOf(HKCAZ::class));
+            ->withConsecutive(
+                [$this->isInstanceOf(HKCAZ::class)],
+                [$this->isInstanceOf(HKTAN::class)]
+            );
 
         $this->assertInstanceOf(Message::class, $this->getAccount());
     }
@@ -153,9 +163,12 @@ class MessageBuilderTest extends TestCase
     {
         $this->dialogParameters->expects($this->at(0))->method('__get')->with('camtVersion')->willReturn(null);
         $this->message
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('push')
-            ->with($this->isInstanceOf(HKKAZ::class));
+            ->withConsecutive(
+                [$this->isInstanceOf(HKKAZ::class)],
+                [$this->isInstanceOf(HKTAN::class)]
+            );
 
         $this->assertInstanceOf(Message::class, $this->getAccount());
     }
