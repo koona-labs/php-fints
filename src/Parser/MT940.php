@@ -29,7 +29,7 @@ class MT940
         'prima_nota' => 10,
         'remote_bank_code' => 30,
         'remote_account_number' => 31,
-        'remote_name' => [32, 33, 34, 35]
+        'remote_name' => [32, 33]
     ];
 
     const CURRENCY_MAP = [
