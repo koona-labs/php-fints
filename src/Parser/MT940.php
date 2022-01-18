@@ -312,7 +312,7 @@ class MT940
     /**
      * @param $pattern
      * @param array $haystack
-     * @return mixed|null
+     * @return string
      */
     protected function findFirst($pattern, array $haystack = [])
     {
@@ -322,7 +322,7 @@ class MT940
             }
         }
 
-        return null;
+        return '';
     }
 
     /**

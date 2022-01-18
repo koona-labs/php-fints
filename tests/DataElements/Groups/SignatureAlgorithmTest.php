@@ -9,7 +9,7 @@ use Abiturma\PhpFints\Tests\TestCase;
  * Class SecurityAlgorithmTest
  * @package Tests\DataElements\Groups
  */
-class SecurityAlgorithmTest extends TestCase
+class SignatureAlgorithmTest extends TestCase
 {
 
     
