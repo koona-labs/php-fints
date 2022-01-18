@@ -19,7 +19,7 @@ class NullEncrypter extends AbstractEncrypter
         $result = array_map(function ($segment) {
             return $segment->toString();
         }, $segments);
-        return implode($result, '');
+        return implode('', $result);
     }
 
     /**

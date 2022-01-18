@@ -186,7 +186,7 @@ class Message
         $result = array_map(function ($segment) {
             return $segment->toString();
         }, $this->segments);
-        return implode($result, '');
+        return implode('', $result);
     }
 
     /**
