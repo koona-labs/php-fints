@@ -51,7 +51,7 @@ class MessageBuilderIntegrationTest extends TestCase
     {
         $sync = $this->makeMessageBuilder()->sync()->toString();
         $regex = "/HNHBK.*HNVSK.*HNVSD.*@.*HNSHK.*HKIDN.*HKVVB.*HKSYN.*HNSHA.*HNHBS/";
-        $this->assertRegExp($regex, $sync);
+        $this->assertMatchesRegularExpression($regex, $sync);
     }
     
     /** @test */
@@ -59,7 +59,7 @@ class MessageBuilderIntegrationTest extends TestCase
     {
         $sync = $this->makeMessageBuilder()->sync()->toString();
         $regex = "/HKIDN.*12345678.*myTestUsername.*HNSHA.*mySecretPin.*HNHBS/";
-        $this->assertRegExp($regex, $sync);
+        $this->assertMatchesRegularExpression($regex, $sync);
     }
     
     /** @test */
@@ -67,7 +67,7 @@ class MessageBuilderIntegrationTest extends TestCase
     {
         $init = $this->makeMessageBuilder()->sync()->toString();
         $regex = "/HKIDN:3.*HKVVB:4.*/";
-        $this->assertRegExp($regex, $init);
+        $this->assertMatchesRegularExpression($regex, $init);
     }
     
     

@@ -161,7 +161,10 @@ class MessageBuilderTest extends TestCase
     /** @test */
     public function it_guesses_the_right_account_type_if_no_camt_version_is_given()
     {
-        $this->dialogParameters->expects($this->at(0))->method('__get')->with('camtVersion')->willReturn(null);
+        $this->dialogParameters->expects($this->exactly(2))
+            ->method('__get')
+            ->withConsecutive(['camtVersion'],['swiftStatementVersion'])
+            ->willReturn(null);
         $this->message
             ->expects($this->exactly(2))
             ->method('push')
