@@ -86,8 +86,21 @@ class StatementOfAccount extends AbstractResponseMessage
      */
     protected function getCamtStatement(ResponseSegment $statement)
     {
-        $camt = $statement->getElementAtPosition(4)->toRawValue();
-        $camt = iconv('UTF-8', 'ISO-8859-1', $camt);
-        return (new Camt)->parseFromString($camt);
+        $element = $statement->getElementAtPosition(4);
+
+        if ($element instanceof DataElementGroup) {
+            $gelements = $element->getElements();
+            $result = [];
+            foreach ($gelements as $gelement) {
+                $camt = iconv('UTF-8', 'ISO-8859-1', $gelement->toRawValue());
+                $camt = (new Camt)->parseFromString($camt);
+                $result = array_merge($result, $camt);
+            }
+            return $result;
+        } else {
+            $camt = $statement->getElementAtPosition(4)->toRawValue();
+            $camt = iconv('UTF-8', 'ISO-8859-1', $camt);
+            return (new Camt)->parseFromString($camt);
+        }
     }
 }
