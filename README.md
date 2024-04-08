@@ -1,7 +1,7 @@
 # Php-Fints
 
 [![Latest Stable Version](https://poser.pugx.org/abiturma/php-fints/v/stable)](https://packagist.org/packages/abiturma/php-fints)
-[![Build Status](https://travis-ci.com/abiturma/php-fints.svg?branch=master)](https://travis-ci.com/abiturma/php-fints)
+![Tests](https://github.com/koona-labs/php-fints/actions/workflows/Tests.yml/badge.svg?branch=master)
 [![License](https://poser.pugx.org/abiturma/php-fints/license)](https://packagist.org/packages/abiturma/php-fints)
 [![composer.lock](https://poser.pugx.org/abiturma/php-fints/composerlock)](https://packagist.org/packages/abiturma/php-fints)
 

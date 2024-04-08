@@ -1,0 +1,38 @@
+name: Tests
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+env:
+  XDEBUG_MODE: coverage
+
+jobs:
+  testing:
+    name: PHPUnit on PHP ${{ matrix.php-version }} with Composer flags ${{ matrix.composer-flags }}
+    runs-on: ubuntu-22.04
+    
+    strategy:
+      matrix:
+        php-version: [8.0, 8.1, 8.2, 8.3]
+        composer-flags: ["", "--prefer-lowest",]
+    
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        
+      - name: Set up PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: xdebug  
+
+      - name: Update composer
+        run: sudo composer self-update
+
+      - name: Composer update
+        run: composer update --no-interaction --prefer-dist
+
+      - name: Run tests
+        run:  vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
