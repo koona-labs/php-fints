@@ -8,6 +8,7 @@ use Abiturma\PhpFints\Dialog\Dialog;
 use Abiturma\PhpFints\Models\IdentifiesBankAccount;
 use Abiturma\PhpFints\Response\Messages\AccountsResponse;
 use Abiturma\PhpFints\Response\Response;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class BaseFintsTest
@@ -29,7 +30,7 @@ class BaseFintsTest extends TestCase
         $this->response = $this->createMock(Response::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_passes_a_get_accounts_request_to_the_dialog()
     {
         $this->dialog->expects($this->once())->method('sync');
@@ -41,9 +42,9 @@ class BaseFintsTest extends TestCase
         $this->response->expects($this->once())->method('accounts')->willReturn($accountResponse);
         $this->assertEquals([1,2,3], $this->make()->getAccounts());
     }
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_gets_an_account_statment()
     {
         $this->dialog->expects($this->once())->method('sync');
@@ -57,8 +58,8 @@ class BaseFintsTest extends TestCase
         
         $this->assertEquals([1,2,3], $this->make()->getStatementOfAccount($account));
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_gets_a_swift_statement()
     {
         $this->dialog->expects($this->once())
@@ -73,7 +74,7 @@ class BaseFintsTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function it_gets_a_camt_statement()
     {
         $this->dialog->expects($this->once())
@@ -86,8 +87,8 @@ class BaseFintsTest extends TestCase
 
         $this->assertEquals([1,2,3], $this->make()->getCamtStatementOfAccount($account));
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_proxies_calls_to_credentials()
     {
         $this->credentials->expects($this->once())->method('setUsername')->with('testUsername');

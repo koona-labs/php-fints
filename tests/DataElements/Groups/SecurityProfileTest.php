@@ -4,6 +4,7 @@ namespace Abiturma\PhpFints\Tests\DataElements\Groups;
 
 use Abiturma\PhpFints\DataElements\Groups\SecurityProfile;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class SecurityProfileTest
@@ -12,8 +13,8 @@ use Abiturma\PhpFints\Tests\TestCase;
 class SecurityProfileTest extends TestCase
 {
 
-    
-    /** @test */
+
+    #[Test]
     public function the_security_profile_has_sensible_defaults()
     {
         $this->assertEquals('PIN:1', (new SecurityProfile())->toString());

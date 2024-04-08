@@ -5,6 +5,7 @@ namespace Abiturma\PhpFints\Tests\DataElements\Groups;
 use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Abiturma\PhpFints\DataElements\Groups\Kti;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class KtiTest
@@ -13,14 +14,14 @@ use Abiturma\PhpFints\Tests\TestCase;
 class KtiTest extends TestCase
 {
 
-    
-    /** @test */
+
+    #[Test]
     public function it_builds_an_empty_object()
     {
         $this->assertEquals(':::::', (new Kti)->toString());
     }
-    
-    /** @test */
+
+    #[Test]
     public function all_scalar_values_can_be_injected()
     {
         $kti = (new Kti())->setIban('iban')
@@ -30,8 +31,8 @@ class KtiTest extends TestCase
         
         $this->assertEquals('iban:bic:accountNumber:subAccountNumber::', $kti->toString());
     }
-    
-    /** @test */
+
+    #[Test]
     public function a_kik_can_be_injected()
     {
         $kti = (new Kti())->setKik((new Kik())->setBankCode('bankCode'));

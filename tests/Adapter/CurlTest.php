@@ -9,6 +9,7 @@ use Abiturma\PhpFints\Message\Message;
 use Abiturma\PhpFints\Response\ResponseFactory;
 use Exception;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class CurlTest
@@ -30,30 +31,30 @@ class CurlTest extends TestCase
         $this->curl = $this->createMock(\Curl\Curl::class);
         $this->responseFactory = $this->createMock(ResponseFactory::class);
     }
-        
-        
-    /** @test */
+
+
+    #[Test] 
     public function it_instantiates_the_right_class()
     {
         $this->assertInstanceOf(Curl::class, $this->make());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_throws_an_exception_if_no_host_is_set()
     {
         $this->expectException(Exception::class);
         $this->make()->send($this->message);
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_accepts_a_url()
     {
         $host = 'https://test.test';
         $this->curl->expects($this->once())->method('setUrl')->with($this->equalTo($host));
         $this->make()->to($host);
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_throws_a_connection_if_its_connected_to_a_nonexistent_host()
     {
         $host = 'https://does-not-exists.com';
@@ -61,8 +62,8 @@ class CurlTest extends TestCase
         $this->expectException(ConnectionFailed::class);
         $this->make()->to($host)->send($this->message);
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_returns_an_exception_if_the_response_status_code_is_not_2xx()
     {
         $host = 'https://my-host.com';

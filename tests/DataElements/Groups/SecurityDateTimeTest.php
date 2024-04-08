@@ -5,6 +5,7 @@ namespace Abiturma\PhpFints\Tests\DataElements\Groups;
 use Abiturma\PhpFints\DataElements\Groups\SecurityDateTime;
 use DateTime;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class SecurityDateTimeTest
@@ -13,8 +14,8 @@ use Abiturma\PhpFints\Tests\TestCase;
 class SecurityDateTimeTest extends TestCase
 {
 
-    
-    /** @test */
+
+    #[Test]
     public function the_security_date_has_sensible_defaults()
     {
         $now = new DateTime();

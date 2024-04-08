@@ -4,6 +4,7 @@ namespace Abiturma\PhpFints\Tests\Credentials;
 
 use Abiturma\PhpFints\Credentials\CredentialsContainer;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class CredentialsContainerTest
@@ -12,17 +13,16 @@ use Abiturma\PhpFints\Tests\TestCase;
 class CredentialsContainerTest extends TestCase
 {
     protected $credentials;
-    
-    
+
+
     public function setUp(): void
     {
         parent::setup();
         $this->credentials = new CredentialsContainer();
     }
-    
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_stores_all_credentials_correctly()
     {
         $this->setValue('host', 'TestHost')->assertValue('host', 'TestHost');
@@ -40,7 +40,7 @@ class CredentialsContainerTest extends TestCase
      */
     protected function setValue($setter, $value)
     {
-        $setter = 'set'. ucfirst($setter);
+        $setter = 'set' . ucfirst($setter);
         $this->credentials->$setter($value);
         return $this;
     }

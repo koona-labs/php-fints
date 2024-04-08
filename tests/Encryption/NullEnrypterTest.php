@@ -7,6 +7,7 @@ use Abiturma\PhpFints\Segments\HNHBK;
 use Abiturma\PhpFints\Segments\HNVSD;
 use Abiturma\PhpFints\Segments\HNVSK;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class NullEnrypterTest
@@ -16,7 +17,7 @@ class NullEnrypterTest extends TestCase
 {
 
 
-    /** @test */
+    #[Test]
     public function it_returns_head_and_data()
     {
         $result = $this->runEncrypter();
@@ -25,7 +26,7 @@ class NullEnrypterTest extends TestCase
         $this->assertInstanceOf(HNVSD::class, $result[1]);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_the_right_segments_numbers()
     {
         $result = $this->runEncrypter();
@@ -33,7 +34,7 @@ class NullEnrypterTest extends TestCase
         $this->assertEquals(999, $result[1]->getSegmentNumber());
     }
 
-    /** @test */
+    #[Test]
     public function the_data_contains_the_unencrypted_data()
     {
         $testString = (new HNHBK())->toString();
@@ -42,7 +43,7 @@ class NullEnrypterTest extends TestCase
         $this->assertStringEndsWith("@$length@$testString$testString$testString'", $encryptedSegment->toString());
     }
 
-    /** @test */
+    #[Test]
     public function it_decrypts_an_encrypted_segment()
     {
         $testString = 'thisNeedsToBeDecrypted';

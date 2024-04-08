@@ -6,6 +6,7 @@ use Abiturma\PhpFints\DataElements\DataElementGroup;
 use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Abiturma\PhpFints\DataElements\Groups\Ktz;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class KtzTest
@@ -14,13 +15,13 @@ use Abiturma\PhpFints\Tests\TestCase;
 class KtzTest extends TestCase
 {
 
-    /** @test */
+    #[Test]
     public function it_has_sensible_defaults()
     {
         $this->assertEquals('J:iban:bic:0:EUR:280:0', (new Ktz())->toString());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_be_build_from_a_data_element_group()
     {
         $kik = (new DataElementGroup())->addElement(500)->addElement('myBankCode');
@@ -37,7 +38,7 @@ class KtzTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function after_built_from_a_data_element_group_the_kik_is_built_correctly()
     {
         $preKtz = (new DataElementGroup())
@@ -54,7 +55,7 @@ class KtzTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function it_returns_the_bank_code_of_its_kik()
     {
         $this->assertEquals('0', (new Ktz())->getBankCode()->toString());

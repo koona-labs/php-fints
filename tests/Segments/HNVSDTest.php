@@ -5,6 +5,7 @@ namespace Abiturma\PhpFints\Tests\Segments;
 use Abiturma\PhpFints\Segments\HNHBK;
 use Abiturma\PhpFints\Segments\HNVSD;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class HNVSDTest
@@ -14,15 +15,15 @@ class HNVSDTest extends TestCase
 {
 
 
-    /** @test */
+    #[Test]
     public function an_encrypted_data_segment_is_built()
     {
         $segment = new HNVSD();
         $this->assertStringStartsWith('HNVSD:1:1', $segment->toString());
     }
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_holds_encrypted_binary_data()
     {
         $stringToHold = (new HNHBK())->toString();

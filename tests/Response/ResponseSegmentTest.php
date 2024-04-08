@@ -7,6 +7,7 @@ use Abiturma\PhpFints\DataElements\DataElement;
 use Abiturma\PhpFints\DataElements\DataElementGroup;
 use Abiturma\PhpFints\Response\ResponseSegment;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class ResponseSegmentTest
@@ -15,14 +16,14 @@ use Abiturma\PhpFints\Tests\TestCase;
 class ResponseSegmentTest extends TestCase
 {
 
-    /** @test */
+    #[Test]
     public function a_segment_is_built_from_a_string()
     {
         $testString = 'HKTEST:1:2:4+Test1+Test2:2';
         $this->assertEquals('HKTEST', ResponseSegment::parseFromString($testString)->getType());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_parses_simple_data_elements()
     {
         $testString = 'HKTEST:1:2:4+Test1+Test2:2';
@@ -30,8 +31,8 @@ class ResponseSegmentTest extends TestCase
         $this->assertInstanceOf(DataElement::class, $segment->getElementAtPosition(2));
         $this->assertEquals('Test1', $segment->getElementAtPosition(2)->toString());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_parses_nested_data_element_groups()
     {
         $testString = 'HKTEST:1:2:4+Test1+Test2:2';
@@ -39,17 +40,17 @@ class ResponseSegmentTest extends TestCase
         $this->assertInstanceOf(DataElementGroup::class, $segment->getElementAtPosition(3));
         $this->assertEquals('Test2', $segment->getElementAtPosition(3)->getElementAtPosition(1)->toString());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_splits_only_if_the_outer_delimiter_is_not_escaped()
     {
         $testString = 'HKTEST:1:2:4+Test1?+Test2';
         $segment = ResponseSegment::parseFromString($testString);
         $this->assertEquals('Test1+Test2', $segment->getElementAtPosition(2)->toRawValue());
     }
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_unescapes_inner_values_correctly()
     {
         $testString = 'HKTEST:1:2:4+?@Test1+Test2:2';
@@ -57,7 +58,7 @@ class ResponseSegmentTest extends TestCase
         $this->assertEquals('@Test1', $segment->getElementAtPosition(2)->toRawValue());
     }
 
-    /** @test */
+    #[Test]
     public function it_splits_inner_values_only_if_the_inner_delimiter_is_not_escaped()
     {
         $testString = 'HKTEST:1:2:4+Test1:Test2?:Test2:Test3??:Test4';
@@ -68,9 +69,9 @@ class ResponseSegmentTest extends TestCase
         $this->assertEquals('Test3?', $group->getElementAtPosition(3)->toRawValue());
         $this->assertEquals('Test4', $group->getElementAtPosition(4)->toRawValue());
     }
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_handles_binaries_correctly()
     {
         $testString = 'HKTEST:1:2:4+@#12@';
@@ -79,8 +80,8 @@ class ResponseSegmentTest extends TestCase
         $this->assertInstanceOf(Bin::class, $segment->getElementAtPosition(2));
         $this->assertEquals('@15@MyBinary@@@Test', $segment->getElementAtPosition(2)->toString());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_handles_empty_fields_correctly()
     {
         $testString = 'HKTEST:1:2:4+Test1:Test2??:::Test4';

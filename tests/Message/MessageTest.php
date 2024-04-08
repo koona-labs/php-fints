@@ -8,9 +8,11 @@ use Abiturma\PhpFints\Message\Message;
 use Abiturma\PhpFints\Segments\AbstractSegment;
 use Abiturma\PhpFints\Segments\HKKAZ;
 use Abiturma\PhpFints\Segments\HKSYN;
+use Abiturma\PhpFints\Segments\HKVVB;
 use Abiturma\PhpFints\Segments\HNVSD;
 use Abiturma\PhpFints\Segments\HNVSK;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class MessageTest
@@ -34,13 +36,13 @@ class MessageTest extends TestCase
         $this->credentials->method('bankCode')->willReturn(12345678);
     }
 
-    /** @test */
+    #[Test]
     public function if_no_segments_are_provided_it_returns_an_empty_string()
     {
         $this->assertEquals('', $this->make()->toString());
     }
 
-    /** @test */
+    #[Test]
     public function once_credentials_are_provided_it_returns_a_message_wrapper()
     {
         $this->assertEquals(
@@ -49,11 +51,11 @@ class MessageTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_message_numbers_after_push()
     {
         $firstSegment = $this->getMockForAbstractClass(AbstractSegment::class);
-        $secondSegment = $this->getMockForAbstractClass(AbstractSegment::class);
+        $secondSegment = $this->getMockForAbstractClass(HKKAZ::class);
         $message = $this->make()->newMessage($this->credentials)
             ->push($firstSegment)
             ->push($secondSegment)
@@ -62,11 +64,10 @@ class MessageTest extends TestCase
         $segmentsNumbers = array_map(function ($segment) {
             return $segment->getSegmentnumber();
         }, $message->getSegments());
-        
         $this->assertEquals([1,2,3,4], $segmentsNumbers);
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_message_numbers_after_prepend()
     {
         $firstSegment = $this->getMockForAbstractClass(AbstractSegment::class);
@@ -83,7 +84,7 @@ class MessageTest extends TestCase
         $this->assertEquals([1,2,3,4], $segmentsNumbers);
     }
 
-    /** @test */
+    #[Test]
     public function it_wraps_a_signature_around_a_message()
     {
         $message = $this->make()->newMessage($this->credentials)->addSignature();
@@ -91,8 +92,8 @@ class MessageTest extends TestCase
         $this->assertStringEndsWith("++mySecretPin'", $message->toString());
         $this->assertStringContainsString("280:12345678:myUsername:S:0:0'HNSHA:3:2+", $message->toString());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_encrypts_a_given_message()
     {
         //*Message Numbers are incorrect, since this is just a "unit test"
@@ -100,8 +101,8 @@ class MessageTest extends TestCase
         $message = $this->make()->newMessage($this->credentials)->encrypt()->toString();
         $this->assertStringContainsString("HNVSD:1:1+@5@test''", $message);
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_conserves_the_message_order()
     {
         $this->encrypter->method('encrypt')->willReturn([new HNVSK(),(new HNVSD())->setEncryptedData("test'")]);

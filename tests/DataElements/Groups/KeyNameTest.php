@@ -5,6 +5,7 @@ namespace Abiturma\PhpFints\Tests\DataElements\Groups;
 use Abiturma\PhpFints\DataElements\Groups\KeyName;
 use Abiturma\PhpFints\DataElements\Groups\Kik;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class KeyNameTest
@@ -13,8 +14,8 @@ use Abiturma\PhpFints\Tests\TestCase;
 class KeyNameTest extends TestCase
 {
 
-    
-    /** @test */
+
+    #[Test]
     public function the_key_name_has_sensible_defaults()
     {
         $kik = (new Kik())->toString();

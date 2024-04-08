@@ -5,6 +5,7 @@ namespace Abiturma\PhpFints\Tests\Segments;
 use Abiturma\PhpFints\Models\Account;
 use Abiturma\PhpFints\Segments\HKKAZ;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class HKKAZTest
@@ -26,20 +27,20 @@ class HKKAZTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_a_segment_head()
     {
         $this->assertStringStartsWith('HKKAZ:1:6+', (new HKKAZ())->toString());
     }
 
-    /** @test */
+    #[Test]
     public function version_6_can_be_built_from_an_account()
     {
         $hkkaz = (new HKKAZ())->fromAccount($this->account);
         $this->assertMatchesRegularExpression('/HKKAZ:1:6\+myAccountNumber:EUR:280:myBankCode\+N\+\d{8}\+\d{8}\+\+/', $hkkaz->toString());
     }
-    
-    /** @test */
+
+    #[Test]
     public function version_7_can_be_built_from_an_account()
     {
         $hkkaz = (new HKKAZ())->setVersion(7)->fromAccount($this->account);

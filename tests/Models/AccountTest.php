@@ -7,6 +7,7 @@ use Abiturma\PhpFints\DataElements\Groups\Ktv;
 use Abiturma\PhpFints\DataElements\Groups\Ktz;
 use Abiturma\PhpFints\Models\Account;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class AccountTest
@@ -27,8 +28,8 @@ class AccountTest extends TestCase
             'iban' => 'testIban'
         ];
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_can_be_built_from_a_ktz()
     {
         $ktz = (new Ktz())
@@ -41,16 +42,16 @@ class AccountTest extends TestCase
         
         $this->assertEquals($this->testAttributes, $account->toArray());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_transforms_itself_to_a_ktv()
     {
         $account = new Account($this->testAttributes);
         $this->assertInstanceOf(Ktv::class, $account->toKtv());
         $this->assertEquals('testAccountNumber:EUR:280:testBankCode', $account->toKtv()->toString());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_transforms_itself_to_kti()
     {
         $account = new Account($this->testAttributes);

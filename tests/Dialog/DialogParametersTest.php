@@ -5,6 +5,7 @@ namespace Abiturma\PhpFints\Tests\Dialog;
 use Abiturma\PhpFints\Dialog\DialogParameters;
 use Abiturma\PhpFints\Response\Response;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class DialogParametersTest
@@ -13,30 +14,30 @@ use Abiturma\PhpFints\Tests\TestCase;
 class DialogParametersTest extends TestCase
 {
 
-    /** @test */
+    #[Test]
     public function if_no_values_are_set_it_returns_default_values()
     {
         $parameters = new DialogParameters();
         $this->assertEquals(1, $parameters->messageNumber);
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_stores_values()
     {
         $parameters = new DialogParameters();
         $parameters->setMessageNumber(12);
         $this->assertEquals(12, $parameters->messageNumber);
     }
-    
-    /** @test */
+
+    #[Test]
     public function the_stored_values_can_be_reset()
     {
         $parameters = new DialogParameters();
         $parameters->setMessageNumber(12)->reset();
         $this->assertEquals(1, $parameters->messageNumber);
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_can_be_build_from_a_response()
     {
         $response = $this->createMock(Response::class);
@@ -46,8 +47,8 @@ class DialogParametersTest extends TestCase
         $this->assertEquals(20, $parameters->messageNumber);
         $this->assertNull($parameters->shouldNotBeStored);
     }
-    
-    /** @test */
+
+    #[Test]
     public function the_values_from_a_response_can_be_trimmed()
     {
         $response = $this->createMock(Response::class);
@@ -57,8 +58,8 @@ class DialogParametersTest extends TestCase
         $this->assertEquals(20, $parameters->messageNumber);
         $this->assertNull($parameters->shouldNotBeStored);
     }
-    
-    /** @test */
+
+    #[Test]
     public function only_specific_values_from_a_response_can_be_merged()
     {
         $response = $this->createMock(Response::class);

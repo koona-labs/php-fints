@@ -4,6 +4,7 @@ namespace Abiturma\PhpFints\Tests\Segments;
 
 use Abiturma\PhpFints\Segments\AbstractSegment;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class AbstractSegmentTest
@@ -12,8 +13,8 @@ use Abiturma\PhpFints\Tests\TestCase;
 class AbstractSegmentTest extends TestCase
 {
 
-    
-    /** @test */
+
+    #[Test]
     public function a_segment_head_is_built()
     {
         $stub = $this->getMockForAbstractClass(AbstractSegment::class);

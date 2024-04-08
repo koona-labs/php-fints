@@ -13,6 +13,7 @@ use Abiturma\PhpFints\Response\HoldsDialogParameters;
 use Abiturma\PhpFints\Response\Messages\StatementOfAccount;
 use Abiturma\PhpFints\Response\Response;
 use DateTime;
+use PHPUnit\Framework\Attributes\Test;
 use Psr\Log\LoggerInterface;
 use Abiturma\PhpFints\Tests\TestCase;
 
@@ -40,24 +41,24 @@ class DialogTest extends TestCase
         
         $this->response = $this->createMock(Response::class);
         $this->adapter = $this->createMock(SendsMessages::class);
-        $this->adapter->method('to')->will($this->returnSelf());
+        $this->adapter->method('to')->willReturnSelf();
         $this->adapter->method('send')->willReturn($this->response);
         $this->messageBuilder = $this->createMock(MessageBuilder::class);
         $this->dialogParameters = $this->createMock(DialogParameters::class);
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->message = $this->createMock(Message::class);
-        $this->messageBuilder->method('fromDialog')->will($this->returnSelf());
+        $this->messageBuilder->method('fromDialog')->willReturnSelf();
     }
 
 
-    /** @test */
+    #[Test]
     public function it_sends_a_sync_message()
     {
         $this->messageBuilder->expects($this->once())->method('sync')->willReturn($this->message);
         $this->assertInstanceOf(Response::class, $this->make()->sync());
     }
-    
-    /** @test */
+
+    #[Test]
     public function if_the_sync_response_is_ok_dialog_parameters_are_merged()
     {
         $this->response->method('isOk')->willReturn(true);
@@ -66,16 +67,16 @@ class DialogTest extends TestCase
         $this->dialogParameters->expects($this->once())->method('mergeResponseOnlyWith');
         $this->make()->sync();
     }
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_initializes_a_dialog()
     {
         $this->messageBuilder->expects($this->once())->method('init')->willReturn($this->message);
         $this->assertInstanceOf(Response::class, $this->make()->init());
     }
-    
-    /** @test */
+
+    #[Test]
     public function if_the_init_response_is_ok_the_parameters_are_merged_and_the_message_number_is_incremented()
     {
         $this->response->method('isOk')->willReturn(true);
@@ -84,22 +85,22 @@ class DialogTest extends TestCase
         $this->dialogParameters->expects($this->once())->method('incrementMessageNumber');
         $this->make()->init();
     }
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_sends_an_accounts_query()
     {
         $this->messageBuilder->expects($this->once())->method('getAccounts')->willReturn($this->message);
         $this->assertInstanceOf(Response::class, $this->make()->getAccounts());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_sends_a_loop_of_get_statement_messages()
     {
         $statement = $this->createMock(StatementOfAccount::class);
         $statement->method('getTransactions')->willReturn([1]);
         $this->response->method('statementOfAccount')->willReturn($statement);
-        $this->dialogParameters->method('incrementMessageNumber')->will($this->returnSelf());
+        $this->dialogParameters->method('incrementMessageNumber')->willReturnSelf();
         
         $account = $this->createMock(Account::class);
         $from = new DateTime();
@@ -108,15 +109,15 @@ class DialogTest extends TestCase
         $this->messageBuilder->expects($this->once())->method('getStatementOfAccount')->willReturn($this->message);
         $this->assertEquals([1], $this->make()->getStatementOfAccount($account, $from, $to, 'auto'));
     }
-    
-    /** @test */
+
+    #[Test]
     public function if_the_get_statement_result_is_paginated_it_will_merge_the_transactions()
     {
         $statement = $this->createMock(StatementOfAccount::class);
-        $statement->method('isPaginated')->will($this->onConsecutiveCalls(true, true, false));
-        $statement->method('getTransactions')->will($this->onConsecutiveCalls([1], [2], [3]));
+        $statement->method('isPaginated')->willReturnOnConsecutiveCalls(true, true, false);
+        $statement->method('getTransactions')->willReturnOnConsecutiveCalls([1], [2], [3]);
         $this->response->method('statementOfAccount')->willReturn($statement);
-        $this->dialogParameters->method('incrementMessageNumber')->will($this->returnSelf());
+        $this->dialogParameters->method('incrementMessageNumber')->willReturnSelf();
         $this->dialogParameters->expects($this->any())->method('__call')->with('setPaginationToken', [null]);
         
         $account = $this->createMock(Account::class);
@@ -126,16 +127,16 @@ class DialogTest extends TestCase
         $this->messageBuilder->expects($this->exactly(3))->method('getStatementOfAccount')->willReturn($this->message);
         $this->assertEquals([1,2,3], $this->make()->getStatementOfAccount($account, $from, $to, 'auto'));
     }
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_closes_a_dialog()
     {
         $this->messageBuilder->expects($this->once())->method('close')->willReturn($this->message);
         $this->assertInstanceOf(Response::class, $this->make()->close());
     }
-    
-    /** @test */
+
+    #[Test]
     public function after_a_dialog_is_closed_the_dialog_paramters_are_reset()
     {
         $this->messageBuilder->method('close')->willReturn($this->message);

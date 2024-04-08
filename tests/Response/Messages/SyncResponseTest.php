@@ -5,6 +5,7 @@ namespace Abiturma\PhpFints\Tests\Response\Messages;
 use Abiturma\PhpFints\Response\Messages\SyncResponse;
 use Abiturma\PhpFints\Response\Response;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class SyncResponseTest
@@ -21,13 +22,15 @@ class SyncResponseTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function it_returns_bpd_and_upd()
     {
         $this->response->expects($this->exactly(2))
             ->method('getFirstOfType')
-            ->withConsecutive(['HIBPA'], ['HIUPA'])
-            ->will($this->onConsecutiveCalls('testBpd', 'testUpd'));
+            ->willReturnMap([
+                ['HIBPA', 'testBpd'],
+                ['HIUPA', 'testUpd']
+            ]);
 
         $sync = $this->make();
         $this->assertEquals('testBpd', $sync->getBpd());

@@ -6,6 +6,7 @@ use Abiturma\PhpFints\Models\Transaction;
 use Abiturma\PhpFints\Parser\MT940;
 use DateTime;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class MT940Test
@@ -15,7 +16,7 @@ class MT940Test extends TestCase
 {
 
 
-    /** @test */
+    #[Test]
     public function it_returns_an_array_of_the_right_length_and_type()
     {
         $result = $this->parse([
@@ -28,7 +29,7 @@ class MT940Test extends TestCase
         $this->assertInstanceOf(Transaction::class, $result[0]);
     }
 
-    /** @test */
+    #[Test]
     public function it_parses_a_value_date()
     {
         $result = $this->parse($this->makeStandardTransaction())[0];
@@ -36,7 +37,7 @@ class MT940Test extends TestCase
         $this->assertEquals('2019-12-15', $result->value_date->format('Y-m-d'));
     }
 
-    /** @test */
+    #[Test]
     public function it_picks_the_right_year_for_the_booking_date()
     {
         $result = $this->parse($this->makeStandardTransaction())[0];
@@ -47,7 +48,7 @@ class MT940Test extends TestCase
         $this->assertEquals('2009-12-20', $result->booking_date->format('Y-m-d'));
     }
 
-    /** @test */
+    #[Test]
     public function if_no_booking_date_is_given_it_takes_the_value_date()
     {
         $result = $this->parse($this->buildTestString(":61:190710D123,00NMSC@@"))[0];
@@ -57,21 +58,21 @@ class MT940Test extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function it_parses_multiline_description_correctly()
     {
         $result = $this->parse($this->makeStandardTransaction())[0];
         $this->assertEquals("HERE:SOME:DESCRIPTION:AND:MORE:DESCRIPTION", $result->description);
     }
 
-    /** @test */
+    #[Test]
     public function it_parses_end_to_end_reference_correctly()
     {
         $result = $this->parse($this->makeStandardTransaction())[0];
         $this->assertEquals('testEndToEndReference', $result->end_to_end_reference);
     }
 
-    /** @test */
+    #[Test]
     public function if_no_end_to_end_reference_is_provided_the_value_is_null()
     {
         $testString = $this->buildTestString(":61:1912150102DR512,00NMSCNONREF@@:86:105?00SEPA-Basislastschrift?10testPrimaNota?20SVWZ+SomeDescription?30remoteBankCode?31SomeIban?32A REMOTE NAME@@");
@@ -80,7 +81,7 @@ class MT940Test extends TestCase
         $this->assertNull($result->end_to_end_reference);
     }
 
-    /** @test */
+    #[Test]
     public function it_reads_prima_nota_and_remote_account_correctly()
     {
         $result = $this->parse($this->makeStandardTransaction())[0];
@@ -90,7 +91,7 @@ class MT940Test extends TestCase
         $this->assertEquals('A REMOTE NAME', $result->remote_name);
     }
 
-    /** @test */
+    #[Test]
     public function it_parses_debit_and_credit_correctly()
     {
         $result = $this->parse($this->buildTestString(":61:1912150102CR512,00NMSCNONREF@@"))[0];
@@ -99,7 +100,7 @@ class MT940Test extends TestCase
         $this->assertLessThan(0, $result->base_amount);
     }
 
-    /** @test */
+    #[Test]
     public function it_parses_amount_correctly()
     {
         $result = $this->parse($this->buildTestString(":61:1912150102CR,12NMSCNONREF@@"))[0];
@@ -108,7 +109,7 @@ class MT940Test extends TestCase
         $this->assertEquals(1234, $result->base_amount);
     }
 
-    /** @test */
+    #[Test]
     public function it_parses_an_alternative_description()
     {
         $testString = ":61:1001010101DR32,40NMSCNONREF@@:86:005?00Zinsen?primanota?20SomeOtherDescription@@";
@@ -117,7 +118,7 @@ class MT940Test extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function it_recognizes_different_formats()
     {
         $testString = ":20:STARTUMS@@:25:bankCode/account@@:28C:0@@:60F:C000101EUR300,09@@:61:190318D330,34NMSC@@"

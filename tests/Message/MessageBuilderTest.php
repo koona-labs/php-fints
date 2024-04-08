@@ -19,6 +19,7 @@ use Abiturma\PhpFints\Segments\HKTAN;
 use Abiturma\PhpFints\Segments\HKVVB;
 use DateTime;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class MessageBuilderTest
@@ -27,13 +28,13 @@ use Abiturma\PhpFints\Tests\TestCase;
 class MessageBuilderTest extends TestCase
 {
     protected $credentials;
-    
+
     protected $dialogParameters;
-    
+
     protected $dialog;
-    
+
     protected $message;
-    
+
     public function setUp(): void
     {
         parent::setup();
@@ -43,58 +44,59 @@ class MessageBuilderTest extends TestCase
         $this->dialog->method('getCredentials')->willReturn($this->credentials);
         $this->dialog->method('getDialogParameters')->willReturn($this->dialogParameters);
         $this->message = $this->createMock(Message::class);
-        $this->message->method('addSignature')->will($this->returnSelf());
-        $this->message->method('mergeDialogParameters')->will($this->returnSelf());
-        $this->message->method('encrypt')->will($this->returnSelf());
-        $this->message->method('prepare')->will($this->returnSelf());
-        $this->message->method('push')->will($this->returnSelf());
-        $this->message->method('newMessage')->will($this->returnSelf());
+        $this->message->method('addSignature')->willReturnSelf();
+        $this->message->method('mergeDialogParameters')->willReturnSelf();
+        $this->message->method('encrypt')->willReturnSelf();
+        $this->message->method('prepare')->willReturnSelf();
+        $this->message->method('push')->willReturnSelf();
+        $this->message->method('newMessage')->willReturnSelf();
     }
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_throws_an_exception_upon_message_building_if_no_dialog_is_provided()
     {
         $this->expectException(DialogMissingException::class);
         (new MessageBuilder($this->message))->sync();
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_builds_a_sync_message()
     {
         $this->message
             ->expects($this->exactly(3))
             ->method('push')
-            ->withConsecutive(
+            ->with(...self::withConsecutive(
                 [$this->isInstanceOf(HKIDN::class)],
                 [$this->isInstanceOf(HKVVB::class)],
                 [$this->isInstanceOf(HKSYN::class)]
-            );
+            ));
         $this->message->expects($this->once())->method('mergeDialogParameters')->with($this->dialogParameters);
         $this->message->expects($this->once())->method('addSignature');
         $this->message->expects($this->once())->method('encrypt');
         $this->assertInstanceOf(Message::class, $this->make()->sync());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_builds_a_dialog_initialization_message()
     {
         $this->message
             ->expects($this->exactly(3))
             ->method('push')
-            ->withConsecutive(
+            ->with(...self::withConsecutive(
                 [$this->isInstanceOf(HKIDN::class)],
-                [$this->isInstanceOf(HKVVB::class)]
-            );
+                [$this->isInstanceOf(HKVVB::class)],
+                [$this->isInstanceOf(HKTAN::class)]
+            ));
 
         $this->message->expects($this->once())->method('mergeDialogParameters')->with($this->dialogParameters);
         $this->message->expects($this->once())->method('addSignature');
         $this->message->expects($this->once())->method('encrypt');
         $this->assertInstanceOf(Message::class, $this->make()->init());
     }
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_builds_a_get_accounts_message()
     {
         $this->message
@@ -107,17 +109,17 @@ class MessageBuilderTest extends TestCase
         $this->message->expects($this->once())->method('encrypt');
         $this->assertInstanceOf(Message::class, $this->make()->getAccounts());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_builds_a_get_swift_statement_of_account_message()
     {
         $this->message
             ->expects($this->exactly(2))
             ->method('push')
-            ->withConsecutive(
+            ->with(...self::withConsecutive(
                 [$this->isInstanceOf(HKKAZ::class)],
                 [$this->isInstanceOf(HKTAN::class)]
-            );
+            ));
 
         $this->message->expects($this->once())->method('mergeDialogParameters')->with($this->dialogParameters);
         $this->message->expects($this->once())->method('addSignature');
@@ -125,58 +127,58 @@ class MessageBuilderTest extends TestCase
         $this->assertInstanceOf(Message::class, $this->getAccount('swift'));
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_a_get_camt_statement_of_account_message()
     {
         $this->message
             ->expects($this->exactly(2))
             ->method('push')
-            ->withConsecutive(
+            ->with(...self::withConsecutive(
                 [$this->isInstanceOf(HKCAZ::class)],
                 [$this->isInstanceOf(HKTAN::class)]
-            );
+            ));
 
         $this->message->expects($this->once())->method('mergeDialogParameters')->with($this->dialogParameters);
         $this->message->expects($this->once())->method('addSignature');
         $this->message->expects($this->once())->method('encrypt');
         $this->assertInstanceOf(Message::class, $this->getAccount('camt'));
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_guesses_the_right_account_type_if_a_camt_version_is_given()
     {
         $this->dialogParameters->method('__get')->with('camtVersion')->willReturn(7);
+        $counter = 0; 
         $this->message
             ->expects($this->exactly(2))
             ->method('push')
-            ->withConsecutive(
-                [$this->isInstanceOf(HKCAZ::class)],
-                [$this->isInstanceOf(HKTAN::class)]
-            );
-
+            ->with( $this->callback(function($param) use (&$counter) {
+                $expected = [HKCAZ::class, HKTAN::class];
+                return $param instanceof $expected[$counter++]; 
+            }));
         $this->assertInstanceOf(Message::class, $this->getAccount());
     }
 
 
-    /** @test */
+    #[Test]
     public function it_guesses_the_right_account_type_if_no_camt_version_is_given()
     {
         $this->dialogParameters->expects($this->exactly(2))
             ->method('__get')
-            ->withConsecutive(['camtVersion'],['swiftStatementVersion'])
+            ->with(...self::withConsecutive(['camtVersion'], ['swiftStatementVersion']))
             ->willReturn(null);
+        $counter = 0; 
         $this->message
             ->expects($this->exactly(2))
             ->method('push')
-            ->withConsecutive(
-                [$this->isInstanceOf(HKKAZ::class)],
-                [$this->isInstanceOf(HKTAN::class)]
-            );
-
+            ->with( $this->callback(function($param) use (&$counter) {
+                $expected = [HKKAZ::class, HKTAN::class];
+                return $param instanceof $expected[$counter++];
+            }));
         $this->assertInstanceOf(Message::class, $this->getAccount());
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_closes_a_dialog()
     {
         $this->message

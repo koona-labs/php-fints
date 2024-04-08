@@ -9,6 +9,7 @@ use Abiturma\PhpFints\Encryption\NullEncrypter;
 use Abiturma\PhpFints\Message\Message;
 use Abiturma\PhpFints\Message\MessageBuilder;
 use Abiturma\PhpFints\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Class MessageBuilderIntegrationTest
@@ -39,40 +40,39 @@ class MessageBuilderIntegrationTest extends TestCase
         $this->dialog->method('getCredentials')->willReturn($this->credentials);
         $this->dialog->method('getDialogParameters')->willReturn($this->dialogParameters);
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_builds_a_sync_message_which_is_a_message()
     {
         $this->assertInstanceOf(Message::class, $this->makeMessageBuilder()->sync());
     }
-    
-    /** @test */
+
+    #[Test]
     public function the_sync_message_has_the_right_sequence_of_segments()
     {
         $sync = $this->makeMessageBuilder()->sync()->toString();
         $regex = "/HNHBK.*HNVSK.*HNVSD.*@.*HNSHK.*HKIDN.*HKVVB.*HKSYN.*HNSHA.*HNHBS/";
         $this->assertMatchesRegularExpression($regex, $sync);
     }
-    
-    /** @test */
+
+    #[Test]
     public function the_sync_message_hast_the_right_credentials()
     {
         $sync = $this->makeMessageBuilder()->sync()->toString();
         $regex = "/HKIDN.*12345678.*myTestUsername.*HNSHA.*mySecretPin.*HNHBS/";
         $this->assertMatchesRegularExpression($regex, $sync);
     }
-    
-    /** @test */
+
+    #[Test]
     public function it_builds_a_dialog_initialization()
     {
         $init = $this->makeMessageBuilder()->sync()->toString();
         $regex = "/HKIDN:3.*HKVVB:4.*/";
         $this->assertMatchesRegularExpression($regex, $init);
     }
-    
-    
-    
-    /** @test */
+
+
+    #[Test]
     public function it_builds_a_close_message()
     {
         $close = $this->makeMessageBuilder()->close()->toString();
